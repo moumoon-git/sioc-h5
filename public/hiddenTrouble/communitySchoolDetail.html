@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../assets/css/rest.css">
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <!--引入vue玩玩-->
+  <script src="js/vue.min.js"></script>
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .imgContainer{
+      display: inline-block;
+      height: 100px;
+      margin-left: 1%;
+      border: 1px solid #30a5ff;
+      position: relative;
+      box-sizing: border-box;
+      margin-bottom: 5px;
+    }
+
+    .imgContainer img{
+      width: 100%;
+      height: 150px;
+      cursor: pointer;
+    }
+
+    .imgContainer p{
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: black;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+    }
+
+    .imgContainer:hover p{
+      display: block;
+    }
+
+    .layui-tab-content{
+      padding: initial;
+    }
+    .layui-tab-title li{
+      padding: initial;
+      width: 48%;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="head">
+  </div>
+  <div id="hpcsHistory" class="content" style="width: 100%;">
+     <div style="width: 95%;margin: 2% auto;box-sizing: border-box;padding: 10px 10px;display: flex;justify-content: center;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+
+        <div style="width: 90%;display: inline-block;font-size: 14px;display: flex;align-items: center;flex-wrap: wrap;position: relative;">
+            <div style="width:100%;padding: 5px 0px;margin-top: 20px;">
+                <span>工单地点：</span>
+                <span v-text="communityEventInfo.townName+communityEventInfo.platformName">新塘镇锦绣新天地</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>隐患类型：</span>
+                <span v-text="communityEventInfo.eventTypeName">管理安全/路灯损坏</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>上报时间：</span>
+                <span v-text="communityEventInfo.gmtCreate">xxxx</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>工单描述：</span>
+                <span v-text="communityEventInfo.eventDescription">消防通道堵塞,长期无人清理，投诉物业也不管。</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>工单状态：</span>
+                <span style="color: #F59A23;" > {{setEventStatus(communityEventInfo.status)}}</span>
+            </div>
+             <!--1是有效-->
+            <span v-if="communityEventInfo.validFlag == 1" @click="updateValidStatus(communityEventInfo.id,2)"
+                  style="z-index: 9999;color: white;background-color: #1e9fff;border: 1px solid #e6e6e6;padding: 5px;border-radius: 5px;position: absolute;top: -4%;right: -6%;">标记为无效</span>
+            <span v-if="communityEventInfo.validFlag == 2"  @click="updateValidStatus(communityEventInfo.id,1)"
+                  style="z-index: 9999;color: white;background-color: #1e9fff;border: 1px solid #e6e6e6;padding: 5px;border-radius: 5px;position: absolute;top: -4%;right: -6%;">标记为有效</span>
+        </div>
+    </div>
+
+    <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+        <div>
+            <div class="layui-tab-content" style="padding: 4% 4% 4% 2%;">
+              <ul v-for="(item, index) in communityHistoryList" :key="index" class="layui-timeline" style="box-sizing: border-box;">
+                <li class="layui-timeline-item">
+                  <i class="layui-icon layui-timeline-axis"></i>
+                  <div class="layui-timeline-content layui-text" style="border: 1px solid #1E9FFF;margin-left: 25px;padding: initial;border-radius: 5px;">
+                    <h3 class="layui-timeline-title" style="background: #1E9FFF;color: white;font-size: 13px;padding: 5px 0px;margin-bottom: initial;">
+                      <span style="margin-left: 5%;" v-text="item.gmtCreate">2019/12/12 12:03</span>
+                      <div style="display: inline-block;position: absolute;right: 5%;">
+                        <span>状态：</span>
+                        <span>{{setEventStatus(item.eventStatusAfter)}}</span>
+                      </div>
+                    </h3>
+                    <p v-if="item.title" style="padding: 5px 10px;">
+                      记录：{{item.title}}
+                    </p>
+                    <p v-if="item.content" style="padding: 5px 10px;">
+                      描述：{{item.content}}
+                    </p>
+                    <!--图片-->
+                    <div v-if="item.imageArr"  v-for="(item2,index2) in item.imageArr" :key="index2" style="text-align: center;margin-top: 2.5%;">
+                      <div>
+                        <img v-if="item2.indexOf('http')>-1" :src="item2" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                        <img v-else :src="SERSVER_BASE_HOME+item2" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                      </div>
+                    </div>
+                    <div v-if="item.imageUrl" style="text-align: center;margin-bottom: 3%;">
+                      <div>
+                        <img v-if="item.imageUrl.indexOf('http')>-1" :src="item.imageUrl" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                        <img v-else :src="SERSVER_BASE_HOME+item.imageUrl" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                      </div>
+                    </div>
+                    <!--语音-->
+                    <div v-if="item.audioUrlArr" v-for="(item3,index3) in item.audioUrlArr" :key="index3" style="text-align: center;margin-bottom: 2.5%;">
+                      <audio style="height: 36px;" controls="controls"><source :src="SERSVER_BASE_HOME+item3" type="audio/mpeg" /></audio>
+                    </div>
+
+                    <div v-if="item.audioUrl"  style="text-align: center;margin-bottom: 2.5%;">
+                      <audio style="height: 36px;" controls="controls"><source :src="SERSVER_BASE_HOME+item.audioUrl" type="audio/mpeg" /></audio>
+                    </div>
+
+                  </div>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </div>
+  
+
+  </div>
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script>
+
+      //分页
+      var layer
+      layui.use(['laypage', 'layer'], function() {
+          layer = layui.layer;
+      });
+
+    //小区学校历史记录
+    var hpcsh = new Vue({
+      el: "#hpcsHistory",
+      data: {
+        //基本信息
+        communityEventInfo: {},
+        //历史列表
+        communityHistoryList: [],
+      },
+      methods: {
+        setEventStatus(eventStatus) {
+          var status;
+          switch (eventStatus) {
+            case 1:
+              status = "待核实";
+              break;
+            case 2:
+              status = "核实中";
+              break;
+            case 3:
+              status = "待处理";
+              break;
+            case 4:
+              status = "处理中";
+              break;
+            case 5:
+              status = "已处理";
+              break;
+            case 6:
+              status = "超出范围";
+              break;
+            default:
+              status = "其他";
+
+          }
+
+          return status;
+        }
+      }
+    });
+
+    $(function () {
+      //获取平台类型
+      let eventInfoId = getQueryString("eventInfoId");
+      let platformId = getQueryString("platformId");
+      //历史记录
+      getHistoricalRecord(eventInfoId,platformId);
+
+    });
+
+    //历史记录
+    function getHistoricalRecord(eventInfoId,platformId){
+      $.ajax({
+        async: false,
+        type: "POST",
+        url: SERSVER_BASE_URL + "/wechatMobile/selectHistoryByDataSourceId",
+        contentType:'application/x-www-form-urlencoded',
+        data: {
+          dataSourceId: eventInfoId,
+          flagType: 5,
+          platformId: platformId,
+            
+        },
+        dataType: "json",
+        success: function (res) {
+            console.log(res);
+            if(res.info){
+              hpcsh.communityEventInfo = res.info;
+              hpcsh.communityHistoryList = res.list;
+            }else{
+              hpcsh.communityEventInfo = {};
+              hpcsh.communityHistoryList = [];
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("网络受限:" + errorThrown);
+        }
+      });
+    }
+
+    /*改变有效或无效状态*/
+    function updateValidStatus(eventInfoId, validFlag) {
+        let str = "";
+        if(validFlag == 1){
+            str = "确定标志该工单为有效？"
+        }else{
+            str = "确定标志该工单为无效？"
+        }
+        //询问框
+        layer.open({
+            content: str
+            ,btn: ['确定', '取消']
+            ,yes: function(){
+                updateStatus(validFlag,eventInfoId)
+            }
+        });
+
+    }
+
+    function updateStatus(validFlag,eventInfoId) {
+        $.ajax({
+            async: false,
+            type: "post",
+            url: SERSVER_BASE_URL + "/event/eventinfo/updateEventInfoValidFlag",
+            data: {
+                'validFlag': validFlag,
+                "eventInfoId": eventInfoId,
+            
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log("改变有效或无效状态",data);
+                if(data.code == 0){
+                    layer.msg('更改成功',{
+                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                    });
+
+                }else{
+                    layer.msg('更改失败',{
+                        time: 1500 //2秒关闭（如果不配置，默认是3秒）
+                    });
+
+                }
+
+                setTimeout(()=>{
+                    window.location.reload()();
+                },2000);
+            },
+            error: function() {
+                alert("网络受限");
+            }
+
+        });
+    }
+
+    // 获取地址栏参数
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+
+
+    //点击返回
+    function gobackClick(){
+      console.log("点击返回")
+      window.location.href=`./commentIndex.html`;
+    }
+
+
+    //图片灯箱
+    function imgDisplay(obj) {
+
+      var src = $(obj).attr("src");
+
+      var imgHtml = '<div style="width: 100%;height: 100vh;overflow: auto;background: rgba(0,0,0,0.5);text-align: center;position: fixed;top: 0;left: 0;z-index: 1000;">' +
+              '<img src=' + src + ' style="margin-top: 100px;width: 70%;margin-bottom: 100px;"/>' +
+              '<p style="font-size: 50px;position: fixed;top: 30px;right: 30px;color: white;cursor: pointer;" onclick="closePicture(this)">×</p>' +
+              '</div>';
+      $('body').append(imgHtml);
+    }
+
+    //关闭图片
+    function closePicture(obj) {
+      $(obj).parent("div").remove();
+    }
+
+
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../assets/css/rest.css">
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .head_image {
+      background-image: url('../assets/images/top.png');
+      background-size: 100% 100%;
+      padding: 20% 50%;
+    }
+    .layui-tab.layui-tab-brief{
+        margin: initial;
+    }
+    .layui-tab-content{
+      padding: initial;
+    }
+    .layui-tab-title li{
+      padding: initial;
+      width: 48%;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <!-- <div class="head_image"></div> -->
+  </div>
+  <div class="content" style="width: 100%;">
+    <!-- <div style="width: 95%;margin: 2% auto;box-sizing: border-box;padding: 10px 10px;display: flex;justify-content: center;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+
+        <div style="width: 90%;display: inline-block;font-size: 14px;display: flex;align-items: center;flex-wrap: wrap;position: relative;">
+            <div style="width:100%;padding: 5px 0px;">
+                <span>工单地点：</span>
+                <span>新塘镇锦绣新天地</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>隐患类型：</span>
+                <span>管理安全/路灯损坏</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>上报时间：</span>
+                <span>上报时间：2019/12/12  09:55</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>工单描述：</span>
+                <span>消防通道堵塞,长期无人清理，投诉物业也不管。</span>
+            </div>
+            <div style="width:100%;padding: 5px 0px;">
+                <span>工单状态：</span>
+                <span style="color: #F59A23;">处理中</span>
+            </div>
+            <span style="border: 1px solid #e6e6e6;padding: 5px;border-radius: 5px;position: absolute;top: 0%;right: 0%;">标记为无效</span>
+        </div>
+    </div>
+
+    <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">抓拍信息</li>
+                <li>历史记录</li>
+            </ul>
+            <div class="layui-tab-content" style="">
+                <div class="layui-tab-item layui-show" style="position: relative;">
+
+                    <div style="text-align: center;display: flex;flex-wrap: wrap;justify-content: space-evenly;align-items: center;padding: 2% 0px;">
+                        <img src="../assets/images/jihua1.jpeg" style="width:45%;height:100px;margin: 5px 0px;" alt="">
+                        <img src="../assets/images/jihua2.jpeg" style="width:45%;height:100px;margin: 5px 0px;" alt="">
+                        <img src="../assets/images/jihua1.jpeg" style="width:45%;height:100px;margin: 5px 0px;" alt="">
+                        <img src="../assets/images/jihua2.jpeg" style="width:45%;height:100px;margin: 5px 0px;" alt="">
+                    </div>
+
+                </div>
+                <div class="layui-tab-item">
+                    <div style="font-size: 13px;position: relative;padding: 10px 0px;">
+                        <span style="margin-left: 15%;">工单信息</span>
+                        <span style="color: #70B603;position: absolute;right: 15%;">已处置</span>
+                    </div>
+
+                    <ul class="layui-timeline" style="box-sizing: border-box;padding: 3px 15px 15px 15px;">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text" style="border: 1px solid #1E9FFF;margin-left: 25px;padding: initial;border-radius: 5px;">
+                                <h3 class="layui-timeline-title" style="background: #1E9FFF;color: white;font-size: 13px;padding: 5px 0px;margin-bottom: initial;">
+                                    <span style="margin-left: 5%;">2019/12/12 12:03</span>
+                                    <div style="display: inline-block;position: absolute;right: 5%;">
+                                        <span>值班员：</span>
+                                        <span>张大庆</span>
+                                    </div>
+                                </h3>
+                                <p style="padding: 5px 10px;">
+                                    李晓峰完成处置。
+                                </p>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text" style="border: 1px solid #1E9FFF;margin-left: 25px;padding: initial;border-radius: 5px;">
+                                <h3 class="layui-timeline-title" style="background: #1E9FFF;color: white;font-size: 13px;padding: 5px 0px;margin-bottom: initial;">
+                                    <span style="margin-left: 5%;">2019/12/12 12:03</span>
+                                    <div style="display: inline-block;position: absolute;right: 5%;">
+                                        <span>值班员：</span>
+                                        <span>张大庆</span>
+                                    </div>
+                                </h3>
+                                <p style="padding: 5px 10px;">
+                                    李晓峰已确认该工单
+                                </p>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis"></i>
+                            <div class="layui-timeline-content layui-text" style="border: 1px solid #1E9FFF;margin-left: 25px;padding: initial;border-radius: 5px;">
+                                <h3 class="layui-timeline-title" style="background: #1E9FFF;color: white;font-size: 13px;padding: 5px 0px;margin-bottom: initial;">
+                                    <span style="margin-left: 5%;">2019/12/12 12:03</span>
+                                    <div style="display: inline-block;position: absolute;right: 5%;">
+                                        <span>值班员：</span>
+                                        <span>张大庆</span>
+                                    </div>
+                                </h3>
+                                <p style="padding: 5px 10px;">
+                                    派遣李晓峰执行任务
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> -->
+  
+
+  </div>
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/imageWithHttp.js"></script>
+  <script>
+    
+    $(function() {
+      console.log('获取小区隐患对象',JSON.parse(localStorage.getItem('hiddenTroubleObject')))
+      var element=JSON.parse(localStorage.getItem('hiddenTroubleObject'))
+      
+      var communityArray=[],imgArray=[]
+      getHistoricalRecord(element)
+
+      element.imageUrl.split(',').forEach(imgItem=>{
+        // var imgUrlObject=imageWithHttp.withHttp(imgItem)
+        var imgUrl=SERSVER_BASE_URL+'/wx/images/'+imgItem
+        setTimeout(()=>{//imgUrlObject.image
+          imgArray.push(`
+            <img src="${imgUrl}" style="width:45%;height:100px;margin: 5px 0px;" alt="">
+          `)
+        },2000)
+      })
+      setTimeout(()=>{
+        communityArray.push(`
+          <div style="width: 95%;margin: 2% auto;box-sizing: border-box;padding: 10px 10px;display: flex;justify-content: center;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+            <div style="width: 90%;display: inline-block;font-size: 14px;display: flex;align-items: center;flex-wrap: wrap;position: relative;">
+                <div style="width:100%;padding: 5px 0px;">
+                    <span>工单地点：</span>
+                    <span>${element.townName}</span>
+                </div>
+                <div style="width:100%;padding: 5px 0px;">
+                    <span>隐患类型：</span>
+                    <span>${element.eventTypeName}</span>
+                </div>
+                <div style="width:100%;padding: 5px 0px;">
+                    <span>上报时间：</span>
+                    <span>${element.gmtCreate}</span>
+                </div>
+                <div style="width:100%;padding: 5px 0px;">
+                    <span>工单描述：</span>
+                    <span>${element.eventDescription}</span>
+                </div>
+                <div style="width:100%;padding: 5px 0px;">
+                    <span>工单状态：</span>
+                    <span style="color: #F59A23;">${element.status==1?'待核实':( element.status==2?'核实中':( element.status==3?'真实待处理':( element.status==4?'虚假待处理':( element.status==5?'已处理':( element.status==6?'处理中':'超出范围' ) ) ) ) )}</span>
+                </div>
+                <span style="border: 1px solid #e6e6e6;padding: 5px;border-radius: 5px;position: absolute;top: 0%;right: 0%;">标记为${element.validFlag==1?'有效':'无效'}</span>
+            </div>
+            </div>
+
+            <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">抓拍信息</li>
+                    <li>历史记录</li>
+                </ul>
+                <div class="layui-tab-content" style="">
+                    <div class="layui-tab-item layui-show" style="position: relative;">
+
+                        <div style="text-align: center;display: flex;flex-wrap: wrap;justify-content: space-evenly;align-items: center;padding: 2% 0px;">
+                          ${imgArray.join('')}
+                        </div>
+
+                    </div>
+                    <div class="layui-tab-item">
+                      ${element.historicalRecordArray.join('')}                    
+                    </div>
+                </div>
+            </div>
+          </div>
+                                        
+        `)
+      },2100)
+      setTimeout(()=>{
+        $('.content').html('')
+        $('.content').html(communityArray.join(''))        
+      },2300)
+      
+      
+      //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function() {
+        var element = layui.element;
+        
+        //切换tab监听事件
+        element.on('tab(docDemoTabBrief)', function(data){
+
+        });
+      });
+    })
+
+    function getHistoricalRecord(element){
+      $.ajax({
+        async: false,
+        type: "POST",
+        url: SERSVER_BASE_URL + "/event/eventHistory/selectHistoryByDataSourceId",
+        headers:{
+        },
+        contentType:'application/x-www-form-urlencoded',
+        data: {
+          dataSourceId: element.dataSourceId,
+          flagType: element.flagType,
+          platformId:element.platformId,
+            
+        },
+        dataType: "json",
+        success: function (data) {
+          console.log('/event/eventHistory/selectHistoryByDataSourceId小区隐患历史记录',data) 
+          var historicalRecordArray=[]
+          if(data.list.length==0){
+            historicalRecordArray.push(`
+              <section  style="height: 41vh;line-height: 41vh;text-align: center;font-size: 16px;font-weight: bold;width:100%;color:#dcdfe6;">
+                暂无数据
+              </section>
+            `)
+            element.historicalRecordArray=historicalRecordArray
+          }else {
+            data.list.forEach(item=>{
+              historicalRecordArray.push(`
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text" style="border: 1px solid #1E9FFF;margin-left: 25px;padding: initial;border-radius: 5px;">
+                        <h3 class="layui-timeline-title" style="background: #1E9FFF;color: white;font-size: 13px;padding: 5px 0px;margin-bottom: initial;">
+                            <span style="margin-left: 5%;">${item.gmtCreate}</span>
+                            <div style="display: inline-block;position: absolute;right: 5%;">
+                                <span>值班员：</span>
+                                <span>${item.mailContactorName}</span>
+                            </div>
+                        </h3>
+                        <p style="padding: 5px 10px;">
+                          ${item.title}
+                        </p>
+                    </div>
+                </li>
+              `)
+            })
+            
+            setTimeout(()=>{
+              element.historicalRecordArray=[ `
+                <div style="font-size: 13px;position: relative;padding: 10px 0px;">
+                    <span style="margin-left: 15%;">工单信息</span>
+                    <span style="color: #70B603;position: absolute;right: 15%;">已处置</span>
+                </div>
+
+                <ul class="layui-timeline" style="box-sizing: border-box;padding: 3px 15px 15px 15px;">
+                  ${historicalRecordArray.join('')}
+                </ul>
+              `]
+            },500)
+           
+          }  
+                
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+      });
+    }
+
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+   
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

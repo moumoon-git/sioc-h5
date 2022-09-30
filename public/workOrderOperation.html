@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta name="renderer" content="webkit" />
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" /> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <title>工单管理</title>
+  <!--<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">-->
+
+  <!--标准mui.css-->
+  <link rel="stylesheet" href="./assets/js/mui/css/mui.min.css">
+  <!--App自定义的css-->
+  <link rel="stylesheet" type="text/css" href="./assets/js/mui/css/app.css" />
+
+  <link rel="stylesheet" media="screen" href="./assets/css/dangdang/style.css" />
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+
+  <script src="./constant.js"></script>
+  <script src="./assets/js/jquery-1.12.3.min.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script src="./assets/js/mui/js/mui.min.js"></script>
+
+  <style>
+    .layui-tab-content{
+      padding: 0px;
+      padding-top: 10px;
+    }
+    .layui-tab-content ul{
+      width:100%;list-style:none;
+    }
+    .layui-tab-content ul li{
+      width:100%;border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;height:60px;
+    }
+
+    #keywordSubmit{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1.75rem;
+      height: 1.48rem;
+      border: none;
+      background: url(./assets/images/search-btn.png) no-repeat center;
+      background-size: 50%;
+    }
+
+    /*时间插件*/
+    .form-control[readonly] {
+      background: none;
+    }
+
+    @media(max-width: 414px) {
+      .form-control {
+        font-size: 12px;
+      }
+    }
+
+    @media(max-width: 360px) {
+      .form-control {
+        font-size: 10px;
+        padding: 0 5px;
+      }
+    }
+
+    @media(max-width: 320px) {
+      .col-xs-6 {
+        padding: 0 5px;
+      }
+    }
+
+  </style>
+
+</head>
+<body>
+
+<!--顶部-->
+<input type="hidden" id="contactorId" name="contactorId" value="0" />
+<input type="hidden" id="flagType" name="flagType" value="0" />
+<input type="hidden" id="platformTypeId" name="platformTypeId" value="0" />
+<input type="hidden" id="validFlag" name="validFlag" value="1" />
+<input type="hidden" id="openId" name="openId" value="" />
+
+<!--分页-->
+<input type="hidden" id="pageSize" name="pageSize" value="10" />
+<input type="hidden" id="currentPage" name="currentPage" value="1" />
+
+<header id="header" class="wap-header">
+  <!--<a id="headerFiltrate" class="wap-header-back wap-header-l"  href="javascript:void(0)" title="筛选" style="color: white;">筛选</a>-->
+
+  <section class="wap-search" style="background-color: #1389f3;">
+    <form style="height: 30px;">
+      <div class="wap-search-text">
+        <input type="text" placeholder="搜索工单编号、类型、关键字" id="keyword" name="keyword" value="" /></div>
+      <input id="keywordSubmit"  value="" readonly onclick="searchKeyword()" />
+    </form>
+  </section>
+
+  <section>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="margin: 0px">
+      <!--tab切换-->
+      <ul class="layui-tab-title" style="width: min-content;margin: 0 auto;border: none;margin-bottom: 10px;" >
+        <li class="layui-this" style="">有效工单</li>
+        <li></li>
+        <li>无效工单</li>
+      </ul>
+    </div>
+
+
+    <div class="layui-row">
+
+      <div class="layui-col-xs3 layui-col-md3">
+        <div style="margin-top: 15px;margin-bottom: 15px;" id="left-button">
+          <button type="button" class="layui-btn layui-btn-normal" style="margin-left:10px;background-color: #1E9FFF;border: 2px solid #eeeeee;">全部</button>
+          <button type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">疫情</button>
+          <button type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">市场</button>
+          <button type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">车俩</button>
+          <button type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">人员</button>
+        </div>
+      </div>
+
+      <div class="layui-col-xs9 layui-col-md9">
+        <!--工单列表-->
+        <div id="workOrderId">
+
+          <ul id="OA_task_1" class="mui-table-view">
+          </ul>
+
+          <ul id="OA_task_2" class="mui-table-view">
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--分页-->
+  <section>
+    <div style="width: 205px;margin: 0 auto;" id="demo7"></div>
+  </section>
+
+</header>
+
+</body>
+
+<script>
+  layui.use('element', function() {
+    var element = layui.element;
+    console.log("element",element);
+    //一些事件监听
+    element.on('tab(docDemoTabBrief)', function(data){
+      if(data.index == 0){
+        //页码初始化
+        $('#currentPage').val(1);
+
+        //请求工单列表的值
+        $('#validFlag').val(1);
+        getOperationList();
+
+      } else if(data.index == 2){
+        //页码初始化
+        $('#currentPage').val(1);
+
+        //请求工单列表的值
+        $('#validFlag').val(2);
+        getOperationList();
+      }
+    });
+
+  });
+
+//mui
+</script>
+
+
+<script>
+  mui.init();
+
+  (function($) {
+
+    $('#OA_task_1').on('tap', '.mui-btn', function(event) {
+      var elem = this;
+      var li = elem.parentNode.parentNode;
+
+      mui.confirm('<div class="text"><p class="icon-information"></p><span style="font-size: 16px">确定设置此工单为无效？</span></div>', '', btnArray, function(e) {
+        if (e.index == 0) {
+          li.parentNode.removeChild(li);
+          //同时改变有效状态
+          var eventInfoId = li.getAttribute('id');
+          updateValidStatus(eventInfoId,2);
+          getOperationList();
+        } else {
+          setTimeout(function() {
+            $.swipeoutClose(li);
+          }, 0);
+        }
+      });
+    });
+
+
+    $('#OA_task_2').on('tap', '.mui-btn', function(event) {
+      var elem = this;
+      var li = elem.parentNode.parentNode;
+
+      mui.confirm('<div class="text"><p class="icon-information"></p><span style="font-size: 16px">确定设置此工单为有效？</span></div>', '', btnArray, function(e) {
+        if (e.index == 0) {
+          li.parentNode.removeChild(li);
+          //同时改变有效状态
+          var eventInfoId = li.getAttribute('id');
+          updateValidStatus(eventInfoId,1);
+          getOperationList();
+        } else {
+          setTimeout(function() {
+            $.swipeoutClose(li);
+          }, 0);
+        }
+      });
+    });
+
+    var btnArray = ['确认', '取消'];
+
+
+  })(mui);
+</script>
+
+
+<script>
+  $(function() {
+
+    //请求左边类型
+    initTypeSearchCondition();
+
+    //请求工单列表的值
+    $('#validFlag').val(1);
+    getOperationList();
+  });
+
+
+
+  /*请求数据*/
+  function getOperationList(){
+
+    $.ajax({
+      async: false,
+      type: "POST",
+      url: SERSVER_BASE_URL + "/wechatMobile/selectEventOperationList",
+      data: {
+        flagType: $('#flagType').val(),
+        platformTypeId: $('#platformTypeId').val(),
+        validFlag: $('#validFlag').val(),
+        keyword: $('#keyword').val(),
+        openId: localStorage.getItem('openId'),
+        pageSize: $('#pageSize').val(),
+        currentPage: $('#currentPage').val(),
+            
+      },
+      dataType: "json",
+      success: function (data) {
+
+        console.log('/wechatMobile/selectEventOperationList',data);
+        var element = data.list;
+        var totalCount = data.count;
+
+        $('#OA_task_1').html('');
+        $('#OA_task_2').html('');
+        //$('#workOrderId').html('');
+
+        var strContent = '';
+
+        if(element.length > 0){
+          for(var i =0; i<element.length; i++){
+            //图片路径
+            var imgUrl = element[i].imageUrl
+                    ?
+                    (
+                            element[i].imageUrl.split(',')[0].substring(0,4)==='http'
+                                    ?element[i].imageUrl.split(',')[0]
+                                    :SERSVER_BASE_HOME+element[i].imageUrl.split(',')[0]
+                    )
+                    :"https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png";
+
+            //已处理，跳转到查看历史记录
+            var url = "./historicalRecord2.html?eventInfoId="+element[i].id;
+
+            strContent += '<li id="'+element[i].id+'" class="mui-table-view-cell" onclick="location.href=\''+url+'\'" style="align-items:center;margin-bottom: 5px;">';
+            strContent += '<div class="mui-slider-right mui-disabled">';
+            if(element[i].validFlag == 1){
+              strContent += '<a class="mui-btn mui-btn-red">设置无效？</a>';
+            }else{
+              strContent += '<a class="mui-btn mui-btn-red">设置有效？</a>';
+            }
+            strContent += '</div>';
+            strContent += '<div class="mui-slider-handle">';
+            strContent += '<div class="layui-col-xs3 layui-col-md3">';
+            strContent += '<img src="'+imgUrl+'" style="width:40px;height: 40px;">';
+            strContent += '</div>';
+            strContent += '<div class="layui-col-xs9 layui-col-md9" style="">';
+            if(element[i].eventTypeName != null && element[i].eventTypeName.length>9){
+              strContent += '<div style="white-space: nowrap;font-weight: bold;">'+element[i].eventTypeName.substring(0,8)+"..."+'</div>';
+            }else{
+              strContent += '<div style="white-space: nowrap;font-weight: bold;">'+element[i].eventTypeName+'</div>';
+            }
+            if(element[i].eventDescription !=null && element[i].eventDescription.length>13){
+              strContent += '<div style="bottom: 15%;color: gray;">'+element[i].eventDescription.substring(0,12)+"..."+'</div>';
+            }else{
+              strContent += '<div style="bottom: 15%;color: gray;">'+element[i].eventDescription+'</div>';
+            }
+            strContent += '</div>';
+            strContent += '<span style="position: absolute;right: 10px;">'+element[i].gmtCreate.substring(5,10).replace("-","/")+'</span>';
+            strContent += '</div>';
+            strContent += '</li>';
+
+          }
+
+        }else{
+          strContent += '<div style="margin-top:25px;text-align:center;color: #3181d2;"><h3>暂无数据!!!</h3></div>';
+        }
+
+
+        var validFlag = $('#validFlag').val();
+        if(validFlag == 1){
+          $('#OA_task_1').html(strContent);
+        }else{
+          $('#OA_task_2').html(strContent);
+        }
+
+
+        //分页
+        layui.use(['laypage', 'layer'], function(){
+          var laypage = layui.laypage
+                  ,layer = layui.layer;
+
+          //完整功能
+          laypage.render({
+            elem: 'demo7'
+            ,count: totalCount
+            ,limit: $('#pageSize').val()
+            ,curr: $('#currentPage').val()
+            ,layout: ['count', 'prev', 'next','skip']
+            ,jump: function(obj, first){
+              if(!first){
+                $('#pageSize').val(obj.limit);
+                $('#currentPage').val(obj.curr);
+                getOperationList();
+              }
+            }
+          });
+
+        });
+
+
+      },
+      error: function () {
+        alert("网络受限");
+      }
+
+    });
+  }
+
+
+  /*动态加载请求类型搜索条件*/
+  function initTypeSearchCondition() {
+
+    $.ajax({
+      async: false,
+      type: "get",
+      url: SERSVER_BASE_URL + "/weChatHandleTask/getPlatformByOpenId",
+      data: {
+        'openId': localStorage.getItem('openId'),
+            
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log("weChatHandleTask/getPlatformByOpenId",data);
+
+        if(data.sysPlatformEntity != null && data.mailContactorEntity != ""){
+
+          var platformTypeId = data.sysPlatformEntity.platformTypeId;
+
+          if(platformTypeId === 5){
+            //小区
+            $('#left-button').html('');
+            var strContent = '';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="margin-left:10px;background-color: #1389f3;border: 2px solid #eeeeee;">全部</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">疫情</button>';
+            $('#left-button').html(strContent);
+
+          }else if(platformTypeId === 6){
+            //学校
+            $('#left-button').html('');
+            var strContent = '';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="margin-left:10px;background-color: #1389f3;border: 2px solid #eeeeee;">全部</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">市场</button>';
+            $('#left-button').html(strContent);
+
+          }else if(platformTypeId === 3){
+            //镇街
+            $('#left-button').html('');
+            var strContent = '';
+            var strContent = '';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="margin-left:10px;background-color: #1389f3;border: 2px solid #eeeeee;">全部</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">疫情</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">市场</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">车辆</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">人员</button>';
+            $('#left-button').html(strContent);
+
+          }else{
+            $('#left-button').html('');
+            var strContent = '';
+            var strContent = '';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="margin-left:10px;background-color: #1389f3;border: 2px solid #eeeeee;">全部</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">疫情</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">市场</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">车辆</button>';
+            strContent += '<button onclick="clickLeftButton(this)" type="button" class="layui-btn layui-btn-normal" style="background-color: #8db6d6;border: 2px solid #eeeeee;">人员</button>';
+            $('#left-button').html(strContent);
+          }
+        }
+      },
+      error: function() {
+        alert("网络受限");
+      }
+
+    });
+  }
+
+
+  /*改变有效或无效状态*/
+  function updateValidStatus(eventInfoId, validFlag) {
+    $.ajax({
+      async: false,
+      type: "post",
+      url: SERSVER_BASE_URL + "/event/eventinfo/updateEventInfoValidFlag",
+      data: {
+        'validFlag': validFlag,
+        "eventInfoId": eventInfoId,,
+            
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log("改变有效或无效状态",data);
+      },
+      error: function() {
+        alert("网络受限");
+      }
+
+    });
+  }
+
+
+  //点击切换左边
+  function clickLeftButton(val){
+    console.log("点击切换左边",val);
+    //颜色切换
+    $('#left-button >button').css('background-color','#8db6d6');
+    $(val).css('background-color','#1389f3');
+
+    var address = $(val).text();
+    var platformTypeId;
+    var flagType;
+    $('#platformTypeId').val(0);
+    $('#flagType').val(0);
+
+    switch (address) {
+      case "疫情":
+        platformTypeId = 5;
+        $('#platformTypeId').val(platformTypeId);
+        break;
+      case "市场":
+        platformTypeId = 6;
+        $('#platformTypeId').val(platformTypeId);
+        break;
+      case "人员":
+        flagType = 3;
+        $('#flagType').val(flagType);
+
+        break;
+      case "车辆":
+        flagType = 4;
+        $('#flagType').val(flagType);
+        break;
+      case "监控":
+        flagType = 6;
+        $('#flagType').val(flagType);
+        break;
+      default:
+        platformTypeId = 0;
+        flagType = 0;
+        $('#platformTypeId').val(0);
+        $('#flagType').val(0);
+        break;
+    }
+
+    //请求工单列表的值
+    getOperationList();
+
+  }
+
+  //点击搜索
+  function searchKeyword() {
+    let val = $('#keyword').val();
+    getOperationList();
+  }
+
+</script>
+<script src= "./waterMark.js" ></script>
+</html>

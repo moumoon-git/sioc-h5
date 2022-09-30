@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../assets/css/rest.css" />
+    <link rel="stylesheet" href="../assets/js/layui/css/layui.css" />
+    <title>防控排查</title>
+    <style>
+      html,
+      body {
+      }
+      html {
+        width: 100%;
+        height: -webkit-fill-available;
+        height: -moz-fill-available;
+        height: -ms-fill-available;
+        background: rgba(245, 245, 245, 1);
+      }
+      .layui-laypage .layui-laypage-curr .layui-laypage-em {
+        background: linear-gradient(
+          360deg,
+          rgba(43, 128, 255, 1) 0%,
+          rgba(101, 188, 255, 1) 100%
+        );
+      }
+      input::-webkit-input-placeholder {
+        color: rgba(153, 153, 153, 1);
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+      }
+      input::-moz-input-placeholder {
+        color: rgba(153, 153, 153, 1);
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+      }
+      input::-ms-input-placeholder {
+        color: rgba(153, 153, 153, 1);
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="content"
+      style="width: 100%;overflow: auto;height: -webkit-fill-available;height: -moz-fill-available;height: -ms-fill-available;padding-bottom: 12vh;"
+    >
+      <!-- <div  style="width: 89vw;position: relative;margin: 2vh 5vw;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">
+        <div style="width: 100%;font-size: 16px;font-family: PingFangSC-Medium,PingFang SC;font-weight: 500;color: rgba(51,51,51,1);position: relative;height: 7vh;line-height: 7vh;">
+            <span style="margin-left: 5vw;font-weight: bold;">陈皮</span>
+            <span style="font-weight: bold;margin-left: 2vw;">|</span>
+            <span style="font-weight: bold;margin-left: 2vw;">湖北</span>
+            <img src="../assets/images/executing.png" style="width: 10vw;height: 10vw;float: right;">
+        </div>
+        <div style="width: 100%;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+            <span style="margin-left: 5vw;">登记时间：</span>     
+            <span>2020-02-07 00:00:00</span>  
+        </div>
+        <div style="width: 100%;height:6vh;line-height:5vh;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+          <span style="margin-left: 5vw;">地址：</span>     
+          <span>增城区荔城街道新春花园</span>  
+        </div>
+        <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+    </div> -->
+    </div>
+    <script src="../constant.js"></script>
+    <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+    <script src="../assets/js/layui/layui.js"></script>
+    <script>
+      // 获取地址栏参数
+      //适应以下两种模式，来获取url参数值：
+      //User/vip_card_manager/useless/219/id/18
+      //User/vip_card_manager?useless=219&id=18
+
+      function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        var q = window.location.pathname.substr(1).match(reg_rewrite);
+        if (r != null) {
+          return unescape(r[2]);
+        } else if (q != null) {
+          return unescape(q[2]);
+        } else {
+          return null;
+        }
+      }
+
+      var vehiclePageSize = 10,
+        vehiclePageIndex = 1,
+        search = "";
+      getData(vehiclePageSize, vehiclePageIndex, search);
+      function getData(vehiclePageSize, vehiclePageIndex, search) {
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/epi/epiRegister/list",
+          headers: {},
+          contentType: "application/json",
+          data: {
+            platformId: localStorage.getItem("platformId"),
+            openId: localStorage.getItem("openId"),
+            page: vehiclePageIndex,
+            limit: vehiclePageSize,
+            search: search,
+            startTime: "",
+            endTime: "",
+            
+          },
+          dataType: "json",
+          success: function(data) {
+            console.log("/epi/epiRegister/list", data);
+            var epiRegisterList = [];
+            data.data.records.forEach(element => {
+              epiRegisterList.push(`
+              <div class='${
+                element.id
+              }' style="width: 89vw;position:relative;margin: 2vh 5vw;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">
+                <div style="width: 100%;font-size: 16px;font-family: PingFangSC-Medium,PingFang SC;font-weight: 500;color: rgba(51,51,51,1);position: relative;height: 7vh;line-height: 7vh;">
+                    <span style="margin-left: 5vw;font-weight: bold;">${
+                      element.imName
+                    }</span>
+                    <span style="font-weight: bold;margin-left: 2vw;">|</span>
+                    <span style="font-weight: bold;margin-left: 2vw;">${
+                      element.nativePlaceString
+                    }</span>
+                    <img src="${
+                      element.investigateResultString == "异常"
+                        ? "../assets/images/unnormal.png"
+                        : "../assets/images/normal.png"
+                    }" style="width: 10vw;height: 10vw;float: right;">
+                </div>
+                <div style="width: 100%;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                    <span style="margin-left: 5vw;">登记时间：</span>     
+                    <span>${element.gmtCreate}</span>  
+                </div>
+                <div style="width: 100%;height:6vh;line-height:5vh;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                  <span style="margin-left: 5vw;">地址：</span>     
+                  <span>${element.detailedAddress}</span>  
+                </div>
+                <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+              </div>
+            `);
+            });
+            setTimeout(() => {
+              $(".content").html("");
+              $(".content").append(`
+              <div style="padding: 2vh 0px;position: relative;background:rgba(255,255,255,1);font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);display: flex;align-items: center;justify-content: center;">
+                <input type="text" name="search"  placeholder="请输入地址关键字或登记人员姓名查询" autocomplete="off" class="layui-input" style="width: 93vw;height: 5vh;line-height: 6vh;border-radius: 4vw;background: rgba(243,243,243,1);padding-left: 10vw;">  
+                <i class="layui-icon layui-icon-search" style="position: absolute;left: 7vw;"></i>
+              </div>
+            `);
+              if (data.data.records.length == 0) {
+                $(".content").append(
+                  "<div style='margin-top: 20vh;text-align: center;font-weight: bold;'><div><img src='../assets/images/noDatas.png' style='width:27vw;height:27vw;'></div><div><span style='font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);'>暂无数据</span></div></div>"
+                );
+              } else {
+                $(".content").append(epiRegisterList.join(""));
+                data.data.records.forEach(element => {
+                  $(`.${element.id}`).click(() => {
+                    localStorage.setItem("dengjijiluId", element.id);
+                    location.href = "./updateKeyPersonnelTroubleshooting.html";
+                  });
+                });
+                $(".content").append(
+                  '<div id="vehiclePagination" style="text-align: center;"></div>'
+                );
+              }
+
+              $(".content")
+                .append(`<div class='addRecords' style='width: 100%;text-align: center;background:rgba(255,255,255,1);padding:2vh 0px;position: fixed;bottom: 0%;'>
+              <span style="display:inline-block;width:85vw;height:7vh;line-height:7vh;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0px 0.2vw 2vh 0px rgba(12,126,161,0.35);border-radius:10vw;font-size:20px;font-family:Helvetica;color:rgba(255,255,255,1);">新增登记</span>
+            </div>`);
+
+              $(`.layui-icon-search`).click(() => {
+                search = $("input[name='search']").val();
+                getData(vehiclePageSize, vehiclePageIndex, search);
+              });
+
+              $(`.addRecords`).click(() => {
+                location.href = "./addKeyPersonnelTroubleshooting.html";
+              });
+
+              layui.use("laypage", function() {
+                var laypage = layui.laypage;
+                laypage.render({
+                  elem: "vehiclePagination",
+                  limit: vehiclePageSize,
+                  curr: vehiclePageIndex,
+                  limits: [10, 20, 30, 40, 50],
+                  layout: ['count', 'prev', 'next','skip'],
+                  count: data.data.total, //数据总数，从服务端得到
+                  jump: function(obj, first) {
+                    //首次不执行
+                    if (!first) {
+                      //obj包含了当前分页的所有参数，比如：
+                      console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                      console.log(obj.limit); //得到每页显示的条数
+                      vehiclePageIndex = obj.curr;
+                      vehiclePageSize = obj.limit;
+                      //do something
+                      getData(vehiclePageSize, vehiclePageIndex, search);
+                    }
+                  }
+                });
+              });
+            }, 500);
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+      }
+    </script>
+  </body>
+  <script src= "../waterMark.js" ></script>
+</html>

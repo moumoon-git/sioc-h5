@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+  <title>统计分析</title>
+  <link rel="stylesheet" href="css/all.css">
+
+  <!--三级联动css-->
+  <link rel="stylesheet" type="text/css" href="../assets/css/mobileSelect.css">
+
+  <link rel="stylesheet" href="css/swiper.min.css">
+
+  <script type="text/javascript" src="../assets/js/jquery-2.1.0.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <!--echart-->
+   <script type="text/javascript" src="js/echarts.js"></script>
+  <!-- 三级联动js -->
+   <script src="../assets/js/mobileSelect.js"></script>
+  <!--引入vue玩玩-->
+  <script src="js/vue.min.js"></script>
+
+  <script>
+
+  </script>
+
+  <style>
+      p{
+          margin: 0px;
+          padding: 0px;
+      }
+
+      .trigger {
+          padding-left: 10px;
+          text-align: left;
+          /* margin: 0.1rem; */
+          border: 1px solid rgb(219, 219, 219);
+          width: 96%;
+          height: 38px;
+          line-height: 38px;
+          cursor: pointer;
+          /* font-size: 16px; */
+          margin-top: 1rem;
+          background-color: #ffffff;
+          color: #000;
+      }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<input type="hidden" id="globalPlatformTypeId" name="globalPlatformTypeId" value="" />
+<input type="hidden" id="platformTypeId" name="platformTypeId" value="" />
+<input type="hidden" id="platformId" name="platformId" value="" />
+
+
+<section class="container page-swiper-panel" id="page-swiper-panel" >
+
+    <ul class="kinerNav" id="accreditFlag">
+        <li class="active">隐患上报</li>
+    </ul>
+
+    <div class="box">
+        <div class="kinerContent">
+
+            <div class="wrapper" id="accredPanel">
+
+                <!--小区-->
+                <div id="panel-community" class="kinerItem">
+                    <div class="btn"  data-slideTo="0">
+                        <!--上面-->
+                        <div style="display: flex;justify-content: space-between;" >
+                            <div style="background-color: #4790FF;width:30%;color: #f6f6f6;display: flex;justify-content: center;line-height: 2.5;align-items: center;">
+                              <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">工单总数：</p>
+                              <span style="font-size: 24px;font-weight: bold;">{{areaTotalCount}}</span>
+                            </div>
+                            <div style="background-color: #4790FF;width:30%;color: #f6f6f6;display: flex;justify-content: center;line-height: 2.5;align-items: center;">
+                              <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">已处理：</p>
+                              <span style="font-size: 24px;font-weight: bold;">{{areaDeCount}}</span>
+                            </div>
+                            <div style="background-color: #4790FF;width:30%;color: #f6f6f6;display: flex;justify-content: center;line-height: 2.5;align-items: center;">
+                              <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">未处理：</p>
+                              <span style="font-size: 24px;font-weight: bold;">{{areaUnDeCount}}</span>
+                            </div>
+                        </div>
+
+                        <!--分隔线-->
+                        <hr style="width: 90%;background-color: #cbcbcb!important;height: 1px;border: 0;
+                               margin-top:0px !important;margin-bottom:0px !important;padding: 0 !important;">
+
+                        <!--下面-->
+                        <div class="area-swiper">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                   <!-- <div class="swiper-slide" style="height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;" v-text="typeCount.fire">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">消防隐患</span>
+                                        </div>
+                                    </div>-->
+                                    <div class="swiper-slide" style="height: 90px;background-color: #4790FF;" v-for="(item,index) in typeCount">
+                                        <div style="text-align: center;margin: 10px auto;" >
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;" v-text="item.allCount">{{item.allCount}}</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;" v-text="item.name">{{item.name}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div> -->
+                                    <!--<div class="swiper-slide" style="height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;" v-text="typeCount.trafficSafety">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">交通隐患</span>
+                                        </div>
+                                    </div>-->
+                                    <!-- <div class="swiper-slide" style="height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;" v-text="typeCount.manager">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">管理隐患</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide" style="height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;" v-text="typeCount.other">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <!--分页器-->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+
+
+                        <!--拆线图-->
+                        <div style="margin-top:0.8rem;" style="background-color: #FFFFFF">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;">上报趋势</p>
+                            <div id="myLineChat" style="width: 100%; height: 200px"></div>
+                        </div>
+
+                        <!--上报排行-->
+                        <div style="margin-top:0.8rem;width:100%;">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;">上报排行</p>
+                            <div v-for="(item,index) in platformCountList" class="items" style="color: #0C0C0C;">
+                                <div style="width: 86vw;height: 6vh;margin:0px auto 2vh;display: flex;align-items: center;color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.2rem">
+                                    <p style="width: 8vw;height: 8vw;margin-left: 6vw;" v-text="index+1">1</p>
+                                    <div style="display:inline-block;margin-left: 3vw;">
+                                        <div v-if="item.platformName && item.platformName.length>11" v-text="item.platformName" style="width:90%;font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            无数据
+                                        </div>
+                                        <div v-else v-text="item.platformName" style="font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            无数据
+                                        </div>
+                                    </div>
+                                    <p style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</p>
+                                </div>
+                               <!-- <div style="color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.4rem">
+                                    <span style="position: absolute;left: 8vw;" v-text="index+1">0</span>
+                                    <span style="margin-left: 15vw;font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)" v-text="item.platformName">无数据</span>
+                                    <span style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</span>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--学校-->
+                <!-- <div id="panel-school" class="kinerItem">
+                    <div class="btn blue"  data-slideTo="0">
+                        <div style="display: flex;justify-content: space-between;" >
+                            <div style="background-color: #4790FF;width:30%;color: #f6f6f6;display: flex;justify-content: center;line-height: 2.5;align-items: center;">
+                              <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">工单总数：</p>
+                              <span style="font-size: 24px;font-weight: bold;">{{schoolTotalCount}}</span>
+                            </div>
+                            <div style="background-color: #4790FF;width:30%;color: #f6f6f6;display: flex;justify-content: center;line-height: 2.5;align-items: center;">
+                              <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">已处理：</p>
+                              <span style="font-size: 24px;font-weight: bold;">{{schoolDeCount}}</span>
+                            </div>
+                            <div style="background-color: #4790FF;width:30%;color: #f6f6f6;display: flex;justify-content: center;line-height: 2.5;align-items: center;">
+                              <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">未处理：</p>
+                              <span style="font-size: 24px;font-weight: bold;">{{schoolUnCount}}</span>
+                            </div>
+                        </div>
+
+                        <hr style="width: 90%;background-color: #cbcbcb!important;height: 1px;border: 0;
+                               margin-top:0px !important;margin-bottom:0px !important;padding: 0 !important;">
+
+                        <div class="school-swiper">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide" style="height: 90px;background-color: #4790FF;" v-for="(item,index) in typeCount" :key="index">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">{{item.allCount}}</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">{{item.name}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+
+
+                        <div style="margin-top:0.8rem;background-color: #FFFFFF">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;">上报趋势</p>
+                            <div id="mySchoolLineChat" style="width: 100%; height: 200px"></div>
+                        </div>
+
+                        <div style="margin-top:0.8rem;width:100%;">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;">上报排行</p>
+                            <div v-for="(item,index) in platformCountList" class="items" style="color: #0C0C0C;">
+                                <div style="width: 86vw;height: 6vh;margin:0px auto 2vh;display: flex;align-items: center;color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.2rem">
+                                    <p style="width: 8vw;height: 8vw;margin-left: 6vw;" v-text="index+1">1</p>
+                                    <div style="display:inline-block;margin-left: 3vw;">
+                                        <div v-if="item.platformName && item.platformName.length>11" v-text="item.platformName" style="width:90%;font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            无数据
+                                        </div>
+                                        <div v-else v-text="item.platformName" style="font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            无数据
+                                        </div>
+                                    </div>
+                                    <p style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+
+                <!--人员-->
+                <div id="panel-humman" class="kinerItem">
+                    <div class="btn blue"  data-slideTo="2">
+                        <!--上面-->
+                        <div style="margin-left: 1.1rem;">
+                            <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">抓拍总数</p>
+                            <span style="font-size: 24px;font-weight: bold;" v-text="dangerTypeTotal">0</span>
+                        </div>
+
+                        <!--分隔线-->
+                        <hr style="width: 90%;background-color: #cbcbcb!important;height: 1px;border: 0;
+                               margin-top:0px !important;margin-bottom:0px !important;padding: 0 !important;">
+
+                        <!--下面-->
+                        <div class="humman-swiper">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <div v-for="(item,index) in typeCountHumman" class="swiper-slide" :key="index"  style=" height: 90px;background-color: #4790FF;" >
+                                        <div  style="text-align: center;margin: 10px auto;" >
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;" v-text="item.count">0</p>
+                                            <span style="color: #f6f6f6;" v-text="item.typeName">无数据</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--分页器-->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+
+                        <div id="trigger" class="trigger">
+                            <span>全部类型</span>
+                            <!--<img src="./assets/images/jiantou.png" style="width: 8vw;height: 8vw;float: right;right: 0vw;margin-top:1rem;
+                            margin-bottom: 1rem;transform: translateY(-50%);">-->
+                        </div>
+
+                        <!--类型抓拍排行-->
+                        <div style="margin-top:0.8rem;width:100%;">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;text-align: center;background-color: #c7daf3;padding: 8px;">{{selectedType.value}}-抓拍排行</p>
+                            <div v-for="(item,index) in humanTypeRank" :key="index" class="items" style="color: #0C0C0C;">
+                                <div style="width: 86vw;height: 6vh;margin:0px auto 2vh;display: flex;align-items: center;color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.4rem">
+                                    <p style="width: 8vw;height: 8vw;margin-left: 6vw;" v-text="index+1">1</p>
+                                    <div style="display:inline-block;margin-left: 6vw;">
+                                        <div v-text="item.humanName" style="font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            春晓花园
+                                        </div>
+                                        <div v-if="item.credentialsNum != null && item.credentialsNum != '' " style="font-family:PingFangSC-Regular,PingFang SC;color:rgba(153,153,153,1);">
+                                            {{item.credentialsNum.replace(/^(.{6})(?:\d+)(.{4})$/, "$1****$2")}}
+                                        </div>
+                                    </div>
+                                    <p style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!--拍摄机抓拍排行-->
+                        <div style="margin-top:0.8rem;width:100%;">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;text-align: center;background-color: #c7daf3;padding: 8px;">{{selectedType.value}}-拍摄枪抓拍排行</p>
+
+                            <div v-for="(item,index) in humanCaremaRank" :key="index" class="items" style="color: #0C0C0C;">
+
+                                <div style="width: 86vw;height: 6vh;margin:0px auto 2vh;display: flex;align-items: center;color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.2rem">
+                                    <p style="width: 8vw;height: 8vw;margin-left: 6vw;" v-text="index+1">1</p>
+                                    <div style="display:inline-block;margin-left: 3vw;">
+                                        <div v-if="item.name && item.name.length > 11" v-text="item.name" style="width: 90%;font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            相机名称
+                                        </div>
+                                        <div v-else v-text="item.name" style="font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            相机名称
+                                        </div>
+                                    </div>
+                                    <p style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</p>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--车辆-->
+                <div id="panel-vehicle" class="kinerItem">
+                    <div class="btn blue"  data-slideTo="2">
+                        <!--上面-->
+                        <div style="margin-left: 1.1rem;">
+                            <p style="margin-top: 0.2rem;font-size: 18px;color: #f6f6f6;">抓拍总数</p>
+                            <span style="font-size: 24px;font-weight: bold;" v-text="dangerTypeTotal">0</span>
+                        </div>
+
+                        <!--分隔线-->
+                        <hr style="width: 90%;background-color: #cbcbcb!important;height: 1px;border: 0;
+                               margin-top:0px !important;margin-bottom:0px !important;padding: 0 !important;">
+
+                        <!--下面-->
+                        <div class="vehicle-swiper">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper" id="vehicle-swiper-wrapper">
+                                    <div v-for="(item,index) in typeCountVehicle" :key="index" class="swiper-slide"  style="height: 90px;background-color: #4790FF;" >
+                                        <div  style="text-align: center;margin: 10px auto;" >
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;" v-text="item.count">0</p>
+                                            <span style="color: #f6f6f6;" v-text="item.typeName">无数据</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-slide" style="visibility: hidden;height: 90px;background-color: #4790FF;">
+                                        <div style="text-align: center;margin: 10px auto;">
+                                            <p style="font-size: 1.5rem;color: #f6f6f6;">0</p>
+                                            <span style="font-size: 1rem;color: #f6f6f6;">矛盾纠纷</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--分页器-->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+
+                        <div id="triggerVehicle" class="trigger">
+                            <span>全部类型</span>
+                        </div>
+
+                        <!--类型抓拍排行-->
+                        <div style="margin-top:0.8rem;width:100%;">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;text-align: center;background-color: #c7daf3;padding: 8px;">{{selectedType.value}}-类型抓拍排行</p>
+                            <div v-for="(item,index) in vehicleTypeRank" :key="index" class="items" style="color: #0C0C0C;">
+                                <div style="width: 86vw;height: 6vh;margin:0px auto 2vh;display: flex;align-items: center;color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.4rem">
+                                    <p style="width: 8vw;height: 8vw;margin-left: 6vw;" v-text="index+1">1</p>
+                                    <div style="display:inline-block;margin-left: 6vw;">
+                                        <div v-text="item.carNum" style="font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            车牌号码
+                                        </div>
+                                        <div v-text="item.controlName" style="font-family:PingFangSC-Regular,PingFang SC;color:rgba(153,153,153,1);">
+                                            全部类型
+                                        </div>
+                                    </div>
+                                    <p style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--拍摄机抓拍排行-->
+                        <div style="margin-top:0.8rem;width:100%;">
+                            <p style="color: #0C0C0C;margin-bottom: 0px !important;text-align: center;background-color: #c7daf3;padding: 8px;">{{selectedType.value}}-拍摄枪抓拍排行</p>
+
+                            <div v-for="(item,index) in vehicleCaremaRank" :key="index" class="items" style="color: #0C0C0C;">
+                                <div style="width: 86vw;height: 6vh;margin:0px auto 2vh;display: flex;align-items: center;color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.2rem">
+                                    <p style="width: 8vw;height: 8vw;margin-left: 6vw;" v-text="index+1">1</p>
+                                    <div style="display:inline-block;margin-left: 3vw;">
+                                        <div v-if="item.cameraName && item.cameraName.length > 11" v-text="item.cameraName" style="width: 90%;font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            相机名称
+                                        </div>
+                                        <div v-else v-text="item.cameraName" style="font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)">
+                                            相机名称
+                                        </div>
+                                    </div>
+                                    <p style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</p>
+                                </div>
+                                <!--<div style="color: #0C0C0C;background-color: #FFFFFF;margin-top: 0.4rem;padding: 0.4rem">
+                                    <span style="position: absolute;left: 8vw;" v-text="index+1">1</span>
+                                    <span style="margin-left: 12vw;font-size: 1rem;font-family:PingFangSC-Medium,PingFang SC;color:rgba(51,51,51,1)" v-text="item.cameraName">相机号码</span>
+                                    <span style="position: absolute;right: 8vw;font-weight: bold;" v-text="item.num">0</span>
+                                </div>-->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+  <script src="../constant.js"></script>
+    <!--我的逻辑接口实现-->
+    <!--<script src="js/kiner-swiper-panel.js"></script>-->
+    <!-- <script src="js/initVueObj.js"></script> -->
+    <script  src="js/myEchat.js"></script>
+    <script>
+        $.ajax({
+         async: false,
+         type: "GET",
+         url: SERSVER_BASE_URL + "/sys/config/infoByKey?key=TJFX_VIEW",
+         data:
+             {          
+             },
+         dataType: "json",
+         success: function (res) {
+             console.log('菜单为',res)
+             if(res.code === 0) {
+                 var newList = []
+                 var new2List = []
+                 var navList = JSON.parse(res.config.paramValue)
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '5') {
+                         newList.push(navList[i])
+                         new2List.push({name: navList[i],value: 5})
+                     }
+                 }
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '6') {
+                         newList.push(navList[i])
+                         new2List.push({name: navList[i],value: 6})
+                     }
+                 }
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '3') {
+                         newList.push(navList[i])
+                     }
+                 }
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '4') {
+                         newList.push(navList[i])
+                     }
+                 }
+                 $('#globalPlatformTypeId').val(new2List[0].value)
+                 var ul = document.getElementById('accreditFlag')
+                 // var global = document.getElementsByClassName('realBorder')[0]
+                 // ul.removeChild(global)
+                //  改成隐患上报 2021.0917
+                //  for(var i = 0; i < newList.length; i++) {
+                //      var li = document.createElement('li')
+                //      li.innerHTML = newList[i].name
+                //      if(i == 0) {
+                //          li.className = 'active'
+                //      }
+                //      ul.appendChild(li)
+                //  }
+             }
+         }
+     });
+   </script>
+    <script src="js/myStatistical.js"></script>
+    <script src="js/kiner-swiper-panel.js"></script>
+
+
+  <!--隐患的切换-->
+  <script>
+
+      //面板切换
+      var mySwiper2 = new Swiper('.swiper-container', {
+          slidesPerView: 3,
+          spaceBetween: 1,
+          slidesPerGroup: 3,
+          loopFillGroupWithBlank: true,
+          pagination: '.swiper-pagination',
+          clickable: true,
+
+      });
+      
+      //人员
+      var ph =new Vue({
+          el:"#panel-humman",
+          data: {
+              //类型统计
+              typeCountHumman: [
+                  {
+                      typeName: "总数",
+                      count:0,
+                  }
+              ],
+              //总数类型
+              dangerTypeTotal: 0,
+              //被选择的类型对象
+              selectedType: {
+                  id: 0,
+                  value: "全部类型",
+              },
+              //被选择的类型对象2
+              selectedTypeList: {
+                  id: 0,
+                  value: "全部类型",
+              },
+              //人员类型排行
+              humanTypeRank:{
+                  credentialsNum: "",
+                  num: 0,
+                  controlTypeId: 0,
+                  humanName: ""
+              },
+              //人员摄相机排行
+              humanCaremaRank:{
+                  num: 0,
+                  name: "",
+                  typeName: "",
+                  indexCode: "",
+                  endAt: "",
+                  startAt: ""
+              }
+
+          },
+          methods: {
+
+
+          },
+          mounted () {
+              var that = this;
+              that.$nextTick(function(){
+                  var mySwiper3 = new Swiper('.humman-swiper .swiper-container', {
+                      direction:"horizontal",
+                      slidesPerView: 3,
+                      spaceBetween: 1,
+                      slidesPerGroup: 3,
+                      loopFillGroupWithBlank: true,
+                      pagination: '.humman-swiper .swiper-pagination',
+                      clickable: true,
+                  });
+              })
+          },
+      });
+
+      //车辆
+      var pv =new Vue({
+          el:"#panel-vehicle",
+          data: {
+              //类型统计
+              typeCountVehicle: [
+                  {
+                      typeName: "总数",
+                      count:0,
+                  }
+              ],
+              //总数类型
+              dangerTypeTotal: 0,
+              //被选择的类型对象
+              selectedType: {
+                  id: 0,
+                  value: "全部类型",
+              },
+              //被选择的类型对象2
+              selectedTypeList: {
+                  id: 0,
+                  value: "全部类型",
+              },
+              //车辆类型排行
+              vehicleTypeRank:{
+                  num:0,
+                  carNum:"",
+                  controlTypeId:0
+              },
+              //车辆摄相机排行
+              vehicleCaremaRank:{
+                  num:0,
+                  crossing_id:0,
+                  endAt:"",
+                  cameraName:"",
+                  startAt:""
+              }
+
+          },
+          methods: {
+        
+          },
+          mounted () {
+              var that = this;
+              that.$nextTick(function(){
+                  var mySwiper3 = new Swiper('.vehicle-swiper .swiper-container', {
+                      direction:"horizontal",
+                      slidesPerView: 3,
+                      spaceBetween: 1,
+                      slidesPerGroup: 3,
+                      loopFillGroupWithBlank: true,
+                      pagination: '.vehicle-swiper .swiper-pagination',
+                      clickable: true,
+                  });
+              })
+          },
+      });
+
+
+      //人员类型选择
+      var mobileSelectHuman = new MobileSelect({
+          trigger: '#trigger',
+          title: '选择类型',
+          ensureBtnText: '确认',
+          wheels: [
+              {
+                  data: [
+                      {
+                          id:0,
+                          value:'全部类型'
+                      }
+                  ]
+              }
+          ],
+          connector: '-',
+          position: [0, 1], //初始化定位
+          transitionEnd:function(indexArr, data){
+
+          },
+          callback:function(indexArr, data){
+              console.log("确认?",data);
+              //ph.selectedTypeHandle(data);
+              ph.selectedType = data[0];
+              if(data[0].id == 0){
+                  //人员类型排行版
+                  humanTypeStatisticalRank(null);
+                  //人员相机排行版
+                  humanCaremaStatisticalRank(null)
+              }else{
+                  //人员类型排行版
+                  humanTypeStatisticalRank(data[0].id);
+                  //人员相机排行版
+                  humanCaremaStatisticalRank(data[0].id)
+              }
+
+
+          }
+      });
+
+      //车辆类型选择
+      var mobileSelectVehicle = new MobileSelect({
+          trigger: '#triggerVehicle',
+          title: '选择类型',
+          ensureBtnText: '确认',
+          wheels: [
+              {
+                  data: [
+                      {
+                          id:0,
+                          value:'全部类型'
+                      }
+                  ]
+              }
+          ],
+          connector: '-',
+          position: [0, 1], //初始化定位
+          transitionEnd:function(indexArr, data){
+
+          },
+          callback:function(indexArr, data){
+              console.log("车辆确认?",data);
+              //ph.selectedTypeHandle(data);
+              pv.selectedType = data[0];
+              if(data[0].id == 0){
+                  //车辆类型排行版
+                  vehicleTypeStatisticalRank(null);
+                  //车辆相机排行版
+                  vehicleCaremaStatisticalRank(null)
+              }else{
+                  //车辆类型排行版
+                  vehicleTypeStatisticalRank(data[0].id);
+                  //车辆相机排行版
+                  vehicleCaremaStatisticalRank(data[0].id)
+              }
+
+
+          }
+      });
+
+  </script>
+  <script>
+      
+
+//小区
+var pc =new Vue({
+    el:"#panel-community",
+    data: {
+        //类型统计
+        // typeCount:{
+        //     security: 0,
+        //     other:0,
+        //     manager:0,
+        //     fire:0,
+        //     trafficSafety:0,
+        //     commnunityTotal: 0,
+        // },
+        typeCount: [],
+        areaTotalCount: 0,
+        areaDeCount: 0,
+        areaUnDeCount: 0,
+        //列表
+        platformCountList:{
+            num: 0,
+            platformId: 0,
+            platformName: "无数据"
+        }
+
+
+    },
+    mounted () {
+        var that = this;
+        that.$nextTick(function(){
+            var mySwiper4 = new Swiper('.area-swiper .swiper-container', {
+                direction:"horizontal",
+                slidesPerView: 3,
+                spaceBetween: 1,
+                slidesPerGroup: 3,
+                loopFillGroupWithBlank: true,
+                pagination: '.area-swiper .swiper-pagination',
+                clickable: true,
+            });
+        })
+    },
+});
+
+
+//学校
+var ps =new Vue({
+    el:"#panel-school",
+    data: {
+        //类型统计
+        // typeCount:{
+        //     public: 0,
+        //     traffic:0,
+        //     food:0,
+        //     manager:0,
+        //     other:0,
+        //     schoolTotal: 0,
+        // },
+        typeCount: [],
+        schoolTotalCount: 0,
+        schoolDeCount: 0,
+        schoolUnCount: 0,
+        //列表
+        platformCountList:{
+            num: 0,
+            platformId: 0,
+            platformName: "无数据"
+        }
+    },
+    mounted () {
+        var that = this;
+        that.$nextTick(function(){
+            var mySwiper5 = new Swiper('.school-swiper .swiper-container', {
+                direction:"horizontal",
+                slidesPerView: 3,
+                spaceBetween: 1,
+                slidesPerGroup: 3,
+                loopFillGroupWithBlank: true,
+                pagination: '.school-swiper .swiper-pagination',
+                clickable: true,
+            });
+        })
+    },
+});
+
+//面板切换
+// var mySwiper2 = new Swiper('.swiper-container', {
+//     slidesPerView: 3,
+//     spaceBetween: 1,
+//     slidesPerGroup: 3,
+//     loopFillGroupWithBlank: true,
+//     pagination: '.swiper-pagination',
+//     clickable: true,
+//
+// });
+
+
+
+  </script>
+ 
+
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

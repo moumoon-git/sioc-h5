@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <title>首页</title>
+  <style>
+    html,
+    body {
+    }
+
+    .head_image {
+      background-image: url('./assets/images/indexHeaderImg.png');
+      background-size: 100% 100%;
+      height: 24vh;
+      width: 100%;
+    }
+    
+  </style>
+</head>
+
+<body>
+<div class="head">
+  <div class="head_image"></div>
+</div>
+<div class="content" style="margin-top: -3vh;">
+  <div onclick="skipUrl('./enterpriseResumption/applyResumption.html')" style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);">
+    <img src="./assets/images/indexContent1.png" style="width: 18vw;height: 18vw;margin-left: 6vw;">
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)">企业复工证</div>
+      <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">开工期间申请企业复工证</div>
+    </div>
+  </div>
+  <div onclick="skipUrl('./visitorPass/applyVisitorPass.html')" style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);">
+    <img src="./assets/images/indexContent2.png" style="width: 18vw;height: 18vw;margin-left: 6vw;">
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)">访客通行证</div>
+      <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">请如实登记个人信息进行核验</div>
+    </div>
+  </div>
+  <div onclick="skipUrl('./electronicPass/applyPass.html')" style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);">
+    <img src="./assets/images/electronicPass.png" style="width: 18vw;height: 18vw;margin-left: 6vw;">
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)">电子通行证</div>
+      <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">扫码核实身份出入</div>
+    </div>
+  </div>
+  <div onclick="skipUrl('./epidemicSituation/propertyReport.html')" style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);">
+    <img src="./assets/images/indexContent3.png" style="width: 18vw;height: 18vw;margin-left: 6vw;">
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)">举报投诉</div>
+      <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">举报疫情线索、投诉防控不力</div>
+    </div>
+  </div>
+  <div onclick="skipUrl('./epidemicSituation/safeEducation.html')" style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);">
+    <img src="./assets/images/indexContent4.png" style="width: 18vw;height: 18vw;margin-left: 6vw;">
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)">防控知识</div>
+      <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">学习防控知识，有效保护自己</div>
+    </div>
+  </div>
+</div>
+<script src="http://cdn.dcloud.net.cn/gostream.min.js?Appid=HelloMUI"></script>
+<script>
+  function skipUrl(url) {
+    let toUrl = url + '?openId=' + getQueryString('openId')
+    console.log(toUrl);
+    window.open(toUrl);
+  }
+  // 获取地址栏参数
+  //适应以下两种模式，来获取url参数值：
+  //User/vip_card_manager/useless/219/id/18
+  //User/vip_card_manager?useless=219&id=18
+
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    var q = window.location.pathname.substr(1).match(reg_rewrite);
+    if (r != null) {
+      return unescape(r[2]);
+    } else if (q != null) {
+      return unescape(q[2]);
+    } else {
+      return null;
+    }
+  }
+</script>
+</body>
+
+</html>

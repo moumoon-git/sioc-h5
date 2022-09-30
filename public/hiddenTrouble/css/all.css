@@ -1,0 +1,120 @@
+@charset "UTF-8";
+/*
+  本文件为demo页面所用的样式表,与插件主体无关,应用插件时无需引入此样式,但可参考此样式表进行设置
+  kiner-tang
+  2016/09/22
+*/
+/*  网站主色  */
+html {
+  height: 100%;
+  background-color: #f3f3f3;
+  padding: 0;
+
+}
+  html body {
+    padding: 0;
+    margin: 0;
+    height: 100%; }
+    html body .container {
+      /*height: 220%*/
+    }
+      html body .container header {
+        text-align: center;
+        background-color: #0091FF;
+        color: #ffffff;
+        padding: 0.8rem 0;
+        margin: 0; }
+        html body .container header h1 {
+          font-size: 2rem;
+          padding: 0;
+          margin: 0;
+          text-shadow: -1px -1px 3px #000,1px 1px 3px #FFF;
+          font-family: cursive; }
+        html body .container header .subTitle {
+          font-size: .8rem;
+          color: #ffffff;
+          line-height: 1.5; }
+      html body .container .box {
+        height: 80%; }
+        html body .container .box .kinerItem .eventPanel {
+          width: 80%;
+          min-height: 4rem;
+          padding: 0.8rem;
+          color: #666666;
+          background-color: #ffffff;
+          border-radius: 5px;
+          line-height: 1.5;
+          margin: 2rem auto; }
+        html body .container .box .kinerItem .desc {
+          font-size: 1.5rem;
+          color: #333333;
+          margin-top: 2rem;
+          text-align: center;
+          font-weight: bolder;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none; }
+        html body .container .box .kinerItem .btn {
+          width: 90%;
+          height: 3.8rem;
+          color: #4790FF;
+          margin: 1rem auto;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+          html body .container .box .kinerItem .btn.blue {
+            background-color: #4790FF;
+            color: #ffffff; }
+          html body .container .box .kinerItem .btn.gray {
+            color: #3588FF;
+            border: 1px solid #333333; }
+          /*html body .container .box .kinerItem .btn:active {
+            opacity: .72; }*/
+
+/*  网站主色  */
+.kinerNav {
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  background-color: #ffffff;
+  display: table;
+  padding: 0;
+  margin: 0;
+  position: relative; }
+  .kinerNav .realBorder {
+    display: block;
+    width: 0;
+    height: .2rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #0091FF; }
+  .kinerNav > li {
+    display: table-cell;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: bolder;
+    -webkit-transition: color 300ms;
+    -moz-transition: color 300ms;
+    -ms-transition: color 300ms;
+    -o-transition: color 300ms;
+    transition: color 300ms;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; }
+    .kinerNav > li.active {
+      color: #0091FF; 
+      border-bottom: 3px solid #0091FF;
+    }
+
+.kinerContent {
+  display: block;
+  height: 100%;
+}
+

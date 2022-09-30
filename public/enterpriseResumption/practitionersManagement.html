@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../assets/css/rest.css">
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <title>从业人员管理</title>
+  <style>
+    html,
+    body {
+    }
+    html{
+      width: 100%;
+      height: -webkit-fill-available;height: -moz-fill-available;height: -ms-fill-available;
+      background: rgba(245,245,245,1);
+    }
+    .layui-laypage .layui-laypage-curr .layui-laypage-em{
+      background: linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="content" style="width: 100%;overflow: auto;height: -webkit-fill-available;height: -moz-fill-available;height: -ms-fill-available;padding-bottom: 12vh;">
+    
+<!-- 
+    <div  style="width: 89vw;padding: 1vh 0px;margin: 4vh auto;position: relative;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">         
+        <div style="margin: 1vh auto;">
+            <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">张三</span>
+        </div>
+        <div style="margin: 1vh auto;">
+            <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">男</span>
+        </div>
+        <div style="margin: 1vh auto;">
+            <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">男</span>
+        </div>
+        <div style="margin: 1vh auto;">
+            <span style="margin-left: 8vw;">身份证号码：</span><span style="color: rgba(51,51,51,1);">男</span>
+        </div>
+        <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+    </div>  -->
+    
+  </div>
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: SERSVER_BASE_URL + `/buss/bussRegisterEmployee/listByBussId?bussId=${localStorage.getItem('bussId')}`,
+      headers:{
+      },
+      contentType:'application/json',
+      data: {
+        
+      },
+      dataType: "json",
+      success: function (data) {
+      console.log("/buss/bussRegisterEmployee/listByBussId",data)
+      var epiRegisterList=[]
+      data.data.forEach(element => {
+          epiRegisterList.push(`
+            <div class='${element.id}'  style="width: 89vw;padding: 1vh 0px;margin: 4vh auto;position: relative;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">         
+                <div style="margin: 1vh auto;">
+                    <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">${element.name}</span>
+                </div>
+                <div style="margin: 1vh auto;">
+                    <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">${element.nativePlace}</span>
+                </div>
+                <div style="margin: 1vh auto;">
+                    <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">${element.phone}</span>
+                </div>
+                <div style="margin: 1vh auto;">
+                    <span style="margin-left: 8vw;">身份证/护照：</span><span style="color: rgba(51,51,51,1);">${element.credentialsNum}</span>
+                </div>
+                <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+            </div> 
+          `)
+          
+      });
+      setTimeout(()=>{
+          $('.content').html('')
+        
+          if(data.data.length==0){
+            $('.content').append("<div style='margin-top: 20vh;text-align: center;font-weight: bold;'><div><img src='../assets/images/noDatas.png' style='width:27vw;height:27vw;'></div><div><span style='font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);'>暂无从业人员</span></div></div>")
+          }else{
+            $('.content').append(epiRegisterList.join(''))
+            data.data.forEach(element=>{
+                $(`.${element.id}`).click(()=>{
+                    localStorage.setItem("practitionersId",element.id)
+                    location.href='./updatePractitioners.html'
+                })
+            })
+           
+          }
+
+          $('.content').append(`<div class='activeOptions' style='width: 100%;text-align: center;background:rgba(255,255,255,1);padding:2vh 0px;position: fixed;bottom: 0%;'>
+            <span style="display:inline-block;width:85vw;height:7vh;line-height:7vh;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0px 0.2vw 2vh 0px rgba(12,126,161,0.35);border-radius:10vw;font-size:20px;font-family:Helvetica;color:rgba(255,255,255,1);">新增从业人员</span>
+          </div>`)
+          $('.content').append(`
+          <div class='selectOptions' style='display:none;width: 100%;text-align: center;background:rgba(255,255,255,1);border-radius:2.7vw 2.7vw 0.27vw 0.27vw;position: fixed;bottom: 0%;font-size:15px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);'>
+            <div class='addRecords' style="width:100%;height:7.2vh;line-height:7.2vh;border-bottom:1px solid rgba(221,221,221,1);">手动添加</div>
+            <div class='qrCodeapply' style="width:100%;height:7.2vh;line-height:7.2vh;border-bottom:1px solid rgba(221,221,221,1);">通行证二维码申请</div>
+            <div class='cancel' style="width:100%;height:7.2vh;line-height:7.2vh;">取消</div>
+          </div>
+          `)
+          $('.activeOptions').click(()=>{
+            $('.selectOptions')[0].style.display='block'
+          })
+          $(`.addRecords`).click(()=>{
+            location.href=`./applyPractitioners.html?bussId=${localStorage.getItem('bussId')}&isQrCodeApply=false`
+            $('.selectOptions')[0].style.display='none'
+          })   
+          $(`.qrCodeapply`).click(()=>{
+            location.href=`./qrCodeapply.html?bussId=${localStorage.getItem('bussId')}`
+            $('.selectOptions')[0].style.display='none'
+          }) 
+          $(`.cancel`).click(()=>{
+            $('.selectOptions')[0].style.display='none'
+          }) 
+          
+          
+      },500)
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+  });
+  
+    
+     
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

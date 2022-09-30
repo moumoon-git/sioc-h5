@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>获取通行证</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-form-item {
+        margin-bottom: initial;
+        padding: 15px 0px 0px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-select,.jibenxinxi .layui-textarea {
+        border-width: 0px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.layui-textarea{
+        margin:10px auto 0px;
+    }
+    .dengjixinxi .layui-form-checkbox span{
+        font-size:12px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(153,153,153,1);
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        font-size: 16px;
+        font-family: PingFangSC-Regular,PingFang SC;
+        font-weight: 400;
+        color:rgba(51,51,51,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    input::-webkit-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-moz-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-ms-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+  </style>
+</head>
+
+<body style="background:rgba(255,255,255,1);">
+    <form class="layui-form jibenxinxi" lay-filter="jibenxinxi" style="">
+        
+        <!-- <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="imName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+            </div>
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:15px auto 0px;"></div>  
+        </div>        -->
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>身份证号码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="credentialsNum" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+            </div>
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:15px auto 0px;"></div> 
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>手机号码：</label>
+            <div class="layui-input-block" style="position: relative;">
+                <input type="text" name="phone" placeholder="请输入手机号码" autocomplete="off" class="layui-input" style="width: 45vw;">               
+            </div>
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:15px auto 0px;"></div>  
+        </div>
+        <div class="layui-form-item" style="padding-bottom: 15px;">
+            <label class="layui-form-label"><span style="color: red;">*</span>验证码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="code"  placeholder="请输入验证码" autocomplete="off" class="layui-input">
+                <span class="getCode" style="position: absolute;right: 5vw;top: 50%;transform: translateY(-50%);color:rgba(204,204,204,1);font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">获取验证码</span>
+            </div>
+        </div>
+    </form>
+
+    <div style="width: 100%;height: 13vh;line-height: 14vh;text-align: center;">
+        <span class="submit" style="width: 85vw;height: 6.7vh;line-height: 6.7vh;text-align: center;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);border-radius: 10vw;font-size: 20px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(255,255,255,1);display: inline-block;">提交</span>
+    </div>
+    <img src="../assets/images/getPassBackground.png" style="width: 100%;height: 36.3vh;position: fixed;bottom: 0%;">
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function toast(src,text){
+        $(document).dialog({
+            type : 'toast',
+            infoIcon: src,
+            infoText: text,
+            autoClose: 2000
+        });
+    }
+    // 防抖
+    function debounce(fn, wait) {    
+        var timeout = null;    
+        return function() {        
+            if(timeout !== null)   clearTimeout(timeout);        
+            timeout = setTimeout(fn, wait);    
+        }
+    }
+    function identityCodeValid(id) {
+        var format=/^[0-9a-zA-Z]*$/g
+        if(id&&!format.test(id)){
+            toast('../assets/images/fail.png',msg)
+            return 'fail'
+        }
+    }
+    function identityCodeValid1(id) {
+    // 1 "验证通过!", 0 //校验不通过
+        var format = /^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\d{4}(([1][9]\d{2})|([2]\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\d{3}[0-9xX]$/;
+        //号码规则校验
+        if(!format.test(id)){
+            toast('../assets/images/fail.png','请输入正确的身份证号码')
+            return 'fail'
+        }
+        //区位码校验
+        //出生年月日校验   前正则限制起始年份为1900;
+        var year = id.substr(6,4),//身份证年
+            month = id.substr(10,2),//身份证月
+            date = id.substr(12,2),//身份证日
+            time = Date.parse(month+'-'+date+'-'+year),//身份证日期时间戳date
+            now_time = Date.parse(new Date()),//当前时间戳
+            dates = (new Date(year,month,0)).getDate();//身份证当月天数
+        if(time>now_time||date>dates){
+            toast('../assets/images/fail.png','请输入正确的身份证号码')
+            return 'fail'
+        }
+        //校验码判断
+        var c = new Array(7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2);   //系数
+        var b = new Array('1','0','X','9','8','7','6','5','4','3','2');  //校验码对照表
+        var id_array = id.split("");
+        var sum = 0;
+        for(var k=0;k<17;k++){
+            sum+=parseInt(id_array[k])*parseInt(c[k]);
+        }
+        if(id_array[17].toUpperCase() != b[sum%11].toUpperCase()){
+            toast('../assets/images/fail.png','请输入正确的身份证号码')
+            return 'fail'
+        }
+        return 'success'
+    }
+    var second=60
+    $(`.getCode`).click(debounce(()=>{
+            
+        if( !$("input[name='phone']").val() ){
+            toast('../assets/images/fail.png','请填写手机号码')
+            return false;
+        }
+        if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+            toast('../assets/images/fail.png','请输入正确的手机号码')
+            return false;
+        }
+        if(second!=60){
+            return false; 
+        }
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: SERSVER_BASE_URL + `/perpass/perpassRegister/getPhoneCode?phone=${$("input[name='phone']").val()}&credentialsNum=${$("input[name='credentialsNum']").val()}`,
+            headers:{
+            },
+            contentType:'application/json',
+            data: {
+                
+            },
+            dataType: "json",
+            success: function (data) {
+            console.log('/perpass/perpassRegister/getPhoneCode',data)
+            if(data.code==0){
+                if(second==60){
+                    $('.getCode')[0].style.color='rgba(0,145,255,1)'
+                    var setTime=setInterval(()=>{
+                        second--
+                        $('.getCode').html(second+'s')
+                        if(second==1){
+                            clearInterval(setTime)
+                            second=60
+                            $('.getCode').html('获取验证码')
+                            $('.getCode')[0].style.color='color:rgba(204,204,204,1)'
+                        }
+                    },1000)
+                }
+            }else{
+                alert(data.msg)
+            }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+            }
+        });
+    },1000))
+    
+
+    var form,getPassObject={
+        'phone':'',
+        'credentialsNum':''
+    }
+    $("input[name='imName']").blur((e)=>{
+        // if( !$("input[name='imName']").val() ){
+        //     if(e.relatedTarget){
+        //         toast('../assets/images/fail.png','请填写姓名')
+        //     }
+        // }
+    })
+    $("input[name='phone']").blur((e)=>{
+        if(e.relatedTarget){
+            // if( !$("input[name='phone']").val() ){
+            //     toast('../assets/images/fail.png','请填写手机号码') 
+            //     return;
+            // }
+            if( $("input[name='phone']").val()&&!(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+                toast('../assets/images/fail.png','请输入正确的手机号码') 
+            }
+            getPassObject.phone=$("input[name='phone']").val()
+            localStorage.setItem('getPassObject',JSON.stringify(getPassObject))
+        }
+    })
+    $("input[name='credentialsNum']").blur((e)=>{
+        if(e.relatedTarget){
+            // if( !$("input[name='credentialsNum']").val() ){
+            //     toast('../assets/images/fail.png','请填写身份证号码') 
+            //     return;
+            // }
+            if( $("input[name='credentialsNum']").val()&&identityCodeValid( $("input[name='credentialsNum']").val(),'请输入正确的身份证号码' )=='fail' ){
+            }
+            getPassObject.credentialsNum=$("input[name='credentialsNum']").val()
+            localStorage.setItem('getPassObject',JSON.stringify(getPassObject))
+        }                      
+    })
+
+    if(JSON.parse(localStorage.getItem('getPassObject'))){
+        var getPassObject=JSON.parse(localStorage.getItem('getPassObject'))
+       
+        console.log('getPassObject',getPassObject)
+        $("input[name='credentialsNum']").val( getPassObject.credentialsNum )
+        $("input[name='phone']").val( getPassObject.phone )
+        if( (/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+            $('.getCode')[0].style.color='rgba(0,145,255,1)'
+        }else{
+            $('.getCode')[0].style.color='rgba(204,204,204,1)'
+        }
+        
+    }else{
+        var getPassObject={
+            "phone": '',
+            "credentialsNum": ''
+        }
+    }
+
+    $("input[name='phone']")[0].oninput=function(e){
+        console.log('eeeee',e)
+        if( (/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+            $('.getCode')[0].style.color='rgba(0,145,255,1)'
+        }else{
+            $('.getCode')[0].style.color='rgba(204,204,204,1)'
+        }
+    }
+
+    $(`.submit`).click(()=>{
+        // if( !$("input[name='imName']").val() ){
+        //     toast('../assets/images/fail.png','请填写姓名')
+        //     return false;
+        // }
+        if( !$("input[name='phone']").val() ){
+            toast('../assets/images/fail.png','请填写手机号码')
+            return false;
+        }
+        if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+            toast('../assets/images/fail.png','请输入正确的手机号码')
+            return false;
+        } 
+        if( !$("input[name='credentialsNum']").val() ){
+            toast('../assets/images/fail.png','请填写身份证号码')
+            return false;
+        }
+        if( identityCodeValid( $("input[name='credentialsNum']").val() )=='fail' ){
+            console.log('false')
+            return false;
+        }
+
+        if( !$("input[name='code']").val() ){
+            toast('../assets/images/fail.png','请填写验证码')
+            return false;
+        }
+
+        setTimeout(()=>{
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: SERSVER_BASE_URL + "/perpass/perpassRegister/reGetPassRegisterInfor",
+                headers:{
+                },
+                // contentType:'application/x-www-form-urlencoded',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "imName": $("input[name='imName']").val(),
+                    "phone": $("input[name='phone']").val(),
+                    "credentialsNum": $("input[name='credentialsNum']").val(),
+                    "code":$("input[name='code']").val(),
+            
+                }),
+                dataType: "json",
+                success: function (data) {
+                    console.log('/perpass/perpassRegister/reGetPassRegisterInfor',data) 
+                    if(data.code==0){
+                        if(data.data.length==1){
+                            localStorage.setItem('passToken',data.token)
+                            localStorage.setItem('codeNum',data.data[0].codeNum)
+                            location.href=`./myVisitorPass.html?codeNum=${data.data.codeNum}`
+                        }else{
+                            localStorage.setItem('passToken',data.token)
+                            localStorage.setItem('passManagement',JSON.stringify(data.data))
+                            location.href=`./visitorPassManagement.html`
+                        }
+                    }else{
+                        alert(data.msg)
+                    }
+                        
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("err:::" + errorThrown);
+                }
+            })
+        },1000)
+        toast('../assets/images/loading.gif',`获取中`)
+    })
+    
+    
+   
+
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

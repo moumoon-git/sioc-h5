@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <script src="./constant.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <title></title>
+  <style>
+
+  </style>
+</head>
+
+<body>
+    <div style="height: 40px;line-height: 40px;">
+        <span onclick="history.go(-1)" style="margin-left: 10px;">返回</span>
+    </div>
+
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>历史记录</legend>
+    </fieldset>
+    <div class="layui-timeline" id="historyRecord">
+
+    </div>
+
+  <script src="./assets/js/layui/layui.js"></script>
+  <script>
+
+    console.log('historyObj',JSON.parse(localStorage.getItem('historyObj')))
+    var data=JSON.parse(localStorage.getItem('historyObj'))
+
+    var historyRecord = '<ul class="layui-timeline">\n';
+    if (data.list.length > 0) {
+        var imgUrlList=[]
+    for (var i = 0; i < data.list.length; i++) {
+
+        var strcontent = '';
+
+        var eventCreateTime = data.list[i].gmtCreate;
+
+        var eventRecord = data.list[i].title;
+        var eventContactorName = data.list[i].mailContactorName;
+        var eventContactorMobile = data.list[i].mailContactorMobile;
+        var eventMailGroupName = data.list[i].mailGroupName;
+        var eventContactorAddress = data.list[i].mailContactorAddress;
+        var eventContent = data.list[i].content;
+
+        var eventStatus = data.list[i].eventStatusAfter;
+        var status = setEventStatus(eventStatus);
+
+        var townName = data.list[i].townName;
+        var periodName = data.list[i].periodName;
+        var platformName = data.list[i].platformName;
+
+        historyRecord += '<li class="layui-timeline-item">\n' +
+        '    <i class="layui-icon layui-timeline-axis"></i>\n' +
+        '    <div class="layui-timeline-content layui-text">\n';
+
+        strcontent += '<h3 class="layui-timeline-title">' + eventCreateTime + '</h3>\n';
+        strcontent += '<p>状态：' + status + '\n';
+
+        if (eventRecord != null && eventRecord != "") {
+        strcontent += '<br>记录：' + eventRecord + '\n';
+        }
+
+        if (eventContactorName != null && eventContactorName != "") {
+        strcontent += '<br>人员：' + eventContactorName + '\n';
+        }
+        // if (eventContactorMobile != null && eventContactorMobile != "") {
+        //   strcontent += '<br>电话：' + eventContactorMobile + '\n';
+        // }
+        // if (eventMailGroupName != null && eventMailGroupName != "") {
+        //   strcontent += '<br>部门：' + eventMailGroupName + '\n';
+        // }
+        if (eventContactorAddress != null && eventContactorAddress != "") {
+        strcontent += '<br>地址：' + eventContactorAddress + '\n';
+        }
+        if (eventContent != null && eventContent != "") {
+        strcontent += '<br>内容：' + eventContent + '\n';
+        }
+
+        var areaName = '';
+
+        if (townName != null && townName != "") {
+        areaName = areaName + townName;
+        }
+        if (periodName != null && periodName != "") {
+        areaName = areaName + periodName;
+        }
+        if (platformName != null && platformName != "") {
+        areaName = areaName + platformName;
+        }
+
+        if(areaName !=null && areaName != "" && eventStatus ===1){
+        strcontent += '<br>区域：' + areaName + '\n';
+        }
+
+        strcontent += '</p>\n';
+
+
+        //判断图片
+        if (data.list[i].imageUrl != null && data.list[i].imageUrl != "") {
+
+        //单个图片
+        var url = data.list[i].imageUrl;
+        var newUrl;
+        if (url.indexOf("http") > -1) {
+            //是外网推过来的链接
+            newUrl = url;
+        } else {
+            newUrl = SERSVER_BASE_URL + "/wx/images/" + data.list[i].imageUrl;
+        }
+        imgUrlList.push(newUrl)
+        strcontent += '<img  id="imginfo" src=' + newUrl + ' style="width: 100px;height: 100px"/>';
+
+        setTimeout(()=>{
+            layui.use('upload', function(){
+                document.querySelectorAll("#imginfo").forEach((item,index)=>{
+                    item.onclick=function(){
+
+                        $('#imgDialog').append(`
+                            <img src="${imgUrlList[index]}"  style="width: 80vw;display: block;margin: auto auto;">
+                        `)
+                        layer.open({
+                            type: 1,
+                            content: $('#imgDialog'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                            cancel: function(){
+
+                            $('#imgDialog').html('')
+                            }
+                        });
+                    }
+                })
+            })
+
+        })
+
+
+        }
+        if (data.list[i].imageArr != null) {
+        //多个图片
+
+        for (var j = 0; j < data.list[i].imageArr.length; j++) {
+
+            var url = data.list[i].imageArr[j];
+            var newUrl;
+            if (url.indexOf("http") > -1) {
+            //是外网推过来的链接
+            newUrl = url;
+            } else {
+            newUrl = SERSVER_BASE_URL + "/wx/images/" + data.list[i].imageArr[j];
+            }
+            strcontent += '<img id="imginfo" src=' + newUrl + ' style="width: 100px;height: 100px"/>';
+            imgUrlList.push(newUrl)
+        }
+
+            setTimeout(()=>{
+                layui.use('upload', function(){
+                    document.querySelectorAll("#imginfo").forEach((item,index)=>{
+                        item.onclick=function(){
+
+                            $('#imgDialog').append(`
+                                <img src="${imgUrlList[index]}"  style="width: 80vw;display: block;margin: auto auto;">
+                            `)
+                            layer.open({
+                                type: 1,
+                                content: $('#imgDialog'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                                cancel: function(){
+
+                                $('#imgDialog').html('')
+                                }
+                            });
+                        }
+                    })
+                })
+
+            })
+
+        }
+
+
+
+        //判断音频
+        if (data.list[i].audioUrl != null && data.list[i].audioUrl != "") {
+        //单个音频
+        var url = SERSVER_BASE_URL + "/wx/videos/" + data.list[i].audioUrl;
+
+        strcontent += '<audio controls="controls"><source src="' + url + '" type="audio/mpeg" /></audio>';
+        }
+
+        //判断视频
+        /*  if(data.list[i].videoUrl != null){
+            //单个视频
+            strcontent += '<video src='+SERSVER_BASE_URL+"/"+data.list[i].videoUrl+' width="320" height="240" controls="controls"></video>';
+
+        }
+        if(data.list[i].videoUrlArr != null){
+            //多个视频
+            for(var m=0; m<data.list[i].videoUrlArr.length; m++){
+            strcontent += '<video src='+SERSVER_BASE_URL+"/"+data.list[i].videoUrl[m]+' width="320" height="240" controls="controls"></video>';
+            }
+        }*/
+
+        historyRecord += strcontent;
+        historyRecord += '</div></li>';
+    }
+    } else {
+    historyRecord += ' <li class="layui-timeline-item">\n' +
+        '    <i class="layui-icon layui-timeline-axis"></i>\n' +
+        '    <div class="layui-timeline-content layui-text">\n' +
+        '      <h3 class="layui-timeline-title">暂无历史信息!!!</h3>\n' +
+        '      <p>\n' +
+        '        暂无历史信息!!!\n' +
+        '        <br>暂无历史信息!!!\n' +
+        '      </p>\n' +
+        '    </div>\n' +
+        '  </li>';
+    }
+
+    historyRecord += '</ul>';
+    //拼接工单时间轴
+    $("#historyRecord").append(historyRecord)
+
+    //设置状态
+    function setEventStatus(eventStatus) {
+    var status;
+    switch (eventStatus) {
+        case 1:
+        status = "待核实";
+        break;
+        case 2:
+        status = "核实中";
+        break;
+        case 3:
+        status = "待处理";
+        break;
+        case 4:
+        status = "处理中";
+        break;
+        case 5:
+        status = "已处理";
+        break;
+        case 6:
+        status = "超出范围";
+        break;
+        default:
+        status = "其他";
+
+    }
+
+    return status;
+
+    }
+
+    $(function() {
+      //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function() {
+        var element = layui.element;
+
+      });
+
+    })
+  </script>
+</body>
+<div id="imgDialog" style="" >
+    <!-- <img src="http://chrchr.natapp1.cc/wx/images/manually/201909271437/c89a9ea2-2874-4fa3-a269-8da28e3143bc.jpg"  style="width: 80vw;display: block;margin: auto auto;"> -->
+</div>
+<script src= "./waterMark.js" ></script>
+</html>

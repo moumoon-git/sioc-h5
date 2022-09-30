@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>编辑通行证</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-form-item {
+        margin-bottom: initial;
+        padding: 15px 0px 0px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-select,.jibenxinxi .layui-textarea {
+        border-width: 0px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.layui-textarea{
+        margin:10px auto 0px;
+    }
+    .dengjixinxi .layui-form-checkbox span{
+        font-size:12px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(153,153,153,1);
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        font-size: 16px;
+        font-family: PingFangSC-Regular,PingFang SC;
+        font-weight: 400;
+        color:rgba(51,51,51,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    
+    input::-webkit-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-moz-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-ms-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      .mixedAnswer .layui-form-radio{
+        /* display: inline-block; */
+        display: flex;
+    }
+    .layui-form-radio{
+        display: block;
+    }
+    .layui-form-checkbox {
+        display: block;
+    }
+    .layui-form-checkbox[lay-skin=primary]{
+        min-width: initial;
+    }
+    .layui-form-radio div{
+        white-space: nowrap;
+    }
+    .layui-form-checkbox span{
+        white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);">
+    <div style="width: 100%;height: 8.4vh;display: flex;box-sizing: border-box;padding: 1.5vh 5vw;align-items: center;background: rgba(233,244,255,1);font-size: 12px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(0,145,255,1);">
+        <p>首次通行携带身份证至任意卡口进行资料核实，请如实填写信息以免耽误你的行程。如果已申请，请点击<span class="getPass" style="color: #F85B47;text-decoration: underline;">获取通行证</span></p>
+    </div>
+    <form class="layui-form jibenxinxi" lay-filter="jibenxinxi" style="background: rgba(255,255,255,1);">
+        <div style="width: 100%;height: 6.3vh;line-height: 6.3vh;font-size:12px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(153,153,153,1);background:rgba(245,245,245,1);">
+            <span style="margin-left: 5vw;">基本信息</span>
+        </div>
+        <div class="layui-upload layui-form-item" style="margin-top: 4px;">
+            <label class="layui-form-label"><span style="color: red;">*</span>上传照片</label>
+            <div class="layui-input-block">
+                <img src="../assets/images/uploadImgButton.png" style="width: 25vw;height: 25vw;" id="uploadButton">
+                <div class="layui-upload-list" style="margin:initial;">
+                    <img class="layui-upload-img" id="demo1" style="width: 200px;">
+                    <p id="demoText"></p>
+                </div>
+            </div>  
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:0px auto 0px;"></div>     
+        </div>  
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="imName" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+            </div>
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:15px auto 0px;"></div>  
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>性别：</label>
+            <div class="layui-input-block" >
+                <input type="radio" name="sex"  value="1" title="男" lay-filter="sex">
+                <input type="radio" name="sex" value="2" title="女" lay-filter="sex">
+            </div>
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:15px auto 0px;"></div>
+        </div>
+        <div class="layui-form-item selectOptions" >
+            <label class="layui-form-label"><span style="color: red;">*</span>籍贯：</label>
+            <div class="layui-input-block">
+                <select name="nativePlace" class="nativePlace" lay-filter="nativePlace">
+                </select>
+            </div>
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:15px auto 0px;"></div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>手机号码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
+            </div>
+            <div style="width:89vw;height:1px;background:rgba(221,221,221,1);margin:15px auto 0px;"></div>  
+        </div>
+        <div class="layui-form-item" style="padding-bottom: 15px;">
+            <label class="layui-form-label"><span style="color: red;">*</span>身份证号码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="credentialsNum" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!-- <div class="layui-form-item" style="padding-bottom: 15px;">
+            <label class="layui-form-label"><span style="color: red;">*</span>详细地址：</label>
+            <div class="layui-input-block">
+                <input type="text" name="detailedAddress"  placeholder="请输入详细地址" autocomplete="off" class="layui-input">
+            </div>
+        </div> -->
+    </form>
+
+    <form class="layui-form dengjixinxi" lay-filter="dengjixinxi" style="background: rgba(255,255,255,1);">
+        <div style="width: 100%;height: 6.3vh;line-height: 6.3vh;margin-bottom: 15px;font-size:12px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(153,153,153,1);background:rgba(245,245,245,1);">
+            <span style="margin-left: 5vw;">登记信息</span>
+        </div>
+        <!-- <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入，停留，经过）</div>
+                <div style="text-align: center;">
+                    <input type="radio" name="sex" value="男" title="是">
+                    <input type="radio" name="sex" value="女" title="否">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入，停留，经过）</div>
+                <div style="text-align: center;">
+                    <input type="radio" name="sex" value="男" title="是">
+                    <input type="radio" name="sex" value="女" title="否">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入，停留，经过）</div>
+                <div style="">
+                    <input type="checkbox" name="" title="写作" lay-skin="primary" >
+                    <input type="checkbox" name="" title="发呆" lay-skin="primary"> 
+                    <input type="checkbox" name="" title="禁用" lay-skin="primary" > 
+                    <input type="checkbox" name="" title="写作" lay-skin="primary" >
+                    <input type="checkbox" name="" title="发呆" lay-skin="primary"> 
+                    <input type="checkbox" name="" title="禁用" lay-skin="primary" >
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">企业单位名称</div>
+                <div>
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入企业单位名称" autocomplete="off" class="layui-input">  
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">企业单位名称</div>
+                <div>
+                    <textarea name="" required lay-verify="required" placeholder="请输入企业单位名称" class="layui-textarea"></textarea> 
+                </div>
+            </div>
+        </div> -->
+        
+    </form>
+
+    <!-- <form class="layui-form paichaqingkuang" lay-filter="paichaqingkuang" style="background: rgba(255,255,255,1);margin-bottom: 2vh;padding-bottom: 15px;padding-top: 15px;">
+        <div style="width: 100%;height: 7.5vh;line-height: 7.5vh;margin-bottom: 15px;font-size: 16px;font-family: PingFangSC-Medium,PingFang SC;font-weight: 500;color: rgba(51,51,51,1);border-bottom: 0.1vh solid rgba(221,221,221,1);">
+            <span style="margin-left: 5vw;">排查情况</span>
+        </div>
+        <div class="layui-form-item" style="">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;"></div>
+                <div style="box-sizing: border-box;padding: 0px 5vw;">
+                    <input type="checkbox" name="" title="我已阅读本申报所列事项，并保证以上申报内容正确属实" lay-skin="primary" > 
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;text-align: center;padding: 2vh 0px;">
+            <span style="width: 43vw;height:6vh;line-height: 6vh;display: inline-block;background:rgba(237,237,237,1);border-radius:1vw;font-size:17px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(0,145,255,1);" class="cancel">取消</span>
+            <span style="margin-left: 3.5vw;width: 43vw;height:6vh;line-height: 6vh;display: inline-block;background:rgba(0,145,255,1);border-radius:1vw;font-size:17px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(255,255,255,1);" class="submit">确认</span> 
+        </div>
+    </form> -->
+    <div style="width: 100%;height: 13vh;line-height: 14vh;text-align: center;">
+        <span class="submit" style="width: 85vw;height: 6.7vh;line-height: 6.7vh;text-align: center;background: rgba(216,216,216,1);border-radius: 10vw;font-size: 20px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(255,255,255,1);display: inline-block;">提交</span>
+    </div>
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <script src="../assets/js/imgUtils.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function identityCodeValid(id,msg) {
+        var format=/^[0-9a-zA-Z]*$/g
+        if(id&&!format.test(id)){
+            toast('../assets/images/fail.png',msg)
+            return 'fail'
+        }
+    }
+    function identityCodeValid1(id) {
+    // 1 "验证通过!", 0 //校验不通过
+        var format = /^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\d{4}(([1][9]\d{2})|([2]\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\d{3}[0-9xX]$/;
+        //号码规则校验
+        if(!format.test(id)){
+            toast('../assets/images/fail.png','请输入正确的身份证号码')
+           
+            return 'fail'
+        }
+        //区位码校验
+        //出生年月日校验   前正则限制起始年份为1900;
+        var year = id.substr(6,4),//身份证年
+            month = id.substr(10,2),//身份证月
+            date = id.substr(12,2),//身份证日
+            time = Date.parse(month+'-'+date+'-'+year),//身份证日期时间戳date
+            now_time = Date.parse(new Date()),//当前时间戳
+            dates = (new Date(year,month,0)).getDate();//身份证当月天数
+        if(time>now_time||date>dates){
+            toast('../assets/images/fail.png','请输入正确的身份证号码')
+            return 'fail'
+        }
+        //校验码判断
+        var c = new Array(7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2);   //系数
+        var b = new Array('1','0','X','9','8','7','6','5','4','3','2');  //校验码对照表
+        var id_array = id.split("");
+        var sum = 0;
+        for(var k=0;k<17;k++){
+            sum+=parseInt(id_array[k])*parseInt(c[k]);
+        }
+        if(id_array[17].toUpperCase() != b[sum%11].toUpperCase()){
+            toast('../assets/images/fail.png','请输入正确的身份证号码')
+            return 'fail'
+        }
+        return 'success'
+    }
+    function toast(src,text){
+        $(document).dialog({
+            type : 'toast',
+            infoIcon: src,
+            infoText: text,
+            autoClose: 2000
+        });
+    }
+    //压缩图片
+    function compressFile(index,parameter,obj) {
+        var file
+        let fileObj = parameter;
+        let reader = new FileReader()
+        let degree=1
+        var temporarySize=fileObj.size
+        if(fileObj.size/1024>200){
+            while((temporarySize/1024)>200){
+                temporarySize=temporarySize/2
+                degree=degree*0.5
+            }
+            degree=degree*4
+        }
+        reader.readAsDataURL(fileObj) //转base64
+
+        reader.onload = function(e) {
+            let image = new Image() //新建一个img标签（还没嵌入DOM节点)
+            image.src = e.target.result
+            image.onload = function () {
+            let canvas = document.createElement('canvas'), // 新建canvas
+                context = canvas.getContext('2d'),
+                imageWidth = image.width/2,    //压缩后图片的大小
+                imageHeight = image.height/2,
+                data = ''
+            canvas.width = imageWidth
+            canvas.height = imageHeight
+            context.drawImage(image, 0, 0, imageWidth, imageHeight)
+            data = canvas.toDataURL('image/jpeg',degree) // 输出压缩后的base64
+            let arr = data.split(','), mime = arr[0].match(/:(.*?);/)[1], // 转成blob
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            let files = new window.File([new Blob([u8arr], {type: mime})], 'test.jpeg', {type: 'image/jpeg'}) // 转成file
+            file=files
+            console.log('转换后的files',files,file,index)
+            obj.resetFile(index,files,files.name)
+            obj.upload(index, files)
+            }
+        }
+        
+    }
+    getNativePlace()
+    function getNativePlace(){
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: SERSVER_BASE_URL + "/sys/sysdictionary/getSysDictionaryListByCode?code=JIGUAN",
+            headers:{
+            },
+            contentType:'application/json',
+            data: {
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log("/sys/sysdictionary/getSysDictionaryListByCode",data)
+                $('.nativePlace').html('')
+                $('.nativePlace').append('<option value="">请选择籍贯</option>');
+                data.data.forEach(item=>{
+                    var option = $("<option>").val(item.code).text(item.name);
+                    $('.nativePlace').append(option);
+                })
+                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+            }
+        });
+    }
+    $('.getPass').click(()=>{
+        location.href=`./getVisitorPass.html`
+    })
+    var form,epiRegister,uploadList=[]
+    var uploadResult
+    layui.use('upload', function(){
+        var $ = layui.jquery
+        ,upload = layui.upload;
+        
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#uploadButton'
+            ,url: SERSVER_BASE_URL + "/upload/passImg" //改成您自己的上传接口
+            ,auto: false
+            ,choose: function(obj){
+                console.log("obj",obj)
+                obj.preview(function(previewIndex, file, result){
+                    console.log(previewIndex, file)
+                    getImageTag(file,'Orientation').then((Orientation)=>{
+                        console.log('Orientation',Orientation)
+                        // 使用FileReader读取文件流，file为上传的文件流
+                        const reader = new FileReader();
+                        reader.readAsDataURL(file);
+                        reader.onloadend = function () {
+                            // this.result就是转化后的结果
+                            const result = this.result;
+        
+                            // 将base64添加到图片标签上
+                            const img = new Image();
+                            img.src = result;
+                            img.onload = function () {
+                                // 获取旋转后的图片
+                                const data = getRotateImg(img, Orientation);
+                                console.log('获取旋转后的图片',data)
+                                // 如果上传接口不支持base64，则这里需要将base64转为文档流
+                                const file = dataURLtoFile(data);
+                            
+                                setTimeout(()=>{
+                                    compressFile(previewIndex,file,obj)
+                                })
+                            };
+                        };
+
+                    })
+                    
+                });
+            }
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){    
+                    $('#uploadButton').attr('src', result); //图片链接（base64）
+                });
+            
+            }
+            ,done: function(res){
+            //如果上传失败
+            if(res.code > 0){
+                return layer.msg('上传失败');
+            }else{
+                //上传成功
+                $(".layui-upload-list")[0].style.margin='initial'
+                console.log('上传成功',res)
+                uploadResult=res
+            }
+            
+            }
+            ,error: function(){
+            //演示失败状态，并实现重传
+            $(".layui-upload-list")[0].style.margin='10px 0px'
+            var demoText = $('#demoText');
+            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+            demoText.find('.demo-reload').on('click', function(){
+                uploadInst.upload();
+            });
+            }
+        });
+        uploadInst.upload(); 
+    })
+    // $("#uploadButton").click((e)=>{
+    //     console.log(e)
+    //     if(e.target.src&&e.target.src.search("uploadImgButton.png")==-1){
+    //         layui.use('layer', function(){ //独立版的layer无需执行这一句
+    //             var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+    //             layer.open({
+    //                 content: `<img src="${e.target.src}" style="width:80vw;height:80vw;" >`,
+    //                 offset: 'auto',
+    //                 // area: ['70vw', 'auto'],
+    //                 anim: 4,
+    //                 title:'',
+    //                 btnAlign: 'c',
+    //                 type:1
+    //             });
+    //         });
+    //     }    
+    // })
+    $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/epi/epiRegisterTiku/getTiKuByType",
+          headers:{
+          },
+          contentType:'application/json',
+          data: {
+            platformId:0,
+            type:7,
+            
+          },
+          dataType: "json",
+          success: function (data) {
+            var questionList=[]
+            console.log('/epi/epiRegisterTiku/getTiKuByType',data)
+            data.data.epiQuestionEntityList.forEach(element => {
+                if(element.topicName=='单选题'){
+                    var radioList=[]
+                    element.epiSelectEntityList.forEach(item=>{ 
+                        radioList.push(`
+                            <input type="radio" name="${item.questionId}" value="${item.id}" title="${item.content}">
+                        `)    
+                    })
+                    questionList.push(`
+                        <div class="layui-form-item">
+                            <div class="layui-input-block"> 
+                                <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                                <div style="margin-left: 10vw;">
+                                    ${radioList.join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+                if(element.topicName=='图片'){
+                    element.uploadResult=[]
+                    uploadList.push(element)
+
+
+                    questionList.push(`
+                        <div class="layui-form-item">
+                            <div class="layui-input-block"> 
+                                <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：${element.isExplain=='1'?`<img class='watchTip${element.id}' src='../assets/images/questionMark.png' style='width: 5vw;margin-left: 1vw;'>`:''}</div>
+                                <div style="margin-left: 10vw;margin-top: 15px;">
+                                        <div class="layui-input-block uploadBlock${element.id}" >
+                                            <div class="imgWrap${element.id}" style="display: inline-block;">
+                                                
+                                            </div>   
+                                            <img src="../assets/images/uploadImgQuestion.png" style="width:25vw;height:25vw;" id="uploadButton${element.id}">                                    
+                                            <div class="layui-upload-list" style="margin:initial;">
+                                                <p id="demoText"></p>
+                                            </div>
+                                        </div> 
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+                if(element.topicName=='混答+单选'){
+                    var radioList=[]
+                    element.epiSelectEntityList.forEach(item=>{
+                        if(item.ifInput=='1'){
+                             
+                            radioList.push(`
+                            <div class='mixedAnswer' style="display: flex;width: 90%;">                             
+                                <input type="radio" name="${item.questionId}" lay-filter="${item.questionId}" value="${item.id}" title="${item.content}" >                              
+                                <input type="text" name="${item.questionId+'##'+item.id}" placeholder="请填写${item.remark?item.remark:''}" autocomplete="off" class="layui-input" style="display: inline-block;width: inherit;margin: 0px 0px 0px -10px;">
+                            </div>           
+                            `)  
+                        }else{
+                            radioList.push(`
+                                <input type="radio" name="${item.questionId}" value="${item.id}" title="${item.content}">
+                            `) 
+                        }
+                          
+                    })
+                    questionList.push(`
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                                <div style="margin-left: 10vw;">
+                                    ${radioList.join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+                if(element.topicName=='混答+多选'){
+                    var checkList=[]
+                    element.epiSelectEntityList.forEach(item=>{
+                        if(item.ifInput=='1'){
+                            checkList.push(`
+                            <div class='mixedAnswer' style="display: flex;width: 90%;"> 
+                                <input type="checkbox" name="${item.questionId}" lay-filter="${item.questionId}" value="${item.id}" title="${item.content}" lay-skin="primary" >
+                                <input type="text" name="${item.questionId+'##'+item.id}" placeholder="请填写${item.remark?item.remark:''}" autocomplete="off" class="layui-input" style="display: inline-block;width: inherit;margin: 0px 0px 0px -10px;">
+                            </div>
+                                
+                            `)  
+                        }else{
+                            checkList.push(`
+                                <input type="checkbox" name="${item.questionId}" value="${item.id}" title="${item.content}" lay-skin="primary" >
+                            `)
+                        }
+                          
+                    })
+                    questionList.push(`
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                                <div style="margin-left: 10vw;">
+                                    ${checkList.join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+                if(element.topicName=='简答-输入'){
+                    questionList.push(`
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                                <div>
+                                    <input type="text" name="${element.id}" placeholder="请输入${element.title}" autocomplete="off" class="layui-input">  
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+                if(element.topicName=='简答-文本'){
+                    questionList.push(`
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                                <div>
+                                    <textarea name="${element.id}" placeholder="请输入${element.title}" class="layui-textarea"></textarea> 
+                                </div>
+                            </div>
+                        </div>
+                    `)
+                }
+            });
+
+            setTimeout(()=>{
+                $('.dengjixinxi').append(questionList.join(''))
+                $('.dengjixinxi').append(`
+                    <div class="layui-form-item" style="padding-bottom: 15px;margin-bottom: initial;">
+                        <div class="layui-input-block">
+                            <div style="box-sizing: border-box;padding: 0px 5vw;">
+                                <input type="checkbox" lay-filter="alreadyRead" id='alreadyRead' title="我已阅知本申报所列事项，并保证以上申报内容正确属实" lay-skin="primary" > 
+                            </div>
+                        </div>
+                    </div>
+                `)
+                
+                layui.use('upload', function(){
+                    var $ = layui.jquery
+                    ,upload = layui.upload;
+                    uploadList.forEach((uploadListItem,uploadListItemIndex) => {
+                        //普通图片上传
+                        
+                        var uploadItem = upload.render({
+                            elem: `#uploadButton${uploadListItem.id}`
+                            ,url: SERSVER_BASE_URL + "/upload/registerImg" //改成您自己的上传接口
+                            ,auto: false
+                            ,choose: function(obj){
+                                console.log("obj",obj)
+                                obj.preview(function(previewIndex, file, result){
+                                    console.log(previewIndex, file,uploadList)
+                                    if(uploadList[uploadListItemIndex].uploadResult.length==2){
+                                        toast('../assets/images/fail.png','最多上传两张图片')
+                                        return false;
+                                    }
+                                    getImageTag(file,'Orientation').then((Orientation)=>{
+                                        console.log('Orientation',Orientation)
+                                        // 使用FileReader读取文件流，file为上传的文件流
+                                        const reader = new FileReader();
+                                        reader.readAsDataURL(file);
+                                        reader.onloadend = function () {
+                                            // this.result就是转化后的结果
+                                            const result = this.result;
+                        
+                                            // 将base64添加到图片标签上
+                                            const img = new Image();
+                                            img.src = result;
+                                            img.onload = function () {
+                                                // 获取旋转后的图片
+                                                const data = getRotateImg(img, Orientation);
+                                                console.log('获取旋转后的图片',data)
+                                                // 如果上传接口不支持base64，则这里需要将base64转为文档流
+                                                const file = dataURLtoFile(data);
+                                            
+                                                setTimeout(()=>{
+                                                    compressFile(previewIndex,file,obj)
+                                                })
+                                            };
+                                        };
+
+                                    })
+                                    
+                                });
+                            }
+                            ,before: function(obj){
+                                //预读本地文件示例，不支持ie8
+                                // obj.preview(function(index, file, result){    
+                                //     $(`#uploadButton${uploadListItem.id}`).attr('src', result); //图片链接（base64）
+                                // });
+                            
+                            }
+                            ,done: function(res){
+                                //如果上传失败
+                                if(res.code > 0){
+                                    return layer.msg('上传失败');
+                                }else{
+                                    //上传成功
+                                    $(`.uploadBlock${uploadListItem.id} .layui-upload-list`)[0].style.margin='initial'
+                                    console.log('上传成功',res)
+                                    
+                                    uploadList[uploadListItemIndex].uploadResult.push(res)
+                                    // <img src="../assets/images/uploadImgButton.png" style="width:25vw;height:25vw;" id="uploadButton${uploadListItem.id}">
+                                    var temporary=[]
+                                    if(uploadList[uploadListItemIndex].uploadResult.length!=0){
+                                        uploadList[uploadListItemIndex].uploadResult.forEach((uploadResultItem,uploadResultItemIndex)=>{
+                                            if(uploadResultItem.data.url.indexOf("fastdfs") != -1) {
+                                                temporary.push(`
+                                                <div id='imgWrapItem${uploadListItem.id}${uploadResultItemIndex}' style="display:inline-block;position:relative;">
+                                                    <img  src="${SERSVER_BASE_HOME+'/'+uploadResultItem.data.url}" style="width:25vw;height:25vw;">
+                                                    <i class="layui-icon layui-icon-close-fill" id='imgWrapItemClose${uploadListItem.id}${uploadResultItemIndex}' style="position:absolute;right:-6%;top:-6%;"></i> 
+                                                </div>
+                                                
+                                            `)
+                                            }else {
+                                                temporary.push(`
+                                                <div id='imgWrapItem${uploadListItem.id}${uploadResultItemIndex}' style="display:inline-block;position:relative;">
+                                                    <img  src="${SERSVER_BASE_URL+'/'+uploadResultItem.data.url}" style="width:25vw;height:25vw;">
+                                                    <i class="layui-icon layui-icon-close-fill" id='imgWrapItemClose${uploadListItem.id}${uploadResultItemIndex}' style="position:absolute;right:-6%;top:-6%;"></i> 
+                                                </div>
+                                                
+                                            `)
+                                            }
+                                            
+                                        })
+                                
+                                    }
+                                    setTimeout(()=>{
+                                        $(`.imgWrap${uploadListItem.id}`).html(temporary.join(''))
+                                        if(uploadList[uploadListItemIndex].uploadResult.length!=0){
+                                            uploadList[uploadListItemIndex].uploadResult.forEach((uploadResultItem,uploadResultItemIndex)=>{
+                                                $(`#imgWrapItemClose${uploadListItem.id}${uploadResultItemIndex}`).click(()=>{
+                                                    $(`#imgWrapItem${uploadListItem.id}${uploadResultItemIndex}`).remove();
+                                                    uploadList[uploadListItemIndex].uploadResult.splice(uploadResultItemIndex,1)
+                                                 
+                                                })
+
+                                                $(`#imgWrapItem${uploadListItem.id}${uploadResultItemIndex} img`).unbind('click').click((e)=>{
+                                                                                                   
+                                                    layui.use('layer', function(){ //独立版的layer无需执行这一句
+                                                        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+                                                        layer.open({
+                                                            content: `<img src="${e.target.src}" style="width:${e.toElement.naturalWidth<=document.documentElement.clientWidth*0.3?e.toElement.naturalWidth*2:(e.toElement.naturalWidth>=document.documentElement.clientWidth*0.7?e.toElement.naturalWidth/((e.toElement.naturalWidth/document.documentElement.clientWidth)+1):e.toElement.naturalWidth)}px;height:${e.toElement.naturalHeight<=document.documentElement.clientHeight*0.3?e.toElement.naturalHeight*2:(e.toElement.naturalHeight>=document.documentElement.clientHeight*0.7?e.toElement.naturalHeight/((e.toElement.naturalHeight/document.documentElement.clientHeight)+1):e.toElement.naturalHeight)}px;" >`,
+                                                            offset: 'auto',
+                                                            // area: ['70vw', 'auto'],
+                                                            anim: 4,
+                                                            title:'',
+                                                            btnAlign: 'c',
+                                                            type:1
+                                                        });
+                                                    });
+                                                })
+                                            })
+                                        }
+                                        
+                                    })
+                                }            
+                            }
+                            ,error: function(){
+                                //演示失败状态，并实现重传
+                                $(`.uploadBlock${uploadListItem.id} .layui-upload-list`)[0].style.margin='10px 0px'
+                                var demoText = $(`.uploadBlock${uploadListItem.id} #demoText`);
+                                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                                demoText.find(`.uploadBlock${uploadListItem.id} .demo-reload`).on('click', function(){
+                                    uploadItem.upload();
+                                });
+                            }
+                        });
+                        setTimeout(()=>{
+                            uploadList[uploadListItemIndex].uploadItem=uploadItem
+                        })
+                    })
+                    
+                })
+            
+                layui.use('form', function(){
+                    form = layui.form;
+
+                    form.on('checkbox(alreadyRead)', function(data){
+                        // console.log(data.elem); //得到checkbox原始DOM对象
+                        console.log(data.elem.checked); //是否被选中，true或者false
+                        // console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+                        // console.log(data.othis); //得到美化后的DOM对象
+                        if(data.elem.checked){
+                            $('.submit')[0].style.background='linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%)'
+                        }else{
+                            $('.submit')[0].style.background='rgba(216,216,216,1)'
+                        }
+                    });
+
+                    $("input[name='imName']").blur((e)=>{
+                        // if( !$("input[name='imName']").val() ){
+                        //     if(e.relatedTarget){
+                        //         toast('../assets/images/fail.png',`请填写姓名`)
+                        //     }
+                        // }
+                    })
+                    $("input[name='phone']").blur((e)=>{
+                        if(e.relatedTarget){
+                            // if( !$("input[name='phone']").val() ){
+                            //     toast('../assets/images/fail.png',`请填写手机号码`)
+                            //     return;
+                            // }
+                            if( $("input[name='phone']").val()&&!(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+                                toast('../assets/images/fail.png',`请输入正确的手机号码`)
+                            }
+                        }
+                        
+                    })
+                    $("input[name='credentialsNum']").blur((e)=>{
+                        if(e.relatedTarget){
+                            // if( !$("input[name='credentialsNum']").val() ){
+                            //     toast('../assets/images/fail.png',`请填写身份证号码`)
+                            //     return;
+                            // }
+                            if( identityCodeValid( $("input[name='credentialsNum']").val(),'请输入正确的身份证号码' )=='fail' ){
+                            }
+                        }                      
+                    })
+                    // $("input[name='detailedAddress']").blur((e)=>{
+                    //     if( !$("input[name='detailedAddress']").val() ){
+                    //         if(e.relatedTarget){
+                    //             toast('../assets/images/fail.png',`请填写详细地址`)
+                    //         }
+                    //     }
+                    // })
+
+                    var epiQuestionEntityList=data.data.epiQuestionEntityList
+                    for(let i=0;i<epiQuestionEntityList.length;i++){
+                        if(epiQuestionEntityList[i].isExplain=='1'){
+                            $(`.watchTip${epiQuestionEntityList[i].id}`).click(()=>{
+                                layui.use('layer', function(){ //独立版的layer无需执行这一句
+                                    var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+                                    layer.open({
+                                        content: `<img src="${epiQuestionEntityList[i].remark}" style="width:80vw;height:80vh;" >`,
+                                        offset: 'auto',
+                                        // area: ['70vw', 'auto'],
+                                        anim: 4,
+                                        title:'',
+                                        btnAlign: 'c',
+                                        type:1
+                                    });
+                                });
+                            })
+                        }
+                        if(epiQuestionEntityList[i].isAnswer=='1'){
+                            if(epiQuestionEntityList[i].topicName=='简答-输入'||epiQuestionEntityList[i].topicName=='简答-文本'){
+                                if(epiQuestionEntityList[i].topicName=='简答-输入'){
+                                    $(`input[name='${epiQuestionEntityList[i].id}']`).blur((e)=>{
+                                        // if( !$(`input[name='${epiQuestionEntityList[i].id}']`).val() ){
+                                        //     if(e.relatedTarget){
+                                        //         toast('../assets/images/fail.png','请填写'+epiQuestionEntityList[i].title)
+                                            
+                                        //     }
+                                        // }
+                                    })
+                                    if( $(`input[name='${epiQuestionEntityList[i].id}']`).val()&&(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1) ){
+                                        $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                            if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                                if(e.relatedTarget){
+                                                    toast('../assets/images/fail.png',`请输入正确的${epiQuestionEntityList[i].title}`)
+                                          
+                                                }
+                                            }
+                                        })
+                                    }
+                                    if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                        $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                            if(e.relatedTarget){
+                                                if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){      
+                                                }
+                                            }                                    
+                                        })
+                                    }
+                                }
+                                if(epiQuestionEntityList[i].topicName=='简答-文本'){
+                                    $(`textarea[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                        // if( !$(`textarea[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                        //     if(e.relatedTarget){
+                                        //         toast('../assets/images/fail.png','请填写'+epiQuestionEntityList[i].title)
+                                                
+                                        //     }
+                                        // }
+                                    })
+                                }
+                            }
+                        }else{
+                            if(epiQuestionEntityList[i].topicName=='简答-输入'){
+
+                                
+                                    if(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1){
+                                        $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                            if( $(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                                if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                                    if(e.relatedTarget){
+                                                        toast('../assets/images/fail.png',`请输入正确的${epiQuestionEntityList[i].title}`)
+                                                      
+                                                    }
+                                                }
+                                            }
+                                        })
+                                    }
+                                    if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                        $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                            if( $(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                                if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){
+                                                    if(e.relatedTarget){
+                                                    }
+                                                }
+                                            }
+                                        })
+                                    }
+                                
+                                                        
+                            }
+                        }
+                    }
+                    
+                    // $(`.cancel`).click(()=>{
+                    //     window.history.go(-1) 
+                    // })
+                    $(`.submit`).click(()=>{
+                        var data1 = form.val("jibenxinxi");
+                        var data2 = form.val("dengjixinxi");
+                        // var data3 = form.val("paichaqingkuang");
+
+                        if( !$("input[id='alreadyRead']:checked").val() ){
+                            return false;
+                        }
+                        if( !uploadResult||uploadResult.code!=0 ){
+        
+                            toast('../assets/images/fail.png','请上传照片')
+                            return false;
+                        }
+                      
+                        if( !$("input[name='imName']").val() ){
+                         
+                            toast('../assets/images/fail.png','请填写姓名')
+                            return false;
+                        }
+                        if( !$("input[name='sex']:checked").val() ){
+                            toast('../assets/images/fail.png','请选择性别')
+                            return false;
+                        }
+                        if( !$("input[name='phone']").val() ){
+                            toast('../assets/images/fail.png','请填写手机号码')
+                            
+                            return false;
+                        }
+                        if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+                            toast('../assets/images/fail.png','请输入正确的手机号码')
+                     
+                            return false;
+                        } 
+                        if( !$("input[name='credentialsNum']").val() ){
+                           
+                            toast('../assets/images/fail.png','请填写身份证号码')
+                     
+                            return false;
+                        }
+                        if( identityCodeValid( $("input[name='credentialsNum']").val() )=='fail' ){
+                            console.log('false')
+                            return false;
+                        }
+                        if( !$("select[name='nativePlace']").val() ){
+                            toast('../assets/images/fail.png','请选择籍贯')
+                            return false;
+                        }
+
+                        // if( !$("input[name='detailedAddress']").val() ){
+                        //       toast('../assets/images/fail.png','请填写详细地址')
+                        //     return false;
+                        // }
+                        
+                        var epiQuestionEntityList=data.data.epiQuestionEntityList
+                        for(var i=0;i<epiQuestionEntityList.length;i++){
+
+                            if(epiQuestionEntityList[i].isAnswer=='1'){
+                                if(epiQuestionEntityList[i].topicName=='简答-输入'||epiQuestionEntityList[i].topicName=='简答-文本'){
+                                    if(epiQuestionEntityList[i].topicName=='简答-输入'){
+                                        if( !$(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                            toast('../assets/images/fail.png','请填写'+epiQuestionEntityList[i].title)
+                                          
+                                            return false;
+                                        }
+                                        if(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1){
+                                            if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                                
+                                                toast('../assets/images/fail.png',`请输入正确的${epiQuestionEntityList[i].title}`)
+                                                return false;
+                                            } 
+                                        }
+                                        if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                            if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){
+                                                console.log('false')
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    if(epiQuestionEntityList[i].topicName=='简答-文本'){
+                                        if( !$(`textarea[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                            toast('../assets/images/fail.png','请填写'+epiQuestionEntityList[i].title)
+                                           
+                                            return false;
+                                        }
+                                    }
+                                }else{
+                                    if(epiQuestionEntityList[i].topicName!='图片'){
+                                        if( !$(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() ){
+                                      
+                                            toast('../assets/images/fail.png','请选择'+epiQuestionEntityList[i].title)
+                                            return false;
+                                        }
+                                        if(epiQuestionEntityList[i].topicName.search('混答')!=-1){
+                                            if( $(`input[name='${epiQuestionEntityList[i].id}##${ $(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() }']`).length!=0 && !$(`input[name='${epiQuestionEntityList[i].id}##${ $(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() }']`).val() ){
+                                                toast('../assets/images/fail.png','请填写'+epiQuestionEntityList[i].epiSelectEntityList.filter(function (elem) {return (elem.id == $(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() )})[0].remark )
+                                                return false;
+                                            }
+                                        }
+                                    }else{
+                                        for(let j=0;j<uploadList.length;j++){
+                                            if(epiQuestionEntityList[i].id==uploadList[j].id){
+                                                if(uploadList[j].uploadResult.length==0){
+                                                    toast('../assets/images/fail.png','请上传'+epiQuestionEntityList[i].title)
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }else{
+                                if(epiQuestionEntityList[i].topicName=='简答-输入'){
+                                    if( $(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                        if(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1){
+                                        if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                              
+                                                toast('../assets/images/fail.png',`请输入正确的${epiQuestionEntityList[i].title}`)
+                                                return false;
+                                            } 
+                                        }
+                                        if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                            if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){
+                                                console.log('false')
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
+                      
+                        setTimeout(()=>{
+                            console.log("data1,data2,data3",data1,data2)
+                            
+                            var epiAnswerEntityList=[]
+                            Object.keys(data2).forEach(key=>{
+                                if(key.indexOf('##')!=-1){
+                                epiAnswerEntityList.forEach(item=>{
+                                        if(item.questionId==key.substr(key.indexOf('##')+2)){
+                                            item.answer=item.answer+'##'+data2[key]
+                                        }
+                                    })
+                                }else{
+                                    if(key.indexOf('file')==-1){
+                                        epiAnswerEntityList.push({
+                                            questionId:key,
+                                            answer:data2[key]
+                                        })
+                                    }
+                                    
+                                }
+                                
+                            })
+                            console.log("epiAnswerEntityList",epiAnswerEntityList)
+                            setTimeout(()=>{
+
+                                data.data.epiQuestionEntityList.forEach(element => {
+                                    if(element.topicName=='混答+多选'){
+                                       
+                                        
+                                        console.log("$(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`).val()",$(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`).val(),$(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`))
+                                        var allCheck=[]
+                                        var newArray=[].slice.call($(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`))
+                                        newArray.forEach(item=>{
+                                            allCheck.push(item.value) 
+                                        })
+                                        var id=element.epiSelectEntityList[0].questionId
+                            
+                                        epiAnswerEntityList.forEach(item=>{
+                                            if(item.questionId==id){
+                                                console.log('进来了',item,item.answer.substr(item.answer.lastIndexOf("#")+1))
+                                                if(item.answer.lastIndexOf("#")!=-1){
+                                                    item.answer=allCheck.join(',')+'##'+item.answer.substr(item.answer.lastIndexOf("#")+1)
+                                                }else{
+                                                    item.answer=allCheck.join(',')+'##'
+                                                }
+                                            }
+                                             
+                                        })
+    
+                                    }
+                                    if(element.topicName=='图片'){
+                                        var imgArray=[]
+                                        console.log("uploadList,element.id",uploadList,element.id)
+                                        uploadList.forEach(item=>{
+                                            if(element.id==item.id){
+                                                item.uploadResult.forEach(uploadResultItem=>{
+                                                    imgArray.push({name:uploadResultItem.data.name,path:uploadResultItem.data.url,oldPath:uploadResultItem.data.url})
+                                                })
+                                                
+                                                console.log("进来了item.id",item.id,imgArray)
+                                            }
+                                        })
+                                        setTimeout(()=>{
+                                            console.log('epiAnswerEntityList questionId,answer',element.id,imgArray)
+                                            epiAnswerEntityList.push({
+                                                questionId:element.id,
+                                                answer:JSON.stringify(imgArray)
+                                            })
+                                        },500)
+                                    }
+                                })
+
+                            },1000)
+                            
+                            setTimeout(()=>{
+                                $.ajax({
+                                    async: false,
+                                    type: "POST",
+                                    url: SERSVER_BASE_URL + "/perpass/perpassRegister/updatefromPhone",
+                                    headers:{
+                                    },
+                                    // contentType:'application/x-www-form-urlencoded',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({
+                                        "id":epiRegister.id,
+                                        "imName": data1.imName,
+                                        "sex":data1.sex,
+                                        // "areaName": data1.detailedAddress,
+                                        "phone": data1.phone,
+                                        "credentialsNum": data1.credentialsNum,
+                                        'nativePlace':data1.nativePlace,
+                                        "imgName": uploadResult.data.name,
+                                        "imgUrl": uploadResult.data.url,
+                                        "lockStatus":-1,
+                                        "tikuId": data.data.epiQuestionEntityList[0].tikuId,                                    
+                                        "passAnswerEntityList":epiAnswerEntityList,
+                                        
+
+                                    }),
+                                    dataType: "json",
+                                    success: function (data) {
+                                        console.log('/perpass/perpassRegister/updatefromPhone',data)
+                                        if(data.code==0){
+                                            if(data.infor.code=='0'){
+    
+                                                localStorage.setItem('codeNum',data.infor.data.codeNum)
+                                                location.href=`./myVisitorPass.html` 
+                                                                                         
+                                            }else{
+                                                toast('../assets/images/fail.png',data.infor.msg)
+                                            }
+                                        }else{
+                                            alert(data.msg)
+                                        }
+                                        
+                                            
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        alert("err:::" + errorThrown);
+                                    }
+                                });
+                            },2500)
+
+                        },1000)
+                        toast('../assets/images/loading.gif',`更新中`)
+                    })
+
+
+                    $.ajax({
+                        async: false,
+                        type: "GET",
+                        url: SERSVER_BASE_URL + `/perpass/perpassRegister/getOneAndLinkByCodeNum?codeNum=${getQueryString('codeNum')}`,
+                        headers:{
+                        },
+                        contentType:'application/json',
+                        data: {
+                            
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            console.log("/perpass/perpassRegister/getOneAndLinkByCodeNum",data)
+                            epiRegister=data.data
+                            var dengjixinxi={}  
+                            data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(item=>{
+                                dengjixinxi[String(item.id)]=item.answer
+                        
+                                if(item.topicName=="单选题"||item.topicName=="混答+单选"||item.topicName=="混答+多选"){
+                                    
+                                    if( item.epiSelectEntityList.some(function (elem, index){return elem.ifInput=='1'}) ){
+                                        // dengjixinxi[String(item.id)+'##'+item.epiSelectEntityList[0].ifInput]=item.answer
+                                        $(`input[name='${String(item.id)+'##'+item.answer.substr(0,item.answer.indexOf('#')) }']`).val( item.answer.substr(item.answer.lastIndexOf('#')+1) )
+                                        item.answer.substr(0,item.answer.indexOf('#')).split(',').forEach(item=>{
+                                            $(`input[value='${item}']`).prop("checked",true);
+                                        })
+                                    }
+                                }
+                                if(item.topicName=="图片"){
+                                    uploadList.forEach(uploadListItem=>{
+                                        if(uploadListItem.id==item.id&&item.answer&&item.answer!=""){
+                                            if(JSON.parse(item.answer).length!=0){
+                                            JSON.parse(item.answer).forEach((answerItem,answerIndex)=>{
+                                                uploadListItem.uploadResult.push(
+                                                    {
+                                                        data:{
+                                                            name:answerItem.name,
+                                                            url:answerItem.path
+                                                        },
+                                                        code:0
+                                                    }
+                                                )
+                                            })
+                                        }
+                                            
+                                        }
+                                    })
+                                    if(item.answer&&item.answer!=""){
+                                    if(JSON.parse(item.answer).length!=0){
+                                        var temporary=[]
+                                        JSON.parse(item.answer).forEach((answerItem,answerIndex)=>{
+                                            if(answerItem.path.indexOf("fastdfs") != -1) {
+                                                temporary.push(`
+                                                <div id='imgWrapItem${item.id}${answerIndex}' style="display:inline-block;position:relative;">
+                                                    <img  src="${SERSVER_BASE_HOME+'/'+answerItem.path}" style="width:25vw;height:25vw;">
+                                                    <i class="layui-icon layui-icon-close-fill" id='imgWrapItemClose${item.id}${answerIndex}' style="position:absolute;right:-6%;top:-6%;"></i> 
+                                                </div>
+                                                
+                                            `)
+                                            } else {
+                                                temporary.push(`
+                                                <div id='imgWrapItem${item.id}${answerIndex}' style="display:inline-block;position:relative;">
+                                                    <img  src="${SERSVER_BASE_URL+'/'+answerItem.path}" style="width:25vw;height:25vw;">
+                                                    <i class="layui-icon layui-icon-close-fill" id='imgWrapItemClose${item.id}${answerIndex}' style="position:absolute;right:-6%;top:-6%;"></i> 
+                                                </div>
+                                                
+                                            `)
+                                            }
+                                           
+                                        })
+                                        setTimeout(()=>{
+                                            $(`.imgWrap${item.id}`).html(temporary.join(''))
+                                            if(JSON.parse(item.answer).length!=0){
+                                                JSON.parse(item.answer).forEach((answerItem,answerIndex)=>{
+                                                    $(`#imgWrapItemClose${item.id}${answerIndex}`).click(()=>{
+                                                        $(`#imgWrapItem${item.id}${answerIndex}`).remove();
+                                                        uploadList.forEach((uploadListItem,uploadListIndex)=>{
+                                                            if(uploadListItem.id==item.id){
+                                                                uploadList[uploadListIndex].uploadResult.splice(answerIndex,1)
+                                                            }
+                                                        })
+                                                        
+                                                    
+                                                    })
+
+                                                    $(`#imgWrapItem${item.id}${answerIndex} img`).unbind('click').click((e)=>{
+                                                                                                   
+                                                        layui.use('layer', function(){ //独立版的layer无需执行这一句
+                                                            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+                                                            layer.open({
+                                                                content: `<img src="${e.target.src}" style="width:${e.toElement.naturalWidth<=document.documentElement.clientWidth*0.3?e.toElement.naturalWidth*2:(e.toElement.naturalWidth>=document.documentElement.clientWidth*0.7?e.toElement.naturalWidth/((e.toElement.naturalWidth/document.documentElement.clientWidth)+1):e.toElement.naturalWidth)}px;height:${e.toElement.naturalHeight<=document.documentElement.clientHeight*0.3?e.toElement.naturalHeight*2:(e.toElement.naturalHeight>=document.documentElement.clientHeight*0.7?e.toElement.naturalHeight/((e.toElement.naturalHeight/document.documentElement.clientHeight)+1):e.toElement.naturalHeight)}px;" >`,
+                                                                offset: 'auto',
+                                                                // area: ['70vw', 'auto'],
+                                                                anim: 4,
+                                                                title:'',
+                                                                btnAlign: 'c',
+                                                                type:1
+                                                            });
+                                                        });
+                                                    })
+                                                })
+                                            }
+                                        })
+                                    }
+                                }
+                                    
+                                    
+                                }
+                            })
+                            form.val("jibenxinxi", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                                // "detailedAddress": data.data.areaName
+                                "imName": data.data.imName
+                                ,"sex":data.data.sex
+                                ,"phone": data.data.phone
+                                ,"credentialsNum": data.data.credentialsNum,
+                                'nativePlace':data.data.nativePlace
+                            });
+                            uploadResult={
+                                data:{
+                                    name:'',
+                                    url:''
+                                },
+                                code:0
+                            }
+                            uploadResult.data.name=data.data.imgName
+                            uploadResult.data.url=data.data.imgUrl
+                            console.log('uploadResult',uploadResult)
+                            $('#uploadButton').attr({ src: data.data.imgUrl});
+                            form.render();
+            
+                            form.val("dengjixinxi", dengjixinxi);
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("err:::" + errorThrown);
+                        }
+                    });
+               
+                   
+                });
+
+                
+            },500)
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+        
+    
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

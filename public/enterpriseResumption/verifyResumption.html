@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>企业认证码</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 61.3vw;; 
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-form-item {
+        margin-bottom: initial;
+        padding: 15px 0px 0px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-select,.jibenxinxi .layui-textarea {
+        border-width: 0px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.dengjixinxi .layui-textarea{
+        margin:10px auto 0px;
+    }
+    .dengjixinxi .layui-form-checkbox span{
+        font-size:12px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(153,153,153,1);
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 1.2vh 5vw;
+        width: 65px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size:14px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(153,153,153,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    .layui-colla-title{
+        padding: 0 15px 0 5vw;
+    }
+    .layui-colla-icon {
+        position: absolute;
+        left: initial;
+        right: 5vw!important;
+        top: 0;
+        font-size: 14px;
+    }
+    .layui-colla-content, .layui-colla-item {
+        border-top-width: initial;
+        border-top-style: initial;
+    }
+    .layui-colla-content {
+        padding: initial;
+    }
+    .layui-form-item{
+        margin-bottom: initial;
+    }
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);">
+    <div class="jibenxinxi">
+        <!-- <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+            <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                <span style="margin-left: 5vw;">基本信息</span>
+            </div>
+            <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+            <div style="width: 100%;font-size: 14px;padding: 3vh 0px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">张三</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">性别：</span><span style="color: rgba(51,51,51,1);">男</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">江苏省扬州市</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">身份证号码：</span><span style="color: rgba(51,51,51,1);">440561691652594843</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">15011586425</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">所属社区：</span><span style="color: rgba(51,51,51,1);">中大花园</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">所属市场：</span><span style="color: rgba(51,51,51,1);">中大市场</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">档口编号：</span><span style="color: rgba(51,51,51,1);">D31545</span>
+                </div>
+            </div>
+            <img src="../assets/images/heyan.png" style="width: 90px;height: 66.69px;position: absolute;right: 7.5vw;top: 5vw;">
+        </div> -->
+    </div>
+    
+
+    <div class="layui-collapse dengjixinxi" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">登记信息</h2>
+            <div class="layui-colla-content">
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-collapse congyerenyuanxinxi" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">从业人员信息</h2>
+            <div class="layui-colla-content">
+                <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                <div  style="width: 84vw;border: 1px solid rgba(221,221,221,1);padding: 1vh 0px;margin: 2vh auto;position: relative;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">         
+                    <div style="margin: 1vh auto;">
+                        <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">张三</span>
+                    </div>
+                    <div style="margin: 1vh auto;">
+                        <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">男</span>
+                    </div>
+                    <div style="margin: 1vh auto;">
+                        <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">男</span>
+                    </div>
+                    <div style="margin: 1vh auto;">
+                        <span style="margin-left: 8vw;">身份证号码：</span><span style="color: rgba(51,51,51,1);">男</span>
+                    </div>
+                    <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="" style="width: 95vw;margin:1.5vh auto 0px;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+        <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+            <span style="margin-left: 5vw;">身份核验</span>
+        </div>
+        <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+        <div class="layui-form-item" style="margin: 2.7vh 0px;">
+            <label class="layui-form-label"><span style="color: red;">*</span>验证口令</label>
+            <div class="layui-input-block">
+                <input type="password" name="messageCode" required  lay-verify="required" placeholder="请输入验证口令" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text" style="margin: 2.7vh 0px;padding-bottom: 2.7vh;">
+            <label class="layui-form-label">&nbsp;审核备注</label>
+            <div class="layui-input-block">
+              <textarea name="remark" placeholder="请输入审核备注" class="layui-textarea" maxlength="50"></textarea>
+            </div>
+        </div>
+    </div>
+     
+    <div style="width: 100%;height: 13vh;line-height: 14vh;text-align: center;margin-top: -2.2vh;">
+        <span class="submit" style="width: 84vw;height: 6.7vh;line-height: 6.7vh;text-align: center;background: linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);border-radius: 10vw;font-size: 20px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(255,255,255,1);display: inline-block;">通过审核</span>
+    </div>
+        
+
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function toast(src,text){
+        $(document).dialog({
+            type : 'toast',
+            infoIcon: src,
+            infoText: text,
+            autoClose: 2000
+        });
+    }  
+    function closeWindow(){
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Presto") != -1) {
+            window.location.replace("about:blank");
+        } else {  
+            window.opener=null;
+            window.open(' ','_self');
+            window.location.replace("about:blank");
+            window.close();
+        }
+    }
+
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + `/buss/bussRegister/getOneAndLinkByCodeNum?codeNum=${getQueryString('codeNum')}`,
+        headers:{
+        },
+        contentType:'application/json',
+        data: {
+            
+        },
+        dataType: "json",
+        success: function (data) {
+            if(data.code!=0){
+                location.replace(`./InvalidQrcode.html`)
+            }
+            var jibenxinxi=[],dengjixinxi=[],congyerenyuanxinxi=[]
+            console.log('/buss/bussRegister/getOneAndLinkByCodeNum',data)
+            if(data.data.lockStatus=='0'||data.data.lockStatus=='-2'||data.data.lockStatus=='-3'){
+                location.replace(`./verifyPassResumption.html?codeNum=${getQueryString('codeNum')}`)
+            }
+            jibenxinxi.push(`
+                <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+                    <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                        <span style="margin-left: 5vw;">基本信息</span>
+                    </div>
+                    <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+                    <div style="width: 100%;font-size: 14px;padding: 3vh 0px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">${data.data.imName}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">性别：</span><span style="color: rgba(51,51,51,1);">${data.data.sexString}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">${data.data.nativePlace}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">身份证号码：</span><span style="color: rgba(51,51,51,1);">${data.data.credentialsNum}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">${data.data.phone}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">所属社区：</span><span style="color: rgba(51,51,51,1);">${data.data.townNameString}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">所属市场：</span><span style="color: rgba(51,51,51,1);">${data.data.platformNameString}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">所属楼层：</span><span style="color: rgba(51,51,51,1);">${data.data.floorString}</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">档口编号：</span><span style="color: rgba(51,51,51,1);">${data.data.bussCode}</span>
+                        </div>
+                    </div>
+                    <img src="${data.data.lockStatus=='0'?'../assets/images/yishenhe.png':(data.data.lockStatus=='-2'?'../assets/images/yibohui.png':(data.data.lockStatus=='-3'?'../assets/images/yicexiao.png':'../assets/images/daishenhe.png'))}" style="width: 90px;height: 66.69px;position: absolute;right: 7.5vw;top: 6vw;">
+                </div>
+            `)
+            var epiQuestionEntityList=[]
+            
+            data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+                var answerString=[],answerArray=[]
+                if(element.topicName=='简答-文本'||element.topicName=='简答-输入'){
+                    answerString.push(element.answer?element.answer:'无')
+                }else if(element.topicName=='图片'){
+                   
+                    if(element.answer&&element.answer!=""){
+                        if(JSON.parse(element.answer).length!=0){
+                            JSON.parse(element.answer).forEach((answerItem,answerItemIndex)=>{
+                                answerString.push(`
+                                    <img id='imgWrapItem${element.id}${answerItemIndex}' src="${answerItem.oldPath}" style="width:25vw;height:25vw;">
+                                `)
+
+                                
+                            })
+                        }
+                        
+                    }else{
+                        answerString.push(`无`)
+                    }
+                   
+                }else{
+                    if(!element.answer){
+                        answerString.push(`无`)
+                    }else if((element.answer&&element.answer.search('##')!=-1)){
+                        answerArray=element.answer.substr(0,element.answer.indexOf('#')).split(',')
+                    }else{
+                        if(element.answer&&element.answer.search(',')!=-1){
+                            answerArray=element.answer.split(',')
+                        }else{
+                            if(element.answer){
+                                answerArray=[element.answer]
+                            }
+                            
+                        }
+                    }
+                }
+                
+                if(element.topicName!='简答-文本'||element.topicName!='简答-输入'){
+                    if(element.topicName!='图片'){
+                        answerArray.forEach(answerItem=>{
+                            element.epiSelectEntityList.forEach(epiSelectItem=>{
+                                if(String(answerItem)==String(epiSelectItem.id)){
+                                    if(element.answer&&epiSelectItem.ifInput=='1'){
+                                        answerString.push(epiSelectItem.content+(element.answer.substr(element.answer.search('##')+2)?':':'')+element.answer.substr(element.answer.search('##')+2))
+                                    }else{
+                                        answerString.push(epiSelectItem.content)
+                                    }
+                                    
+                                }
+                            })
+                        })
+                    }
+                }
+                
+                setTimeout(()=>{
+                    if(element.topicName=='图片'){
+                        answerString=answerString.join('')
+                    }else{
+                        answerString=answerString.join(',')
+                    }
+                    
+                    epiQuestionEntityList.push(`
+                        <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                            <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                            <div style="line-height: initial;padding: 2.4vh 5vw 0px;">${element.title}</div>
+                            <div style="color:rgba(153,153,153,1);padding: 2.4vh 0px;margin-left: 8.7vw;">${answerString}</div>
+                        </div>
+                    `)
+                },500)
+            });
+            if(data.data.bussRegisterEmployeeEntityList.length!=0){
+                var bussRegisterEmployeeEntityList=[]
+                data.data.bussRegisterEmployeeEntityList.forEach(item=>{
+                    bussRegisterEmployeeEntityList.push(`
+                        <div class='${item.id}' style="width: 84vw;border: 1px solid rgba(221,221,221,1);padding: 1vh 0px;margin: 2vh auto;position: relative;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">         
+                            <div style="margin: 1vh auto;">
+                                <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">${item.name}</span>
+                            </div>
+                            <div style="margin: 1vh auto;">
+                                <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">${item.nativePlace}</span>
+                            </div>
+                            <div style="margin: 1vh auto;">
+                                <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">${item.phone}</span>
+                            </div>
+                            <div style="margin: 1vh auto;">
+                                <span style="margin-left: 8vw;">身份证/护照：</span><span style="color: rgba(51,51,51,1);">${item.credentialsNum}</span>
+                            </div>
+                            <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+                        </div>
+                    `)
+                })
+            }
+            
+           
+            setTimeout(()=>{
+                dengjixinxi.push(`
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">登记信息</h2>
+                        <div class="layui-colla-content">
+                            ${epiQuestionEntityList.join('')}
+                        </div>
+                    </div>
+                `)
+
+                setTimeout(()=>{
+                    data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+                        if(element.answer&&element.answer!=""&&element.topicName=='图片'){
+
+                            if(JSON.parse(element.answer).length!=0){
+                                JSON.parse(element.answer).forEach((answerItem,answerItemIndex)=>{
+                                    console.log($(`#imgWrapItem${element.id}${answerItemIndex}`))
+                                    $(`#imgWrapItem${element.id}${answerItemIndex}`).unbind('click').click((e)=>{                                                                                               
+                                        layui.use('layer', function(){ //独立版的layer无需执行这一句
+                                            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+                                            layer.open({
+                                                content: `<img src="${e.target.src}" style="width:${e.toElement.naturalWidth<=document.documentElement.clientWidth*0.3?e.toElement.naturalWidth*2:(e.toElement.naturalWidth>=document.documentElement.clientWidth*0.7?e.toElement.naturalWidth/((e.toElement.naturalWidth/document.documentElement.clientWidth)+1):e.toElement.naturalWidth)}px;height:${e.toElement.naturalHeight<=document.documentElement.clientHeight*0.3?e.toElement.naturalHeight*2:(e.toElement.naturalHeight>=document.documentElement.clientHeight*0.7?e.toElement.naturalHeight/((e.toElement.naturalHeight/document.documentElement.clientHeight)+1):e.toElement.naturalHeight)}px;" >`,
+                                                offset: 'auto',
+                                                // area: ['70vw', 'auto'],
+                                                anim: 4,
+                                                title:'',
+                                                btnAlign: 'c',
+                                                type:1
+                                            });
+                                        });
+                                    })
+                                })
+                            }
+                        }
+                    })
+                },500)
+                
+
+                if(data.data.bussRegisterEmployeeEntityList.length!=0){
+                    congyerenyuanxinxi.push(`
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">从业人员信息</h2>
+                            <div class="layui-colla-content">
+                                <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                                ${bussRegisterEmployeeEntityList.join('')}
+                            </div>
+                        </div>
+                    `)
+                }else{
+                    congyerenyuanxinxi.push(`
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">从业人员信息</h2>
+                            <div class="layui-colla-content">
+                                <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                                <section  style="height: 13vh;line-height: 13vh;text-align: center;font-size: 20px;font-weight: bold;width:100%;color:#dcdfe6;">
+                                    暂无数据
+                                </section> 
+                            </div>
+                        </div>
+                    `)
+                }
+            },1000)
+            setTimeout(()=>{
+                $('.jibenxinxi').html(jibenxinxi.join(''))
+                $('.dengjixinxi').html(dengjixinxi.join(''))
+                $('.congyerenyuanxinxi').html(congyerenyuanxinxi.join(''))
+                layui.use('element', function(){
+                    var element = layui.element;
+                    
+                    element.render('collapse')
+                });
+                
+                setTimeout(()=>{
+                    if(localStorage.getItem('messageCode')){
+                        $("input[name='messageCode']").val( localStorage.getItem('messageCode') )
+                    }
+                    
+                    if(data.data.bussRegisterEmployeeEntityList.length!=0){
+                        var bussRegisterEmployeeEntityList=[]
+                        data.data.bussRegisterEmployeeEntityList.forEach(item=>{
+                            $(`.${item.id}`).click(()=>{
+                                location.href=`./watchPractitioners.html?practitionersId=${item.id}`
+                            })            
+                        },500)
+                    }
+
+
+                },500)
+                
+                $('.submit').click(()=>{
+                    if( !$("input[name='messageCode']").val() ){
+                        toast('../assets/images/fail.png','请填写验证口令')
+                        return false;
+                    }
+
+                    setTimeout(()=>{
+                        $.ajax({
+                            async: false,
+                            type: "POST",
+                            url: SERSVER_BASE_URL + "/buss/bussRegister/updateLockStatus",
+                            headers:{
+                            },
+                            // contentType:'application/x-www-form-urlencoded',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                "messageCode":$("input[name='messageCode']").val(),
+                                "lockStatus":'0',
+                                "id":data.data.id,
+                                "lockReason":$("textarea[name='remark']").val(),
+                                
+
+                            }),
+                            dataType: "json",
+                            success: function (data) {
+                                console.log('/buss/bussRegister/updateLockStatus',data) 
+                                if(data.code==0){
+                                    
+                                    localStorage.setItem('messageCode',$("input[name='messageCode']").val())
+                                    location.replace(`./verifyPassResumption.html?codeNum=${getQueryString('codeNum')}`)
+                                  
+                                }else{
+                                    alert(data.msg)
+                                }
+                                    
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                alert("err:::" + errorThrown);
+                            }
+                        });
+                    },1000)
+                    toast('../assets/images/loading.gif',`审核中`)
+                })
+            
+            },1300)
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+        }
+    });
+    
+    
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="utf-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'/>
+    <title>公告通知</title>
+
+
+
+    <link href="./assets/css/comment/bootstrap.min.css" rel="stylesheet"/>
+    <link href="./assets/js/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="./assets/css/comment/style.css" rel="stylesheet"/>
+    <link href="./assets/js/simple-line-icons/css/simple-line-icons.css" rel="stylesheet"/>
+    <!--<link href="./assets/js/owo/OwO.min.css" rel="stylesheet"/>-->
+
+    <style>
+        .imgContainer{
+            display: inline-block;
+            height: 100px;
+            margin-left: 3%;
+            border: 1px solid #30a5ff;
+            position: relative;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+            margin-top: 1%;
+        }
+        .imgContainer img{
+            width: 100%;
+            height: 80px;
+            cursor: pointer;
+        }
+        .imgContainer p{
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: #b9934d;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+        .imgContainer:hover p{
+            display: block;
+        }
+        #uploadImageLoading{
+            left: 22%;
+            position: absolute;
+            height: 222px;
+            width: 222px;
+            z-index: 1000;
+            top: 22%;
+
+            background: url("./assets/images/jm-box-loading1.gif") no-repeat center;
+            z-index: 1000;
+
+            display: none;
+        }
+
+    </style>
+
+    <script src="./assets/js/comment/jquery-3.2.1.min.js" rel="stylesheet"></script><script src="./assets/js/ajaxSetUp.js"></script>
+    <script src="./constant.js" rel="stylesheet"></script>
+    <!--<script src="./assets/js/jm-qi.js"></script>-->
+    <script src="./assets/js/comment/pace.min.js"></script>
+    <script src="./assets/js/layui/layui.all.js"></script>
+    <script src="./assets/js/comment/bootstrap.min.js"></script>
+    <script src="./assets/js/comment/sea.js"></script>
+
+    <script type="text/javascript">
+        var _MTONS = _MTONS || {};
+        _MTONS.BASE_PATH = '';
+        _MTONS.LOGIN_TOKEN = '1';
+    </script>
+
+    <script src="./assets/js/comment/comment2.js"></script>
+
+</head>
+<body>
+
+<input type="hidden" id="noticeId" name="noticeId" value="" />
+<input type="hidden" id="userId" name="userId" value="" />
+<!--图片，可能是多张-->
+<input type="hidden" id="imgs" name="imgs" value="" />
+
+<!--头部-->
+<header class="site-header headroom">
+    <div class="container">
+        <nav class="navbar" role="navigation">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <!--<span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>-->
+                </button>
+                <a class="navbar-brand" href="#" style="height: 25px;">
+                    <img onclick="gobackClick()" src="./assets/images/goback6.png" style="background: wheat;"/>
+                </a>
+                <!--<span style="color: #b9802b;margin-left:15%; height: 50px;line-height: 50px;font-size: 18px;font-weight: bold;text-align: center;">动态信息通知</span>-->
+            </div>
+        </nav>
+    </div>
+</header>
+
+<!--主体-->
+<div class="wrap">
+
+        <div class="container">
+
+            <div class="row main">
+
+                <div class="col-xs-12 col-md-9 side-left topics-show">
+                   <!--文章主体-->
+                    <div class="topic panel panel-default">
+                        <div id="noticeContent">
+
+                        </div>
+
+                        <div class="panel-footer operate">
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="hidden-xs">
+                                <div class="social-share" data-sites="qq, weibo, wechat, qzone, facebook, twitter, google"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                   <!--评论部分-->
+                    <div id="chat" class="chats shadow-box">
+
+                        <div id="chat_header" class="chat_header">
+                            <!--<h4>全部评论: <span id="chat_count">0</span> 条</h4>-->
+                        </div>
+
+                        <div class="panel-body">
+                            <ul id="chat_container" class="its">
+
+                            </ul>
+                        </div>
+
+                        <div id="pager" class="text-center"></div>
+
+                        <!--这个是输入框-->
+                        <div class="chat_post">
+
+                            <div class="cbox-title">我有话说: <span id="chat_reply" style="display:none;">@<i
+                                    id="chat_to"></i></span>
+                            </div>
+
+                            <div class="cbox-post">
+                                <div class="cbox-input">
+                                    <textarea name="chat_text" id="chat_text" rows="3" placeholder="请输入评论内容"></textarea>
+                                    <input type="hidden" value="0" name="chat_pid" id="chat_pid"/>
+                                </div>
+
+                                <!--添加图片-->
+                                <div id="pics" style="margin-top: 5px"></div>
+                                <div>
+                                    <input id="uplaodMobileImageBtn" name="file"  accept="image/*" type="file" onchange="takeMobilePicture()"
+                                           style="width:20%;margin:auto auto;display:block;
+                                               opacity: 0; background: red;
+                                               height: 35px;width: 40px;
+                                               position: absolute;z-index: 1000;
+                                               margin-top: 5px;"/>
+
+                                    <img src="./assets/images/uploadImg.png" style="cursor:pointer;border: 1px solid #DBDBDB;
+                                                width: 15%;height: 35px;margin-top: 5px;">
+                                </div>
+
+                                <div class="cbox-ats clearfix">
+
+                                    <div class="ats-func">
+
+                                    </div>
+
+                                    <div class="ats-issue">
+                                        <button id="btn-chat" class="btn btn-success btn-group-lg bt" onclick="sendComment()">发送</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="phiz-box" id="c-phiz" style="display:none">
+                                <div class="phiz-list" view="c-phizs"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--尾页-->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-row">
+            <!--<nav class="footer-nav">
+                <a class="footer-nav-item footer-nav-logo" href="#">
+                    <img src="./assets/images/notice1.png" alt="mblog">
+                </a>
+                <span class="footer-nav-item">Copyright © sinvie.cn</span>
+                <span class="footer-nav-item"></span>
+            </nav>
+            <div class="gh-foot-min-back hidden-xs hidden-sm">
+                <span class="footer-nav-item">Powered by <a href="www.chinaemt.com" target="_blank">智慧欣纬</a></span>
+            </div>-->
+        </div>
+    </div>
+</footer>
+
+
+<a href="#" class="site-scroll-top">
+    <i class="icon-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    seajs.use('main', function (main) {
+        main.init();
+    });
+</script>
+
+</body>
+<script src= "./waterMark.js" ></script>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <title></title>
+  <style>
+      html{
+          width: 100%;
+          background: rgba(245,245,245,1);
+      }
+      .layui-tab {
+          margin: initial;
+          text-align: left!important;
+      }
+      .layui-tab-title li{
+          padding: initial;
+          width: 32%;
+      }
+      .layui-tab-brief>.layui-tab-title .layui-this {
+          color: initial;
+      }
+      .layui-tab-title{
+          width: 100%;
+          background: rgba(255,255,255,1);
+          height: 7vh;
+          line-height: 7vh;
+      }
+      .layui-tab-content {
+          padding: initial;
+      }
+      .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after {
+          border: none;
+          border-radius: 0;
+          margin-top: 3px;
+          border-bottom: 2px solid #409EFF;
+      }
+      .layui-laypage .layui-laypage-curr .layui-laypage-em {
+          background: linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);
+      }
+  </style>
+</head>
+
+<body>
+
+<input type="hidden" id="pageSize" name="pageSize" value="5" />
+<input type="hidden" id="currentPage" name="currentPage" value="1" />
+<input type="hidden" id="userId" name="userId" value="" />
+<input type="hidden" id="platformId" name="platformId" value="" />
+
+<div class="content" style="width: 100%;padding-bottom: 2vh;">
+
+    <div style="padding: 2vh 0px;position: relative;background:rgba(255,255,255,1);font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+        <input id="keyword" type="text" name="keyword"  placeholder="请输入关键字查询" autocomplete="off" class="layui-input" style="width: 93vw;height:5vh;line-height:5vh;margin-left: 50%;transform: translateX(-50%);border-radius: 18px;background:rgba(243,243,243,1);padding-left: 9vw;">
+        <i onclick="keywordClick()" class="layui-icon executingIcon layui-icon-search" style="position: absolute;right: 17.5vw;display: inline-block;transform: translateY(-50%);top: 50%;"></i>
+    </div>
+
+    <div  id="noticeData">
+        <!--<div style="width: 89vw;position: relative;margin: 2vh 5vw;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">
+            <div style="width: 100%;font-size: 16px;font-family: PingFangSC-Medium,PingFang SC;font-weight: 500;color: rgba(51,51,51,1);position: relative;height: 7vh;line-height: 7vh;">
+                <span style="margin-left: 5vw;font-weight: bold;">陈皮陈皮湖北</span>
+                <span style="font-weight: bold;margin-left: 2vw;">|</span>
+                <span style="font-weight: bold;margin-left: 2vw;">湖北湖北湖北</span>
+            </div>
+            <div style="width: 100%;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                <span style="margin-left: 5vw;">时间：</span>
+                <span>2020-02-07 00:00:00</span>
+            </div>
+            <div style="width: 100%;height:6vh;line-height:5vh;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                <span style="margin-left: 5vw; color: #67c23a;">已读：10</span>
+                <span style="margin-left: 5vw; color: #e6a23c;">回复: 10</span>
+            </div>
+            <img src="./assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+        </div>-->
+    </div>
+
+
+    <div style="width: 205px;margin: 0 auto;" id="demo7"></div>
+
+</div>
+
+<script src="./constant.js"></script>
+<script src="./assets/js/jquery/jquery-3.2.1.min.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+<script src="./assets/js/layui/layui.js"></script>
+<script src="./assets/js/commentIndex.js"></script>
+
+</body>
+<script src= "./waterMark.js" ></script>
+
+</html>

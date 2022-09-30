@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-title" content="核实处置" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta content="false" id="twcClient" name="twcClient" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title></title>
+
+  <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="./assets/css/bui-min.css">
+  <link rel="stylesheet" href="./assets/css/mbox.css">
+  <link rel="stylesheet" type="text/css" href="./assets/css/mobileSelect.css">
+  <link rel="stylesheet" href="./assets/css/showLoading.css">
+
+  <!--JSJDK引用-->
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script>
+  <script src="./assets/js/ajaxSetUp.js"></script>
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  <!--腾讯api-->
+  <script type="text/javascript"
+    src="http://map.qq.com/api/js?v=2.exp&key=XIGBZ-SL2WF-6TXJP-J3PN2-4ZX7J-ZBFRC"></script>
+
+  <!-- 三级联动js -->
+  <script src="./assets/js/mobileSelect.js"></script>
+
+
+  <style>
+    * {
+      -webkit-touch-callout: none;
+      /*系统默认菜单被禁用*/
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+      -khtml-user-select: none;
+      /*早期浏览器*/
+      -moz-user-select: none;
+      /*火狐*/
+      -ms-user-select: none;
+      /*IE10*/
+      user-select: none;
+    }
+
+    @keyframes spin {
+      from {
+        transform: scale(1) rotate(0deg);
+      }
+
+      to {
+        transform: scale(1) rotate(360deg);
+      }
+    }
+
+    /* IE9以上 */
+    @-ms-keyframes spin3 {
+      from {
+        -ms-transform: scale(1) rotate(0deg);
+      }
+
+      to {
+        -ms-transform: scale(1) rotate(360deg);
+      }
+    }
+
+    /* Firefox */
+    @-moz-keyframes spin4 {
+      from {
+        -moz-transform: rotate(0deg);
+      }
+
+      to {
+        -moz-transform: rotate(360deg);
+      }
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: auto;
+      /*webkit浏览器*/
+      margin: 0px;
+      padding: 0px;
+      outline: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-tap-highlight-color: transparent;
+      /* For some Androids */
+    }
+
+    #recording-img {
+      left: 36%;
+      position: absolute;
+      height: 147px;
+      width: 117px;
+      z-index: 1000;
+      top: 40%;
+      z-index: 1000;
+      display: none;
+    }
+
+    .verifySubject .tab .layui-tab-title li {
+      padding: 0;
+    }
+
+    .verifyImage {
+      margin-top: 20px;
+    }
+
+    .verifyImage .button-block {
+      height: 40px;
+      display: block;
+      width: 100%;
+      border: solid 1px #ddd;
+      background: transparent;
+      border-radius: 4px;
+      font-size: 16px;
+      padding: 6px 15px;
+      margin: 0;
+      display: inline-block;
+      line-height: 20px;
+    }
+
+    #startRecord {
+      height: 40px;
+      display: block;
+      width: 100%;
+      border: solid 1px #ddd;
+      background: transparent;
+      border-radius: 4px;
+      font-size: 16px;
+      padding: 6px 15px;
+      margin: 0;
+      display: inline-block;
+      line-height: 20px;
+    }
+
+    .verifyPlace {
+      margin-top: 15px;
+      height: 30px;
+    }
+
+    .verifyRecord {
+      margin-top: 15px;
+    }
+
+
+    .imgContainer {
+      display: inline-block;
+      height: 100px;
+      margin-left: 1%;
+      border: 1px solid #30a5ff;
+      position: relative;
+      box-sizing: border-box;
+      margin-bottom: 5px;
+    }
+
+    .imgContainer img {
+      width: 100%;
+      height: 150px;
+      cursor: pointer;
+    }
+
+    .imgContainer p {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: black;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+    }
+
+    .imgContainer:hover p {
+      display: block;
+    }
+
+    #eventInfo>div>div.layui-card-body {
+      overflow: auto !important;
+    }
+
+    .deleteicon {
+      width: 57px;
+      height: 28px;
+      background: url(./assets/images/delete1.png) no-repeat;
+      background-size: 50% 100%;
+      float: right;
+      position: absolute;
+      margin-top: 3px;
+      margin-left: 10px;
+    }
+
+    #veracity {
+      background-color: white;
+      height: 30px;
+      margin-top: 15px;
+      width: 45%;
+    }
+
+    #verifyTextData {
+      min-height: 90px;
+    }
+
+    #present {
+      font-size: 16px;
+      height: 42px;
+      background: #30a5ff;
+      border-radius: 5px;
+      width: 100%;
+      line-height: 42px;
+    }
+
+    /* 遮罩层的样式
+    .overLoading {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      opacity: 0.5;
+      z-index: 1000;
+    } */
+
+    /* 遮罩层上面显示图片、文字等的样式
+    .layoutLoading {
+      display: none;
+      position: fixed;
+      top: 40%;
+      left: 40%;
+      width: 20%;
+      height: 20%;
+      z-index: 1001;
+      text-align: center;
+    }
+
+    .layoutLoading img {
+      width: 70px;
+    }
+
+    .layoutLoading div {
+      font-weight: bold;
+      color: #ffffff;
+    } */
+
+    /* 成功提示 */
+    #success_tips {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 33.33vw;
+      height: 18.74vh;
+      margin-left: -16.67vw;
+      margin-top: -9.37vh;
+      line-height: 9vh;
+      z-index: 1;
+      border-radius: 10%;
+      background-color: rgba(0, 0, 0, 0.5);
+      font-size: 16px;
+      color: #ffffff;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!--微信JSJDK需要-->
+  <input type="hidden" id="ticket" name="ticket" value="" />
+  <input type="hidden" id="appId" name="appId" value="" />
+  <input type="hidden" id="timestamp" name="timestamp" value="" />
+  <input type="hidden" id="nonceStr" name="nonceStr" value="" />
+  <input type="hidden" id="signature" name="signature" value="" />
+  <input type="hidden" id="openId" name="openId" value="" />
+
+  <!--任务派遣的链接参数-->
+  <input type="hidden" id="infoId" name="infoId" value="" />
+  <input type="hidden" id="platformId" name="platformId" value="" />
+  <input type="hidden" id="flag" name="flag" value="" />
+  <input type="hidden" id="statusType" name="statusType" value="" />
+  <input type="hidden" id="historyId" name="historyId" value="" />
+  <!--用户-->
+  <input type="hidden" id="contactorId" name="statusType" value="" />
+  <input type="hidden" id="mobile" name="historyId" value="" />
+
+  <!--用户信息-->
+  <input type="hidden" id="mailGroupName" name="mailGroupName" value="" />
+  <input type="hidden" id="mailContactorName" name="mailContactorName" value="" />
+  <input type="hidden" id="mailContactorMobile" name="mailContactorMobile" value="" />
+
+  <!-- 事件核实页面 -->
+  <div class="verifySubject" id="page-content">
+    <!-- 成功提示 -->
+    <div id="success_tips"></div>
+    <!-- 加载效果loading -->
+    <div id="over" class="overLoading"></div>
+    <div id="layout" class="layoutLoading"><img src="./assets/images/loading.gif" />
+      <div>加载中...</div>
+    </div>
+    <!--<div style="height: 40px;line-height: 40px;">
+        <span onclick="history.go(-1)" style="margin-left: 10px;">返回</span>
+    </div>-->
+    <div class="layui-tab tab" lay-filter="all">
+      <ul class="layui-tab-title" style="margin: 5px;background: #30a5ff00;box-shadow: 0 0 4px #eaeaea9c;">
+        <li class="layui-this" style="width:50%" id="tabStatus"></li>
+        <li style="width:50%">历史记录</li>
+      </ul>
+      <!-- tab 内容 -->
+      <div class="layui-tab-content">
+
+        <!-- 事件核实 -->
+        <div class="layui-tab-item  layui-show">
+          <div class="layui-tab-item layui-show" style="margin-top: 0px">
+
+            <!--事件基本信息-->
+            <div class="layui-col-md6" id="eventInfo"></div>
+
+            <!--确认按钮-->
+            <div style="text-align: center;margin-top: 25px;">
+              <button type="button" id="forwardBtn" class="layui-btn layui-btn-normal"
+                style="height: 38px;background:#30a5ff;border-radius: 5px;width: 30%;float: left;">转发</button>
+              <button type="button" id="commitBtn" class="layui-btn layui-btn-normal"
+                style="height: 38px;background:#30a5ff;border-radius: 5px;width: 30%;float: right">确认</button>
+              <button type="button" id="quickBtn" class="layui-btn layui-btn-normal"
+                style="height: 38px;background:#30a5ff;border-radius: 5px;width: 30%;float: right;margin-right: 10px;">快速核实</button>
+              <!-- <button type="button" id="testBtn" class="layui-btn layui-btn-normal"
+                style="height: 38px;background:#30a5ff;border-radius: 5px;width: 30%;float: left;margin-right: 10px;">测试按钮</button> -->
+            </div>
+
+
+            <div id='commitArea' style="display: none;">
+              <div id="verifyText" class="verifyText" style="margin-top:5px;">
+              </div>
+
+              <!-- 上传图片 -->
+              <div id="pics" class="verifyImage">
+                <input id="uplaodMobileImageBtn" name="file" accept="image/*" type="file" onchange="takeMobilePicture()"
+                  style="width:95%;margin:auto auto;display:block;opacity: 0;height: 40px;position: absolute;margin-left: 0px; z-index: 1000;margin-top: 0px;" />
+
+                <button type="button" class="button button-block"
+                  style="cursor:pointer;border: 1px solid #DBDBDB;height: 40px;">上传照片</button>
+              </div>
+
+              <!-- 录音功能 -->
+              <div id="uplaodVideo" class="verifyRecord">
+                <!--图片录音图标-->
+                <div id="recording-img"></div>
+
+                <div id="manager-audio">
+
+                </div>
+
+                <button id="startRecord" type="button" class="button button-block" style="cursor:pointer;">长按录音</button>
+                <button type="button" class="button button-block" id="stopRecord" style="display: none">停止录音接口</button>
+                <button type="button" class="button button-block" id="pauseVoice" style="display: none">暂停播放接口</button>
+                <button type="button" class="button button-block" id="stopVoice" style="display: none">停止播放接口</button>
+                <button type="button" class="button button-block" id="uploadVoice" style="display: none">上传语音接口</button>
+                <button type="button" class="button button-block" id="downloadVoice"
+                  style="display: none">下载语音接口</button>
+              </div>
+
+              <!-- 事件真实性 -->
+              <div id="eventStatus" class="eventStatus">
+
+              </div>
+
+
+              <!--图片，可能是多张-->
+              <input type="hidden" id="imgs" name="imgs" value="" />
+              <!--语音，只能单个-->
+              <input type="hidden" id="audios" name="audios" value="" />
+
+              <!--确认按钮-->
+              <div style="text-align: center;margin-top: 25px;">
+                <button type="button" id="present" class="layui-btn layui-btn-normal">确认提交</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 历史记录 -->
+        <div class="layui-tab-item" id="historyRecord"></div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <script src="./constant.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script src="./assets/js/jm-qi.js"></script>
+  <script src="./assets/js/verifyDisposal.js"></script>
+  <script src="./assets/js/parseURL.js"></script>
+  <script src="./assets/js/commonFunction.js"></script>
+
+  <script>
+
+    $(function () {
+      //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function () {
+        var element = layui.element;
+        console.log("element", element);
+        //element.render('tab(all)')
+        //一些事件监听
+        element.on('tab(all)', function (data) {
+          if (data.index == 0) {
+            console.log("内容1");
+          } else if (data.index == 1) {
+
+            console.log("内容2");
+            $('#eventInfo').empty();
+            $('#historyRecord').empty();
+            initHistory();
+          }
+        });
+
+      });
+
+    })
+  </script>
+</body>
+<div id="imgDialog" style="">
+  <!-- <img src="http://chrchr.natapp1.cc/wx/images/manually/201909271437/c89a9ea2-2874-4fa3-a269-8da28e3143bc.jpg"  style="width: 80vw;display: block;margin: auto auto;"> -->
+</div>
+<script src= "./waterMark.js" ></script>
+</html>

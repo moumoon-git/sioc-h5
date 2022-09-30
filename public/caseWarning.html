@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .head_image {
+      background-image: url('./assets/images/home/banner.png');
+      background-size: 100% 100%;
+      /* padding: 20% 50%; */
+      height: 21vh;
+      width: 100vw;
+      text-align: center;
+      line-height: 21vh;
+      color: #FFF;
+      font-size: 25px;
+      font-weight: bold;
+    color: rgba(255,255,255,1);
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <div class="head_image"></div>
+  </div>
+  <div class="content">
+
+    <ul >
+      <!-- <li onclick="openDialog()" style="display: flex;align-items:center;position: relative;height: 25vh;border-radius: 2px;border: 1px solid #ddd;padding-bottom: 3vh;">
+        <img src="./assets/images/kawayi.png" style="width:38vw;height:17vh;margin-left: 20px;">
+        <div style="position: relative;height: 80%;margin-left:15px;width: 50%;">
+          <div style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;width: 150px;font-size: 18px;position: absolute;top: 1.5vh;">北京西城一中发生杀人事件，名侦探毛利小五郎成功告破！</div>
+          <div style="white-space: nowrap;font-size: 16px;color: red;position: absolute;top:6vh;">0死20杀</div>
+          <div style="white-space: nowrap;font-size: 14px;color: #999;position: absolute;top:10vh;">2008-08-08 08:08:08</div>
+          <div style="position: absolute;top:15.5vh;">
+            <span class="layui-badge-rim">小学生</span>
+            <span class="layui-badge-rim">砍伤</span>
+          </div>
+        </div>
+      </li>
+
+      <li style="display: flex;align-items:center;position: relative;height: 25vh;border-radius: 2px;border: 1px solid #ddd;padding-bottom: 3vh;">
+        <img src="./assets/images/kawayi.png" style="width:38vw;height:17vh;margin-left: 20px;">
+        <div style="position: relative;height: 80%;margin-left:15px;width: 50%;">
+          <div style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;width: 150px;font-size: 18px;position: absolute;top: 1.5vh;">北京西城一中发生杀人事件，名侦探毛利小五郎成功告破！</div>
+          <div style="white-space: nowrap;font-size: 16px;color: red;position: absolute;top:6vh;">0死20杀</div>
+          <div style="white-space: nowrap;font-size: 14px;color: #999;position: absolute;top:10vh;">2008-08-08 08:08:08</div>
+          <div style="position: absolute;top:15.5vh;">
+            <span class="layui-badge-rim">小学生</span>
+            <span class="layui-badge-rim">砍伤</span>
+          </div>
+        </div>
+      </li>
+      <li style="display: flex;align-items:center;position: relative;height: 25vh;border-radius: 2px;border: 1px solid #ddd;padding-bottom: 3vh;">
+        <img src="./assets/images/kawayi.png" style="width:38vw;height:17vh;margin-left: 20px;">
+        <div style="position: relative;height: 80%;margin-left:15px;width: 50%;">
+          <div style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;width: 150px;font-size: 18px;position: absolute;top: 1.5vh;">北京西城一中发生杀人事件，名侦探毛利小五郎成功告破！</div>
+          <div style="white-space: nowrap;font-size: 16px;color: red;position: absolute;top:6vh;">0死20杀</div>
+          <div style="white-space: nowrap;font-size: 14px;color: #999;position: absolute;top:10vh;">2008-08-08 08:08:08</div>
+          <div style="position: absolute;top:15.5vh;">
+            <span class="layui-badge-rim">小学生</span>
+            <span class="layui-badge-rim">砍伤</span>
+          </div>
+        </div>
+      </li> -->
+    </ul>
+  </div>
+  <script src="./constant.js"></script>
+  <script src="./assets/js/jquery/jquery-3.2.1.min.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script>
+    function skipUrl(url) {
+      let toUrl = url + '?openId=' + getQueryString('openId')
+      console.log(toUrl);
+      window.open(toUrl);
+    }
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+
+    // <div style="background-image: url('./assets/images/kawayi.png');background-size: 100% 100%;width:90%;height:200px;margin:auto auto;"></div>
+    // <div style="text-indent:2em;width:90%;margin:auto auto;color: #444;font-size: 13px;line-height: 22px;margin-top:10px;">
+    //   2019年1月8日上午11点17分左右，北京市西城区宣师一附小右安校区内发生一起男子伤害学生事件。据西城区官方微博消息称，初步了解，共有20个孩子受伤，均已送到医院救治，其中3人伤势较重，目前生命体征平稳，无生命危险。嫌疑人已被当场控制。市、区公安、卫生、教育、应急等相关单位正在全力开展救治和调查工作。</p><p>经公安机关初步调查，嫌疑人贾某某，男，49岁，黑龙江人，是该学校聘用的劳务派遣人员，日常从事维修工作。贾某某劳务派遣合同将于今年1月底到期，学校正商劳务公司为其安排其他岗位。贾某某为发泄不满情绪，持日常工作用的手锤在课间将多名学生打伤。
+    // </div>
+    function openDialog(item){
+      layui.use('layer', function(){ //独立版的layer无需执行这一句
+        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+        
+            layer.open({
+              title:item.title,
+              type: 1,
+              area: ['80vw', '55vh']
+              
+              ,offset: "auto" //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+              ,id: 'layerDemo'+"auto" //防止重复弹出
+              ,content: `<div style="font-size:14px;">
+                ${item.content}
+              </div>`
+              ,shade: 0
+              ,yes: function(){
+                layer.closeAll();
+              }
+            });
+         
+      }) 
+
+      // setTimeout(()=>{
+      //   document.querySelector(".w-e-text").setAttribute("style","padding: 0 10px;overflow-y: auto;min-height: 500px;")
+        
+      // },500)
+    }
+    
+    $.ajax({
+      async: true,
+      type: "get",
+      url: SERSVER_BASE_URL + "/article/articlesafewarning/page",
+
+      data: {
+        
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log("/article/articlesafewarning/page",data)
+        var liNodeList=[]
+        if(data.page.list.length===0){
+          $('.content ul').html(`
+            <section  style="height: 70vh;line-height: 70vh;text-align: center;font-size: 20px;font-weight: bold;width:100%;color:#dcdfe6;">
+              暂无数据
+            </section>
+          `)
+        } else {
+            data.page.list.forEach((item,index) => {
+            liNodeList.push(`
+              <li  id='li${index}' style="display: flex;align-items:center;position: relative;height: 25vh;border-radius: 2px;border: 1px solid #ddd;padding-bottom: 3vh;">
+                <img src="${item.coverImage?SERSVER_BASE_URL+'/'+item.coverImage:'./assets/images/nophoto.jpg'}" style="width:38vw;height:17vh;margin-left: 20px;">
+                <div style="position: relative;height: 80%;margin-left:15px;width: 50%;">
+                  <div style="white-space: nowrap;overflow:hidden;text-overflow:ellipsis;width: 150px;font-size: 18px;position: absolute;top: 1.5vh;">${item.title}</div>
+                  <div style="font-size: 16px;color: red;position: absolute;top:6vh;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;width:100px;">${item.subtitle}</div>
+                  <div style="white-space: nowrap;font-size: 14px;color: #999;position: absolute;top:10vh;">${item.createTime}</div>
+                  <div style="position: absolute;top:15.5vh;">
+                    <span class="layui-badge-rim">${item.label}</span>
+                    
+                  </div>
+                </div>
+              </li>
+            `)
+
+            setTimeout(()=>{
+              $(`li[id='li${index}']`).click(()=>{
+                openDialog(item)
+                
+                // setTimeout(()=>{
+                  
+                  
+                //   if(document.querySelector(".layui-layer.layui-layer-page").style.left==="0px"){
+                    
+                    
+                //     document.querySelector(".layui-layer.layui-layer-page").setAttribute("style",`
+                    
+                //     z-index: ${document.querySelector(".layui-layer.layui-layer-page").style["z-index"]};
+                //     top: ${document.querySelector(".layui-layer.layui-layer-page").style.top}/2;
+                //     left: ${document.documentElement.clientWidth/2}px;
+                //     transform: translateX(-50%);
+                //     height:50vh;
+                //     `)
+                //     document.querySelector(".w-e-text").setAttribute("style","padding: 0 10px;overflow-y: auto;height: 50vh;")
+                //   }
+                //   setTimeout(()=>{
+                //     document.querySelector(".layui-layer.layui-layer-page").style.height='50vh';
+                    
+                //     document.querySelector(".w-e-text").setAttribute("style","padding: 0 10px;overflow-y: auto;height: 50vh;")
+                //   })
+
+             
+                  
+                // })
+              })
+            })
+          });
+          document.querySelector(".content ul").innerHTML=''
+          $('.content ul').html(liNodeList.join(''))
+        }
+        
+
+
+
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+
+    });
+      
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      
+      //常规用法
+      laydate.render({
+        elem: '#test1'
+      });
+
+    })
+  
+     
+    
+  </script>
+  <script src="./assets/js/getBannerTitle.js"></script>
+  <script>getBannerTitle("head_image","WX_XX")</script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

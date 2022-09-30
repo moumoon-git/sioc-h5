@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .head_image {
+      background-image: url('./assets/images/homeHeaderImg2.png');
+      background-size: 100% 100%;
+      padding: 20% 50%;
+    }
+    
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <div class="head_image"></div>
+  </div>
+  <div class="content" style="width: 93%;margin: 15px auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+    <div class="message" style="width:100%;">
+      <!-- <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 9px 0px;">
+          <span style="color: #333333;">新消息提醒</span>
+          <span style="color: #7F7F7F;position: absolute;right: 0%;">2019年10月11日&nbsp;15:43</span>
+      </div>
+      <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 2px 0px;">
+          <span style="color: #AAAAAA;">新塘镇综治指挥中心</span>
+      </div>
+      <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 2px 0px;">
+          <span style="color: #AAAAAA;">事件：&nbsp;</span>
+          <span style="color: #333333;">地震应急值班</span>
+      </div>
+      <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 2px 0px;">
+          <span style="color: #AAAAAA;">内容：</span>
+          <span style="color: #333333;">【住建局】</span>
+          <span style="color: #333333;">接省地震局（市、州）报2019月11日10时22分，在××地（北纬12度，东经14度）发生4级地震，震源深度10公里。广州、深圳等地震感明显。截至23日11时，接获死亡人员报告13例、失踪4例、受伤31例，倒塌房屋12间、损坏房屋31间。地震发生后，市委、市政府领导立即指示各地、各有关部门按照预案组织开展工作，确保人民生命财产安全。具体灾情还在进一步核查中。总值班室（值班员：张三）</span>
+      </div> -->
+    </div>
+    <div style="width: 93%;margin: auto;position: relative;font-size: 14px;">
+        <div style="color: #333333;padding: 6px 0px;">回复：</div>
+        <textarea class="textarea" style="width: 99%;height: 150px;"></textarea>
+        <div style="padding: 8px 0px;position: relative;height: 35px;">
+          <span onclick="submitDebounce()" style="background-color: rgba(2, 167, 240, 1);color: white;padding: 8px 18px;display: inline-block;border-radius: 5px;float: right;">确定</span>
+        </div>
+    </div>
+  </div>
+  <script src="./assets/js/utils.js"></script>
+  <script src="./constant.js"></script>
+  <script src="./assets/js/jquery/jquery-3.2.1.min.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+    var getResult;
+    $.ajax({
+      type: "get",
+      url: SERSVER_BASE_URL+"/message/messageinfor/getMessageInforById",
+      dataType: "json",
+      data: {
+        id: getQueryString('messageId'),
+        token:'PC_740ef486c297db21effcc58997a1aff2',
+            
+      },
+      success: function (result) {
+        console.log('/message/messageinfor/getMessageInforById',result);
+        getResult=result
+        var contentArray=[]
+        contentArray.push(`
+        <div class="message" style="width:100%;">
+          <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 9px 0px;">
+              <span style="color: #333333;">新消息提醒</span>
+              <span style="color: #7F7F7F;position: absolute;right: 0%;">${result.entity.createTime?result.entity.createTime:''}</span>
+          </div>
+          <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 2px 0px;">
+              <span style="color: #AAAAAA;">${result.entity.platformName?result.entity.platformName:''}</span>
+          </div>
+          <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 2px 0px;">
+              <span style="color: #AAAAAA;">事件：&nbsp;</span>
+              <span style="color: #333333;">${result.entity.eventInfoEntity.title?result.entity.eventInfoEntity.title:''}</span>
+          </div>
+          <div style="width: 93%;margin: auto;position: relative;font-size: 14px;padding: 2px 0px;">
+              <span style="color: #AAAAAA;">内容：</span>
+              <span style="color: #333333;"> </span>
+              <span style="color: #333333;">${result.entity.content?result.entity.content:''}</span>
+          </div>
+        </div>
+        `)
+        $('.content .message').html('')
+        $('.content .message').html(contentArray.join(''))
+      }
+    })
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    submitDebounce = debounce(submit,4000)
+    function submit() {
+
+      $.ajax({
+        async: false,
+        type: "POST",
+        url: SERSVER_BASE_URL + "/message/messageinfor/saveMessageUp",
+        contentType:'application/json',
+        data:
+        JSON.stringify({
+            content:$('.textarea').val(),
+            phone:getResult.entity.phone,
+            msgId:Number(getQueryString('msgId')),
+            messageId:Number(getQueryString('messageId')),
+            platformId:getResult.entity.eventInfoEntity.platformId?Number(getResult.entity.eventInfoEntity.platformId):undefined,
+            
+          }),
+        dataType: "json",
+        success: function (res) {
+          console.log('/message/messageinfor/saveMessageUp回复短信内容',res)
+          if(res.code==0){
+            location.replace('./submitSuccessful.html')
+          }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+      
+      });
+    }
+
+    
+  
+     
+    
+  </script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

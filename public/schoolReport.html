@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+  <head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-title" content="隐患上报" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta content="false" id="twcClient" name="twcClient" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>隐患上报</title>
+
+    <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/bui-min.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/mbox.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/mobileSelect.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/citysel.css"/>
+
+    <!--JSJDK引用-->
+    <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+    <!-- 三级联动js -->
+    <script src="./assets/js/mobileSelect.js"></script>
+
+    <script src="./assets/js/LAreaData.js"></script>
+    <script src="./assets/js/schoolpickerhc.js"></script>
+
+    <!--腾讯api-->
+    <script
+      type="text/javascript"
+      src="http://map.qq.com/api/js?v=2.exp&key=XIGBZ-SL2WF-6TXJP-J3PN2-4ZX7J-ZBFRC"
+    ></script>
+    <!--JSJDK引用-->
+    <!-- <script
+      type="text/javascript"
+      src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"
+    ></script> -->
+    <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script type="text/javascript">
+      resizeFontSize()
+            window.onresize=function () {
+              resizeFontSize()
+            }
+      
+            function  resizeFontSize(){
+              //获取根元素
+              const docEl = document.documentElement;
+              //获取设备宽度
+              const clientWidth = docEl.clientWidth ;
+              console.log("clientWidth",clientWidth)
+              //若未获取到设备宽度，则终止函数执行
+              if (!clientWidth) return ;
+              //计算rem基础配置：设计图以750px为准时，px rem比例为1：100
+              const fs= 100*(clientWidth/750) ;
+              //为根元素字体赋值
+              console.log("docEl",docEl.style.fontSize)
+              docEl.style.fontSize = fs+'px'
+            }
+      </script>
+    <style>
+      html,body {
+            background:rgba(245,245,245,1)!important;
+        }
+      .eventTop .topBgImage {
+        position: relative;
+        padding: 20% 50%;
+        background: url(./assets/images/top.png) no-repeat;
+        background-size: 100% 100%;
+      }
+
+      #recording-img {
+        left: 22%;
+        position: absolute;
+        height: 222px;
+        width: 222px;
+        z-index: 1000;
+        top: 22%;
+        background: url(./assets/images/voiceLogo.png) no-repeat center;
+        z-index: 1000;
+
+        display: none;
+      }
+      #uploadImageLoading{
+        left: 22%;
+        position: absolute;
+        height: 222px;
+        width: 222px;
+        z-index: 1000;
+        top: 22%;
+        z-index: 1000;
+
+        display: none;
+      }
+
+      * {
+        -webkit-touch-callout: none;
+        /*系统默认菜单被禁用*/
+
+        -webkit-user-select: none;
+        /*webkit浏览器*/
+
+        -khtml-user-select: none;
+        /*早期浏览器*/
+
+        -moz-user-select: none;
+        /*火狐*/
+
+        -ms-user-select: none;
+        /*IE10*/
+
+        user-select: none;
+      }
+
+      @keyframes spin {
+        from {
+          transform: scale(1) rotate(0deg);
+        }
+
+        to {
+          transform: scale(1) rotate(360deg);
+        }
+      }
+
+      /* IE9以上 */
+      @-ms-keyframes spin3 {
+        from {
+          -ms-transform: scale(1) rotate(0deg);
+        }
+
+        to {
+          -ms-transform: scale(1) rotate(360deg);
+        }
+      }
+
+      /* Firefox */
+      @-moz-keyframes spin4 {
+        from {
+          -moz-transform: rotate(0deg);
+        }
+
+        to {
+          -moz-transform: rotate(360deg);
+        }
+      }
+
+      input,
+      textarea {
+        -webkit-user-select: auto;
+        /*webkit浏览器*/
+        margin: 0px;
+        padding: 0px;
+        outline: none;
+      }
+
+      * {
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-tap-highlight-color: transparent;
+        /* For some Androids */
+      }
+
+      .jm-box-button3:active {
+      }
+
+      .trigger {
+            display: flex;
+            width: 60%;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+            /* border: 1px solid #999; */
+            margin-bottom: 20px;
+            text-align: center;
+            
+            
+            height: 8.39vh;
+            line-height: 8.39vh;
+        }
+
+      .imgContainer{
+        display: inline-block;
+            /* height: 100px; */
+            margin-left: 1.67vw;
+            /* border: 1px solid #30a5ff; */
+            position: relative;
+            box-sizing: border-box;
+            /* margin-bottom: 5px; */
+            position: relative;
+            margin-bottom: 2.25vh;
+      }
+      .imgContainer img{
+        width: 100%;
+        height: 150px;
+        cursor: pointer;
+      }
+      .imgContainer p{
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: black;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        display: none;
+      }
+      .imgContainer:hover p{
+        display: block;
+      }
+
+      .deleteicon{
+        width:.55rem;
+        height:.5rem;
+        background:url("./assets/images/icon.png")
+        no-repeat -6.17rem -3.41rem;
+        background-size:14.57rem 4.86rem;
+        float: right;
+        position: absolute;
+        margin-top: -9px;
+        margin-left: 10px;
+      }
+
+      .gobackIcon{
+        margin-top: 2px;
+        height: 0.3rem;
+        background:url("./assets/images/goback1.png") no-repeat;
+        background-size: 50% 100%;
+      }
+      /* write by yaoweixin */
+      .eventTop {
+        position: relative;
+        /* width: 100vw; */
+        /* height: 17.4vh; */
+        padding: 1.5vh 5.33vw 0.9vh 5.33vw;
+        background: #fff;
+        }
+     .eventTop img {
+        width: 89.33vw;
+        height: 14.99vh;
+     }
+     .eventTop .bannerTitle {
+       position: absolute;
+       left: 50%;
+       top: 50%;
+       transform: translate(-50%,-50%);
+       font-size: 0.44rem;
+       
+        font-weight:bold;
+        color:rgba(255,255,255,1);
+        text-shadow:0px 2px 4px rgba(0,0,0,0.5);
+        width: 82.27vw;
+        text-align: center;
+     }
+     /* write by yaoweixin */
+     .hiddenImgContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hiddenImgContainer img {
+            width: 5.33vw;
+            height: 3vh;
+        }
+        .hiddenTroubleTitle {
+            font-size: 0.32rem;
+           
+            font-weight:400;
+            color:rgba(51,51,51,1);
+            margin-left: 2.67vw;
+        }
+        .trigger img {
+            width: 5.33vw;
+            height: 3vh;
+        }
+        .hiddenImgContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hiddenImgContainer img {
+            width: 5.33vw;
+            height: 3vh;
+        }
+        .hiddenTroubleTitle {
+            font-size: 0.32rem;
+           
+            font-weight:400;
+            color:rgba(51,51,51,1);
+            margin-left: 2.67vw;
+        }
+        .trigger img {
+            width: 5.33vw;
+            height: 3vh;
+        }
+        .panel {
+            border: 0!important;
+            border-radius: 0!important;
+            background: none;
+        }
+        .centerBody {
+            margin-top: 1.5vh;
+            background-color: #fff;
+            /* width: 89.33vw; */
+        }
+        .button-upload {
+            
+            font-size: 0.32rem;
+           
+            font-weight:400;
+            color:rgba(51,51,51,1);
+            /* margin-left: 5.33vw; */
+            /* margin-top: 1.5vh; */
+        }
+        .buttonContainer {
+            border: 0;
+            height: 20.01vh;
+            padding: 0;
+            padding-top: 1.5vh;
+            
+        }
+        .uploadPictureWrapper {
+            width: 20.27vw;
+            height: 11.39vh;
+            border: .5px dashed rgba(204,204,204,1);
+            margin-top: 1.5vh;
+            /* margin-left: 5.33vw; */
+            text-align: center;
+            padding-top: 1vh;
+            font-size: 0.2rem;
+           
+            font-weight:500;
+            color:rgba(153,153,153,1);
+        }
+        .pictureDesc {
+            font-size: .2rem;
+           
+            font-weight:500;
+            color:rgba(153,153,153,1);
+            line-height: 2.1vh;
+        }
+        .centerMain {
+            width: 89.33vw;
+            margin-left: 5.33vw;
+        }
+        .soundImgStyle {
+            width: 5vw;
+            height: 3.75vh;
+        }
+        .soundTitle {
+            font-size: 0.32rem;
+           
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .lastBody {
+            margin-top: 1.5vh;
+            background-color: #fff;
+            padding-top: 1.5vh;
+        }
+        .hiddenDangerDescTitle {
+             margin-left: 5.33vw;
+             font-size: 0.32rem;
+          
+            font-weight:400;
+            color:rgba(51,51,51,1);
+        }
+        .descStyle::-webkit-input-placeholder {
+        /* WebKit browsers */
+        /* color: #9e9e9e; */
+        font-size: 0.26rem;
+        
+        font-weight:400;
+        color:rgba(204,204,204,1);
+    }
+    .submitContainer {
+        background: #fff;
+        border-top: 1px solid rgba(221,221,221,1);
+        padding: 2.25vh 7.33vw;
+    }
+    .imgDelete {
+        position: absolute;
+        top: -.7vh;
+        right: -1vw;
+        width: 5.87vw!important;
+        height: 3.3vh!important;
+    }
+    .panel-body {
+        background-color: #fff!important;
+    }
+    .soundRecordContainer {
+      position: fixed;
+      background: rgba(0,0,0,0.5);
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: none;
+    }
+    .soundRecordContent {
+      position: absolute;
+      height: 38.08vh;
+      background-color: #fff;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-radius:20px 20px 2px 2px;
+      text-align: center;
+    }
+    .soundRecordContent #clickSoundRecordButton{
+      width: 15.47vw;
+      height: 8.69vh;
+      background: url(./assets/images/Home/soundRecord.png) no-repeat;
+      background-size: 100% 100%;
+      margin: 0 auto;
+    }
+    .soundRecordHeader {
+      height: 5.02vh;
+      padding-top: 1.5vh;
+      padding-right: 3.87vw;
+      display: flex;
+      flex-direction: row-reverse;
+    }
+    .soundRecordHeader img {
+      width: 4.27vw;
+      height: 2.4vh;
+    }
+    .startTitle {
+      font-size:0.38rem;
+      
+      font-weight:400;
+      color:rgba(0,145,255,1);
+      text-align: center;
+    }
+    .toastTitle {
+      margin-top: 2.4vh;
+      font-size:0.24rem;
+     
+      font-weight:400;
+      color:rgba(51,51,51,1);
+      text-align: center;
+      margin-bottom: 8.1vh;
+    }
+    #town {
+      width: 80%!important;
+    }
+    #loadingContainer {
+           position: fixed; 
+           background-color: rgba(0, 0, 0, 0.5);
+           top: 0;
+           left: 0;
+           bottom: 0;
+           right: 0;
+           z-index: 21891016;
+           display: none;
+        }
+        .loadingIcon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 21891017;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div id="loadingContainer">
+      <img src="./assets/images/loading.gif" alt="" class="loadingIcon">
+    </div>
+    <!--微信JSJDK需要-->
+    <input type="hidden" id="ticket" name="ticket" value="" />
+    <input type="hidden" id="appId" name="appId" value="" />
+    <input type="hidden" id="timestamp" name="timestamp" value="" />
+    <input type="hidden" id="nonceStr" name="nonceStr" value="" />
+    <input type="hidden" id="signature" name="signature" value="" />
+    <input
+      type="hidden"
+      id="dangerCategory-child-one"
+      name="dangerCategory-child-one"
+      value=""
+    />
+
+    <input type="hidden" id="openId" name="openId" value="" />
+
+    <!--平台信息-->
+    <input type="hidden" id="applicationId" name="applicationId" value="" />
+    <input type="hidden" id="applicationName" name="applicationName" value="" />
+
+    <div class="eventTop">
+      <img src="./assets/images/Home/banner2.png" alt="">
+      <div class="bannerTitle">
+      </div>
+    </div>
+
+    <div class="eventContent">
+      <form>
+        <div class="panel">
+          <div class="panel-body" style="padding:10px;">
+            <section>
+
+              <select class="input-small"
+                      name="town" id="town"
+                      style="background-color:white;font-size: 14px;line-height:14px;border: 1px solid #DBDBDB;
+                      width: 50%;height: 44px;margin-left: 10px;display: inline"
+                      onchange="getApplication(this)">
+              </select>
+
+              <!-- 学段 -->
+              <!-- <select
+                class="input-small"
+                name="schoolPeriod"
+                id="schoolPeriod"
+                style="background-color:white;font-size: 14px;line-height:14px;border: 1px solid #DBDBDB;
+                width: 40%;height: 44px;margin-left: 10px;display: inline"
+                onchange="getApplication(this)"
+              >
+              </select> -->
+
+              <!--<div id="dangerMenu" style="display: inline-block;"></div>-->
+              <div class="touchcity" style="z-index: 100000;">
+                <div class="schbox">
+                  <span class="gobackIcon"></span>
+                  <!--<span>搜索小区:</span>-->
+                  <input id="cityipt" type="text" placeholder="搜索区域"/>
+                </div>
+                <div class="citybox"></div>
+                <div class="indexBar"></div>
+                <a class="locate"></a>
+              </div>
+              <div id="citypick">
+                <span id="cityname">请选择区域</span>
+              </div>
+            </section>
+
+
+            <!--<div id="trigger" class="trigger">选择上报隐患</div>-->
+            <!-- <div id="trigger" class="trigger" style="padding-left: 10px;text-align: left;margin: 0.1rem;border: 1px solid rgb(219, 219, 219);width: 94%;
+          height: 44px;line-height: 44px;cursor: pointer;font-size: 16px;">选择上报隐患</div> -->
+          <div id="trigger" class="trigger" style="padding-left: 10px;text-align: left;margin: 0.1rem;border-bottom: 1px solid rgb(219, 219, 219);width: 94%;
+          cursor: pointer;">
+                    <div class="hiddenImgContainer">
+                        <img src="./assets/images/Home/hiddenDangerType.png" alt="">
+                        <div class="hiddenTroubleTitle">隐患类型</div>
+                    </div>
+                    <img src="./assets/images/Home/enterArrow.png" alt="">
+            </div>
+
+            
+      </form>
+    </div>
+    <div class="centerBody">
+      <div class="centerMain">
+    <div id="pics" class="form-group" style="padding-bottom: 0;border-bottom: 1px solid rgba(221,221,221,1);">
+      <!--<button id="uplaodImageBtn" style="border: 1px solid #DBDBDB;width: 94%;height: 44px;margin-left: 10px"
+              type="button" class="button button-block" onclick="takePicture()">上传图片</button>-->
+      <input id="uplaodMobileImageBtn" name="file"  accept="image/*" type="file" onchange="takeMobilePicture()"
+             style="margin:auto auto;display:block;opacity: 0;height: 20.01vh;position: absolute; z-index: 1000;margin-top: 6.37vh;width: 20.27vw;
+             height: 11.39vh;"/>
+
+      <div type="button" class="button-block buttonContainer" style="cursor:pointer;">
+        <div class="button-upload">上传照片</div>
+        <div class="uploadPictureWrapper">
+            <img src="./assets/images/Home/camera.png" alt="">
+            <div class="pictureDesc">上传图片</div>
+            <div class="pictureDesc">(最多4张)</div>
+        </div>
+ </div>
+    </div>
+
+    <div id="uplaodVideo" class="form-group">
+      <!--图片录音图标-->
+      <div id="recording-img"></div>
+      <div id="uploadImageLoading"></div>
+
+      <div id="manager-audio">
+
+      </div>
+
+      <button type="button" class="button button-block" id="startRecord"
+               style="border: 1px solid #DBDBDB;height: 44px;width:89.33vw;display:flex;justify-content:space-between;border: 0;padding: 0;align-items: center;">
+               <div class="soundTitle">上传录音</div>
+               <img src="./assets/images/Home/soundRecording.png" alt="" class="soundImgStyle">
+        </button>
+
+      <button type="button" class="button button-block" id="stopRecord" style="display: none">停止录音接口</button>
+
+      <button type="button" class="button button-block" id="pauseVoice" style="display: none">暂停播放接口</button>
+
+      <button type="button" class="button button-block" id="stopVoice" style="display: none">停止播放接口</button>
+
+      <button type="button" class="button button-block" id="uploadVoice" style="display: none">上传语音接口</button>
+
+      <button type="button" class="button button-block" id="downloadVoice" style="display: none">下载语音接口</button>
+
+    </div>
+
+    <!--图片，可能是多张-->
+    <input type="hidden" id="imgs" name="imgs" value="" />
+    <!--语音，只能单个-->
+    <input type="hidden" id="audios" name="audios" value="" />
+
+    <input type="hidden" id="videos" name="videos" value="" />
+
+    <input type="hidden" id="nowAddress2" name="nowAddress2" value="" />
+
+    <input type="hidden" id="nowLatitude" name="nowLatitude" value="" />
+  </div>
+</div>
+<div class="lastBody">
+  <div>
+    
+      <div class="hiddenDangerDescTitle">隐患描述</div>
+      <textarea id="eventDescribe" name="eventDescribe" class="input-large" placeholder="请在此描述隐患内容、地点、时间等信息"
+                aria-disabled="false" aria-pressed="false"
+                style="border: 0;width: 94%;height: 88px;margin-left: 5.33vw;" class="descStyle"></textarea>
+   
+  </div>
+</div>
+<div class="submitContainer">
+    <div>
+      <button type="button" id="btn" class="button button-block"
+      style="color:white; border: 1px solid #DBDBDB;width: 85.33vw;height: 6.75vh;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);
+      box-shadow:0px 6px 12px 0px rgba(12,126,161,0.35);
+      border-radius:75px;font-size:0.4rem;font-weight:400;color:rgba(255,255,255,1);"
+              onclick="rptSubmit()">确认提交</button>
+    </div>
+</div>
+
+  </div>
+  <!-- 录音弹框开始-->
+    <div class="soundRecordContainer">
+      <div class="soundRecordContent">
+        <div class="soundRecordHeader">
+            <img src="./assets/images/Home/deleteIcon.png" alt="" class="closeSound">
+        </div>
+        <div class="startTitle">按住录音</div>
+        <div class="toastTitle">请录制1分钟以内录音</div>
+        <div id="clickSoundRecordButton"></div>
+      </div>
+    </div>
+  <!--录音弹框结束-->
+</div>
+  </body>
+  <script type="text/javascript">
+    resizeFontSize()
+          window.onresize=function () {
+            resizeFontSize()
+          }
+    
+          function  resizeFontSize(){
+            //获取根元素
+            const docEl = document.documentElement;
+            //获取设备宽度
+            const clientWidth = docEl.clientWidth ;
+            console.log("clientWidth",clientWidth)
+            //若未获取到设备宽度，则终止函数执行
+            if (!clientWidth) return ;
+            //计算rem基础配置：设计图以750px为准时，px rem比例为1：100
+            const fs= 100*(clientWidth/750) ;
+            //为根元素字体赋值
+            console.log("docEl",docEl.style.fontSize)
+            docEl.style.fontSize = fs+'px'
+          }
+    </script>
+  <!--js引用-->
+  <script type="text/javascript" src="./constant.js"></script>
+  <script type="text/javascript" src="./assets/js/jm-qi.js"></script>
+  <script type="text/javascript" src="./assets/js/schoolReport2.js"></script>
+
+  <script>
+    $("#citypick").click(function(){
+      citypicker();
+    })
+
+    $(".gobackIcon").click(function () {
+      $(".touchcity").hide();
+    })
+  </script>
+   <script src="./assets/js/getBannerTitle.js"></script>
+   <script>getBannerTitle("bannerTitle","WX_XX")</script>
+</html>

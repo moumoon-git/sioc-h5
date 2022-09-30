@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <script src="./constant.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script>
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .head_image {
+      height: 21vh;
+      background-image: url('./assets/images/Home/banner2.png');
+      background-size: 100% 100%;
+      /* padding: 30%; */
+      /* padding: 20% 50%; */
+      width: 100vw;
+      text-align: center;
+      line-height: 21vh;
+      color: #FFF;
+      font-size: 25px;
+      font-weight: bold;
+    color: rgba(255,255,255,1);
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    ul {
+      /* display: -webkit-box; */
+    }
+
+    .content_li {
+      width: 42%;
+      border-radius: 10px!important;
+      background: #fff!important;
+      box-shadow: 0 0 20px #ccc;
+      margin: 15px;
+      text-align: center;
+    }
+
+    .content_li img {
+      width: 99px;
+      height: 99px;
+      margin: 10px;
+    }
+
+    .content ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+
+    }
+
+    h3 {
+      position: relative;
+      top: -8px;
+      font-size: 16px;
+      color: #333333;
+    }
+    .eventTop {
+        position: relative;
+        /* width: 100vw; */
+        /* height: 17.4vh; */
+        /* padding: 1.5vh 5.33vw 0.9vh 5.33vw; */
+        background: #fff;
+        }
+    .eventTop img {
+        width: 100vw;
+        height: 21vh;
+     }
+     .eventTop .bannerTitle {
+       position: absolute;
+       left: 50%;
+       top: 50%;
+       transform: translate(-50%,-50%);
+       font-size: 28px;
+       
+        font-weight:bold;
+        color:rgba(255,255,255,1);
+        text-shadow:0px 2px 4px rgba(0,0,0,0.5);
+        width: 82.27vw;
+        text-align: center;
+     }
+  </style>
+   
+</head>
+
+<body>
+  <div class="eventTop">
+    <img src="./assets/images/Home/banner2.png" alt="">
+    <div class="bannerTitle">
+    
+    </div>
+</div>
+<div class="content" style="padding-bottom: 60px;">
+  <ul style="margin-top: 10px;">
+    <!-- <li class="content_li">
+      <a href="javascript:void(0)" onclick="skipUrl('./schoolReport.html')">
+        <img src="./assets/images/fanghuo.png" alt="">
+        <h3 id="remarkTrouble"></h3>
+      </a>
+    </li> -->
+    <!-- 防汛防火改为统一叫群众上报↑2021.09.17有问题咨询袁林青 -->
+    <li class="content_li">
+      <a href="javascript:void(0)" onclick="skipUrl('./propertyReport.html');">
+        <img src="./assets/images/qunzhong.png" alt="">
+        <h3 id="errorTrouble">风险上报</h3>
+      </a>
+    </li>  
+    <!-- <li class="content_li">
+     <a href="camera:">摄像</a>
+    </li> -->
+  </ul>
+
+  <!-- <ul style="margin-top: 0px;">
+    <li class="content_li" style="opacity: 0.3;">
+      <a href="javascript:void(0)" >
+        <img src="./assets/images/zhengcheng02.png" alt="">
+        <h3>矛盾纠纷</h3>
+      </a>
+    </li>
+    <li class="content_li" style="opacity: 0.3;">
+      
+      <a href="javascript:void(0)" >
+        <img src="./assets/images/zhengcheng04.png" alt="">
+        <h3>涉毒隐患</h3>
+      </a>
+    </li>
+  </ul> -->
+
+  <!-- <ul style="margin-top: 0px;" >
+    <li class="content_li" style="opacity: 0.3;">
+      <a href="javascript:void(0)" >
+        <img src="./assets/images/zhengcheng05.png" alt="">
+        <h3>安全教育</h3>
+      </a>
+    </li>
+    <li class="content_li" style="opacity: 0.3;">
+      
+      <a href="javascript:void(0)" >
+        <img src="./assets/images/zhengcheng06.png" alt="">
+        <h3>涉金融风险</h3>
+      </a>
+    </li>
+  </ul> -->
+
+</div>
+
+<script>
+  
+  function skipUrl(url) {
+    let toUrl = url
+    window.location.href=`${toUrl}`
+  }
+  // 获取地址栏参数
+  //适应以下两种模式，来获取url参数值：
+  //User/vip_card_manager/useless/219/id/18
+  //User/vip_card_manager?useless=219&id=18
+
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    var q = window.location.pathname.substr(1).match(reg_rewrite);
+    if (r != null) {
+      return unescape(r[2]);
+    } else if (q != null) {
+      return unescape(q[2]);
+    } else {
+      return null;
+    }
+  }
+</script>
+<script src="./assets/js/getBannerTitle.js"></script>
+  <script>getBannerTitle("bannerTitle","WX_FXYH")</script>
+  <script>
+// 群众上报注释
+//     $.ajax({
+//      async: true,
+//      type: "GET",
+//      url: SERSVER_BASE_URL + "/sys/config/infoByKey?key=TJFX_VIEW",
+//      data:
+//          {          
+//          },
+//      dataType: "json",
+//      success: function (res) {
+//          console.log('菜单为',res)
+//          if(res.code === 0) {
+//              var newList = []
+//              var navList = JSON.parse(res.config.paramValue)
+//              for(var i = 0; i < navList.length; i++) {
+//                if(navList[i].status == '6') {
+//                   document.getElementById('remarkTrouble').innerHTML = navList[i].name + '隐患'
+//                }
+//                if(navList[i].status == '5') {
+//                 document.getElementById('errorTrouble').innerHTML = navList[i].name + '隐患'
+//                }
+//              }
+//          }
+//      }
+//  });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <script src="./constant.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <title>动态通报</title>
+  <style>
+    .layui-tab-title{
+      width: 100%;
+    }
+    .layui-tab-title li{
+      width: 40%;
+    }
+    .layui-tab-content{
+        width: 100%;
+        padding: 0px;
+    }
+    .layui-tab-content ul{
+      width:100%;list-style:none;
+    }
+    .layui-tab-content ul li{
+      width:100%;border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;height:60px;
+    }
+    .layui-layer.layui-layer-page .layui-layer-title{
+      display: none;
+    }
+    .layui-layer.layui-layer-page .layui-layer-setwin{
+      background: white;
+    }
+    .layui-layer.layui-layer-page .layui-layer-setwin a{
+      margin-left: 0px;
+    }
+    .layui-layer.layui-layer-page .layui-layer-setwin .layui-layer-close1{
+      background-position: 2px -40px;
+    }
+
+    .layui-tab {
+      margin: initial;
+      text-align: left!important;
+    }
+    .layui-tab-brief>.layui-tab-title .layui-this {
+      color: initial;
+    }
+    .layui-tab-title{
+      width: 100%;
+      background: rgba(255,255,255,1);
+      height: 7vh;
+      line-height: 7vh;
+    }
+    .layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after {
+      border: none;
+      border-radius: 0;
+      margin-top: 3px;
+      border-bottom: 2px solid #409EFF;
+    }
+    .layui-form-label {
+      float: left!important;
+      display: block!important;
+      padding: 9px 0px 9px 5vw!important;
+      width: 50px!important;
+      font-weight: 400!important;
+      line-height: 20px!important;
+      /* margin-left: 5vw!important; */
+      text-align: right!important;
+    }
+    .layui-input-block {
+      margin-left: 5vw!important;
+      min-height: 36px!important;
+      display: inline-block!important;
+      width: 66%!important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+      <li class="layui-this">发布消息</li>
+      <li>已发消息</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+                <form class="layui-form" action="" style="margin-top: 20px;">
+                    <div class="layui-form-item">
+                      <label class="layui-form-label" style="padding: 9px 0px;">标题</label>
+                      <div class="layui-input-block" style="width:60%;">
+                        <input id="title" type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                      </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="padding: 9px 0px;">收信人</label>
+                        <div class="layui-input-block" style="width:60%;">
+                          <select class="selectPeople" name="city" lay-verify="required">
+
+                          </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="layui-form-item layui-form-text">
+                        <label class="" style="float: left!important;display: block!important;padding: 9px 0px 9px 3vw!important;width: 60px!important;font-weight: 400!important;line-height: 20px!important;text-align: right!important;">发布内容</label>
+                        <div class="" style="    width: 65%;margin: auto auto;margin-left: 5vw;display: inline-block;">
+                        <textarea id="textarea" name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="uploadImgs" style="width:90%;margin: auto auto;"></div>
+                    <button type="button" class="layui-btn" id="upload" style="width:52%;margin:auto auto;display:block;margin-top: 20px;background-color:#409EFF;">
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </button>
+
+
+
+                    <div class="layui-form-item" style="position: fixed;bottom: 0%;width: 100%;margin-bottom: 0px;display: flex;">
+                      <button type="reset" class="layui-btn layui-btn-primary" style="width: 50%;margin: auto;height: 7vh;background:rgba(232,242,252,1);font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);" onclick="$('.uploadImgs').html('')">重置</button> 
+                      <button class="layui-btn" lay-submit lay-filter="formDemo" style="width: 50%;margin: auto;height: 7vh;background:rgba(0,145,255,1);font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);">提交</button> 
+                    </div>
+                </form>
+        </div>
+        <div class="layui-tab-item">
+            <ul>
+
+            </ul>
+        </div>
+
+    </div>
+  </div>
+
+  <script src="./assets/js/layui/layui.js"></script>
+  <script>
+     //人员历史
+     let mailContactor = [];
+
+    //请求历史数据
+    function getHistoryData(element){
+      console.log()
+      $.ajax({
+        async: false,
+        type: "POST",
+        url: SERSVER_BASE_URL + "/wechatMobile/selectHistoryByDataSourceId",
+        data: {
+          "dataSourceId": element.id, //数据来源
+          "flagType": element.flagType//数据来源标记，如果flag是1是事件，或者是5工单
+          ,
+        },
+        dataType: "json",
+        success: function (data) {
+          console.log('/wechatMobile/selectHistoryByDataSourceId',data)
+          localStorage.setItem('historyObj',JSON.stringify(data))
+          location.href='./historicalRecord.html'
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+
+      });
+    }
+
+    var platformId,platformName
+    //获取通讯录人员
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: SERSVER_BASE_URL + "/weChatHandleTask/getContactor",
+      data: {
+        "openId": localStorage.getItem('openId'),
+            
+      },
+      dataType: "json",
+      success: function (res) {
+        if(res.platform){
+          platformId=res.platform.id
+          platformName=res.platform.platformName
+        }
+
+        mailContactor  = [];
+
+        var options=['<option value=""></option>'];
+        console.log('/weChatHandleTask/getContactor',res)
+        if(res.list.length>0){
+          //重新赋值
+          mailContactor = res.list;
+          res.list.forEach(Element=>{
+            // options.push(`
+            //   <option value='${Element.openId}'>${Element.name}</option>
+            // `)
+              options.push(`
+                <option value='${Element.id}'>${Element.name}</option>
+              `)
+          })
+        }
+
+        setTimeout(()=>{
+          $('.layui-input-block .selectPeople').html(options.join(''))
+        })
+
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+
+    });
+
+    var messageLiArray=[];
+    var messageElements=[];
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: SERSVER_BASE_URL + "/weChatHandleTask/selectInfoListByOpen",
+      data: {
+        openId:localStorage.getItem('openId'),
+            
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log('/weChatHandleTask/selectInfoListByOpen',data)
+
+        //已发送li数据
+        if(data.list.length>0){
+          //储存关注人已完成数据，方便切换tabs时给li绑定点击事件
+          messageElements=data.list;
+          data.list.forEach((element,index) => { //${element.operationUrl}
+          messageLiArray.push(`
+            <li id="${index}" style="display: flex;align-items:center;position: relative;">
+
+                <img src="${element.imageUrl?(element.imageUrl.split(',')[0].substring(0,4)==='http'?element.imageUrl.split(',')[0]:SERSVER_BASE_URL+'/wx/images/'+element.imageUrl.split(',')[0]):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'} " style="width:40px;height:40px;margin-left: 20px;border-radius: 50%;">
+                <div style="margin-left: 10px;height: 60px;position: relative;">
+                  <span style="position: absolute;top: 15%;white-space: nowrap;font-weight: bold;">${element.eventTypeName}</span>
+                  <span style="position: absolute;bottom: 15%;color: gray;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100px;">${element.eventDescription}</span>
+                </div>
+
+                <span style="position: absolute;right: 5%;">${element.gmtCreate.substr(0,10)}</span>
+
+            </li>
+            `)
+            setTimeout(()=>{
+              $(`li[id='${index}']`).click(()=>{
+                getHistoryData(element)
+              })
+            })
+          });
+        }else {
+            messageLiArray.push(`<div style="margin-top:50px;text-align:center;">暂无数据</div>`)
+        }
+
+
+        $('.layui-tab-content .layui-tab-item:last-child ul').html(messageLiArray.join(''))
+
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+
+    });
+
+    let imgsUrl=[]
+    $(function() {
+      //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function() {
+        var element = layui.element;
+
+        //切换tab监听事件
+        element.on('tab(docDemoTabBrief)', function(data){
+          console.log(this); //当前Tab标题所在的原始DOM元素
+          console.log(data.index); //得到当前Tab的所在下标
+          console.log(data.elem); //得到当前的Tab大容器
+        //   if()
+
+        });
+
+      });
+
+
+        layui.use('form', function(){
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+
+                console.log('platformId',platformId,platformName)
+                console.log("$('#title')",$('#title').val())
+                console.log("$('#textarea')",$('#textarea').val())
+                console.log("$('.selectPeople')",$('.selectPeople').val())
+                console.log("$('.selectPeople option:selected')",$('.selectPeople option:selected').text(),typeof $('.selectPeople option:selected').text())
+
+                if(!$('.selectPeople option:selected').text()){
+                  alert('请选择收信人')
+                  return;
+                }
+
+                //遍历
+                let mailContactorEntity = {};
+                for(let i=0; i<mailContactor.length; i++){
+                    mailContactor.forEach((item)=>{
+                        if(item.id == $('.selectPeople').val()){
+                            mailContactorEntity.id = item.id;
+                            mailContactorEntity.openId = item.openId;
+                            mailContactorEntity.name = item.name;
+                            mailContactorEntity.mobile1 = item.mobile1;
+                        }
+                    })
+                }
+
+                $.ajax({
+                  async: false,
+                  type: "POST",
+                  url: SERSVER_BASE_URL + "/weChatHandleTask/manuallySendSingle",
+                  data: JSON.stringify(
+                    {
+                      'platformId': platformId,
+                      'platformName': platformName,
+                      'contactorName':$('.selectPeople option:selected').text(),
+                      'performTaskOpenId': $('.selectPeople').val(),
+                      'openId': localStorage.getItem('openId'),
+                      'imageUrl': imgsUrl.join(','),
+                      'eventDescription': $('#textarea').val(),
+                      'title': $('#title').val(),
+                      'eventTypeName': "公众号派单",
+                       'mailContactorEntity': mailContactorEntity,
+                       
+                    }
+                  ),
+
+                  contentType:'application/json;charset=utf-8',
+                  dataType: "json",
+                  success: function (res) {
+                    console.log('/weChatHandleTask/manuallySendSingle',res)
+                      if(res.code ===0){
+                          layer.msg('派单成功!');
+
+                          setTimeout(()=>{
+                              location.href=`home-zyt.html`
+                          },2000)
+                      }else{
+                          layer.msg('派单失败，请稍后重试!');
+                      }
+
+                  },
+                  error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("err:::" + errorThrown);
+                  }
+
+                });
+                return false;
+            });
+        });
+
+
+        layui.use('upload', function(){
+            var upload = layui.upload;
+
+            //执行实例
+
+            var uploadInst = upload.render({
+                elem: '#upload' //绑定元素
+                ,url: SERSVER_BASE_URL +'/event/eventinfo/saveImages' //上传接口
+                ,done: function(res){
+
+                  console.log('/event/eventinfo/saveImages',res)
+
+                  imgsUrl.push(res.filePath)
+
+
+                  //点击放大查看图片
+
+                    console.log('imgsUrlimgsUrlimgsUrlimgsUrlimgsUrl',imgsUrl)
+                    $('.uploadImgs').html('')
+                    imgsUrl.forEach((Element,index)=>{
+                      $('.uploadImgs').append(`<img src="${SERSVER_BASE_URL}/wx/images/${imgsUrl[index]}" id="${index}"  style="width:20%;margin:auto auto;padding-right:5%;margin-top:5px;" />`)
+
+                      $(`img[id='${index}']`).click(()=>{
+
+
+                        $('#imgDialog').append(`
+                          <img src="${SERSVER_BASE_URL}/wx/images/${imgsUrl[index]}"  style="width: 80vw;display: block;margin: auto auto;">
+                        `)
+                        layer.open({
+                          type: 1,
+                          content: $('#imgDialog'), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                          cancel: function(){
+
+                            $('#imgDialog').html('')
+                          }
+                        });
+
+                      })
+                    })
+
+
+
+
+                }
+                ,error: function(){
+                //请求异常回调
+                }
+            });
+        });
+
+    })
+
+
+  </script>
+</body>
+<div id="imgDialog" style="" >
+  <!-- <img src="http://chrchr.natapp1.cc/wx/images/manually/201909271437/c89a9ea2-2874-4fa3-a269-8da28e3143bc.jpg"  style="width: 80vw;display: block;margin: auto auto;"> -->
+</div>
+<script src= "./waterMark.js" ></script>
+</html>

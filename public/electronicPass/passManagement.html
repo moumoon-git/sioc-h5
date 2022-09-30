@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+    <link rel="stylesheet" href="../assets/js/layui/css/layui.css" />
+    <title>我的认证</title>
+    <style>
+      html,
+      body {
+      }
+      .layui-input,
+      .layui-textarea {
+        display: block;
+        width: 61.3vw;
+      }
+      .jibenxinxi .layui-input,
+      .jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+      }
+      .jibenxinxi .layui-form-item {
+        margin-bottom: initial;
+        padding: 15px 0px 0px;
+      }
+      .jibenxinxi .layui-input,
+      .jibenxinxi .layui-select,
+      .jibenxinxi .layui-textarea {
+        border-width: 0px;
+      }
+      .layui-form-item .layui-form-label {
+        overflow: initial;
+      }
+      .dengjixinxi .layui-input-block {
+        margin-left: initial;
+      }
+      .paichaqingkuang .layui-input-block {
+        margin-left: initial;
+      }
+      .layui-input-block {
+        margin-left: initial;
+      }
+      .layui-form-item .layui-form-checkbox {
+        /* margin-right: initial;
+        margin-left: 10px; */
+      }
+      .dengjixinxi .layui-input,
+      .dengjixinxi .layui-textarea {
+        margin: 10px auto 0px;
+      }
+      .dengjixinxi .layui-form-checkbox span {
+        font-size: 12px;
+        font-family: PingFangSC-Medium, PingFang SC;
+        font-weight: 500;
+        color: rgba(153, 153, 153, 1);
+      }
+      .layui-form-select .layui-edge {
+        right: 40px !important;
+      }
+      .layui-form-select dl dd.layui-this {
+        background-color: #409eff !important;
+        color: #fff;
+      }
+      .layui-form-radio > i:hover,
+      .layui-form-radioed > i {
+        color: #409eff !important;
+      }
+      .layui-form-checked[lay-skin="primary"] i {
+        border-color: #409eff !important;
+        background-color: #409eff !important;
+        color: #fff;
+      }
+      .layui-form-label {
+        float: left;
+        display: block;
+        padding: 1.2vh 5vw;
+        width: 65px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(153, 153, 153, 1);
+      }
+      body
+        > form.layui-form.paichaqingkuang
+        > div.layui-form-item
+        > div
+        > div:nth-child(2)
+        > div
+        > span {
+        white-space: initial;
+      }
+      .layui-colla-title {
+        padding: 0 15px 0 5vw;
+      }
+      .layui-colla-icon {
+        position: absolute;
+        left: initial;
+        right: 5vw !important;
+        top: 0;
+        font-size: 14px;
+      }
+      .layui-colla-content,
+      .layui-colla-item {
+        border-top-width: initial;
+        border-top-style: initial;
+      }
+      .layui-colla-content {
+        padding: initial;
+      }
+      .layui-form-item {
+        margin-bottom: initial;
+      }
+    </style>
+  </head>
+
+  <body style="background:rgba(245,245,245,1);">
+    <div class="jibenxinxi">
+      <!-- <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+            <div style="width: 100%;height: 8.4vh;display: flex;align-items: center;font-size: 16px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(51,51,51,1);position: relative;">
+                <span style="margin-left: 5vw;">基本信息</span>
+                <span class="getPass" style="display: inline-block;width: 11.4vw;height: 3.4vh;line-height: 3.4vh;text-align: center;border-radius: 1vw;border: 0.2vw solid rgba(153,153,153,1);font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);position: absolute;right: 5vw;">退出</span>
+            </div>
+            <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+            <div style="width: 100%;font-size: 14px;padding: 3vh 0px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">张三</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">性别：</span><span style="color: rgba(51,51,51,1);">男</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">江苏省扬州市</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">身份证号码：</span><span style="color: rgba(51,51,51,1);">440561691652594843</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">15011586425</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">所属社区：</span><span style="color: rgba(51,51,51,1);">中大花园</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">所属市场：</span><span style="color: rgba(51,51,51,1);">中大市场</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">档口编号：</span><span style="color: rgba(51,51,51,1);">D31545</span>
+                </div>
+            </div>
+            
+        </div> -->
+    </div>
+
+    <div
+      class="dengjixinxi"
+      style="width: 95vw;margin:1.5vh auto 0px;background:rgba(255,255,255,1);border-radius: 1.1vw;padding-bottom:0.5vh;"
+    >
+      <!-- <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+            <span style="margin-left: 5vw;">企业复工证</span>
+        </div>
+        <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+        <div  style="width: 78vw;padding: 1vh 0px;position: relative;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);margin: 2vh auto;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">         
+            <div style="margin: 1vh auto;">
+                <span style="margin-left: 8vw;">所属市场：</span><span style="color: rgba(51,51,51,1);">张三</span>
+            </div>
+            <div style="margin: 1vh auto;">
+                <span style="margin-left: 8vw;">档口编号：</span><span style="color: rgba(51,51,51,1);">男</span>
+            </div>
+            <div style="margin: 1vh auto;">
+                <span style="margin-left: 8vw;">提交时间：</span><span style="color: rgba(51,51,51,1);">男</span>
+            </div>
+            <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+            <img src="../assets/images/heyan.png" style="width: 67.5px;height: 50.02px;position: absolute;right: 7.5vw;top: 5vw;">
+        </div>        -->
+    </div>
+
+    <script src="../constant.js"></script>
+    <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+    <script src="../assets/js/layui/layui.js"></script>
+    <script>
+      // 获取地址栏参数
+      //适应以下两种模式，来获取url参数值：
+      //User/vip_card_manager/useless/219/id/18
+      //User/vip_card_manager?useless=219&id=18
+
+      function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        var q = window.location.pathname.substr(1).match(reg_rewrite);
+        if (r != null) {
+          return unescape(r[2]);
+        } else if (q != null) {
+          return unescape(q[2]);
+        } else {
+          return null;
+        }
+      }
+
+      function closeWindow() {
+        var userAgent = navigator.userAgent;
+        if (
+          userAgent.indexOf("Firefox") != -1 ||
+          userAgent.indexOf("Presto") != -1
+        ) {
+          window.location.replace("about:blank");
+        } else {
+          window.opener = null;
+          window.open(" ", "_self");
+          window.location.replace("about:blank");
+          window.close();
+        }
+      }
+
+      var jibenxinxi = [],
+        dengjixinxi = [];
+      var result = JSON.parse(localStorage.getItem("passManagement"));
+      console.log(
+        "localStorage.setItem('passManagement')",
+        JSON.parse(localStorage.getItem("passManagement"))
+      );
+      jibenxinxi.push(`
+        <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+            <div style="width: 100%;height: 8.4vh;display: flex;align-items: center;font-size: 16px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(51,51,51,1);position: relative;">
+                <span style="margin-left: 5vw;">基本信息</span>
+                <div class="getPass" style="font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);position: absolute;right: 5vw;display: flex;align-items: center;">
+                    <i class="layui-icon layui-icon-logout"></i>  
+                    <span  style="line-height: 14px;margin-left: 1vw;">退出</span>
+                </div>
+                
+            </div>
+            <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+            <div style="width: 100%;font-size: 14px;padding: 3vh 0px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">${result[0].imName}</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">${result[0].phone}</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">身份证/护照：</span><span style="color: rgba(51,51,51,1);">${result[0].credentialsNum}</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">所属企业：</span><span style="color: rgba(51,51,51,1);">${result[0].platformNameString}</span>
+                </div>
+            </div>           
+        </div>
+    `);
+      var resultItem = [];
+      result.forEach((element, index) => {
+        resultItem.push(`
+            <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+            <div class='${index}' style="width: 78vw;padding: 1vh 0px;position: relative;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);margin: 2vh auto;background:rgba(255,255,255,1);box-shadow:0px 1vw 4vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">         
+                <div style="margin: 1vh auto;">
+                    <span style="margin-left: 8vw;">所属企业：</span><span style="color: rgba(51,51,51,1);">${
+                      element.platformNameString
+                    }</span>
+                </div>
+                <div style="margin: 1vh auto;">
+                    <span style="margin-left: 8vw;">登记时间：</span><span style="color: rgba(51,51,51,1);">${
+                      element.gmtCreate
+                    }</span>
+                </div>
+                <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+                <img src="${
+                  element.lockStatus == "0"
+                    ? "../assets/images/yishenhe.png"
+                    : element.lockStatus == "-2"
+                    ? "../assets/images/yibohui.png"
+                    : element.lockStatus == "-3"
+                    ? "../assets/images/yicexiao.png"
+                    : "../assets/images/daishenhe.png"
+                }" style="width: 67.5px;height: 50.02px;position: absolute;right: 8vw;top: 3vw;">
+            </div> 
+            
+        `);
+      });
+      dengjixinxi.push(`
+        <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+            <span style="margin-left: 5vw;">注册信息</span>
+        </div>
+        
+        ${resultItem.join("")}
+    `);
+      setTimeout(() => {
+        $(".jibenxinxi").html(jibenxinxi.join(""));
+        $(".dengjixinxi").html(dengjixinxi.join(""));
+        layui.use("element", function() {
+          var element = layui.element;
+
+          element.render("collapse");
+        });
+        setTimeout(() => {
+          $(".getPass").click(() => {
+            location.href = `./getPass.html`;
+          });
+          result.forEach((element, index) => {
+            $(`.${index}`).click(() => {
+              localStorage.setItem("codeNum", element.codeNum);
+              location.href = `./myPass.html?codeNum=${element.codeNum}`;
+            });
+          });
+        });
+      }, 1300);
+    </script>
+  </body>
+  <script src= "../waterMark.js" ></script>
+</html>

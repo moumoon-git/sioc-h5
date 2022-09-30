@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .head_image {
+      background-image: url('./assets/images/top.png');
+      background-size: 100% 100%;
+      padding: 20% 50%;
+    }
+    
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <!-- <div class="head_image"></div> -->
+  </div>
+  <div class="content" style="width: 100%;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);display: flex;justify-content: center;align-items: center;">
+    <i class="layui-icon layui-icon-ok-circle" style="font-size: 30px; color: #1E9FFF;">&nbsp;提交成功</i> 
+  </div>
+  <script src="./constant.js"></script>
+  <script src="./assets/js/jquery/jquery-3.2.1.min.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+
+
+  </script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

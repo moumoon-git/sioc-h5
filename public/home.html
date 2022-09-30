@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta
+          http-equiv="Cache-Control"
+          content="no-cache, no-store, must-revalidate"
+  />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css" />
+  <script src="./constant.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script>
+  <title>首页</title>
+  <style>
+    html,
+    body {
+    }
+
+    
+    .eventTop {
+        position: relative;
+        /* width: 100vw; */
+        /* height: 17.4vh; */
+        /* padding: 1.5vh 5.33vw 0.9vh 5.33vw; */
+        background: #fff;
+        }
+    .eventTop img {
+        width: 100vw;
+        height: 21vh;
+     }
+     .eventTop .bannerTitle {
+       position: absolute;
+       left: 50%;
+       top: 50%;
+       transform: translate(-50%,-50%);
+       font-size: 28px;
+        font-weight:bold;
+        color:rgba(255,255,255,1);
+        text-shadow:0px 2px 4px rgba(0,0,0,0.5);
+        width: 82.27vw;
+        text-align: center;
+     }
+     .buttonStyle {
+       width: 400px;
+       height: 50px;
+       background-color: #ff0000;
+       margin: 0 atuo;
+       color: #fff;
+       text-align: center;
+       line-height: 50px;
+       font-size: 32px;
+     }
+  </style>
+</head>
+
+<body>
+  <div class="eventTop">
+    <img src="./assets/images/Home/banner2.png" alt="">
+    <div class="bannerTitle">
+    
+    </div>
+</div>
+<div id="content">
+  <div v-if="menuList.filter(item=>{ return item.url.search('/hiddenTrouble/index')!=-1 }).length!=0"
+          onclick="openIdIsActivate('./hiddenTrouble/index.html');"
+          style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+  >
+    <img
+      src="./assets/images/homeContent1.png"
+      style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+              style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        隐患信息
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        查收下发的隐患
+      </div>
+    </div>
+  </div>
+
+  <div  v-if="menuList.filter(item=>{ return item.url.search('/unhandleList2')!=-1 }).length!=0"
+          onclick="openIdIsActivate('./unhandleList2.html')"
+          style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+  >
+    <img
+            src="./assets/images/homeContent2.png"
+            style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+              style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        工单管理
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        处置工单任务
+      </div>
+    </div>
+  </div>
+
+  <div  v-if="menuList.filter(item=>{ return item.url.search('/riskInvestigation')!=-1 }).length!=0"
+    onclick="openIdIsActivate('./riskInvestigation.html#/subscriptionInspectionResults')"
+    style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+  >
+    <img
+      src="./assets/images/inspection.png"          
+      style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+        style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        隐患排查
+      </div>
+      <div
+        style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        排查异常情况
+      </div>
+    </div>
+  </div>
+
+    <div  v-if="menuList.filter(item=>{ return item.url.search('/gradeResponse')!=-1 }).length!=0"
+      onclick="openIdIsActivate('./gradeResponse.html')"
+      style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+  >
+    <img
+          src="./assets/images/homeContent7.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+              style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        等级响应
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        处置工单任务
+      </div>
+    </div>
+  </div>
+
+      <div  v-if="menuList.filter(item=>{ return item.url.search('/subordinateUnitGradePesponse')!=-1 }).length!=0"
+        onclick="openIdIsActivate('./gradeResponse.html#/subordinateUnitGradePesponse')"
+        style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+    >
+      <img
+            src="./assets/images/homeContent8.png"
+            style="width: 18vw;height: 18vw;margin-left: 6vw;"
+      />
+      <div style="display:inline-block;margin-left: 6vw;">
+        <div
+                style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+        >
+          响应接报
+        </div>
+        <div
+                style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+        >
+          处置工单任务
+        </div>
+      </div>
+    </div>
+
+    <div  v-if="menuList.filter(item=>{ return item.url.search('/garbageClassification')!=-1 }).length!=0"
+      onclick="openIdIsActivate('./garbageClassification.html#/organizingActivities')"
+      style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+    >
+    <img
+          src="./assets/images/homeContent8.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+              style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        宣传教育
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        组织宣传教育
+      </div>
+    </div>
+    </div>
+
+    <div  v-if="menuList.filter(item=>{ return item.url.search('/commentIndex')!=-1 }).length!=0"
+      onclick="openIdIsActivate('./commentIndex.html')"
+      style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+      >
+      <img
+              src="./assets/images/homeContent3.png"
+              style="width: 18vw;height: 18vw;margin-left: 6vw;"
+      />
+      <div style="display:inline-block;margin-left: 6vw;">
+        <div
+          style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+        >
+          动态通报
+        </div>
+        <div
+                style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+        >
+          查询通报
+        </div>
+      </div>
+      </div>
+      <div  v-if="menuList.filter(item=>{ return item.url.search('/safeEducation')!=-1 }).length!=0"
+        onclick="openIdIsActivate('./safeEducation.html')"
+        style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+        >
+        <img
+                src="./assets/images/gonggao.png"
+                style="width: 18vw;height: 18vw;margin-left: 6vw;"
+        />
+        <div style="display:inline-block;margin-left: 6vw;">
+          <div
+            style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+          >
+            通知公告
+          </div>
+          <div
+                  style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+          >
+            查询通知公告
+          </div>
+        </div>
+        </div>      
+
+    <!-- <div  v-if="menuList.filter(item=>{ return item.url.search('/commentIndex')!=-1 }).length!=0"
+          onclick="openIdIsActivate('./commentIndex.html')"
+          style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+    >
+    <img
+            src="./assets/images/homeContent3.png"
+            style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+        style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        动态通报
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        获取任务动态信息
+      </div>
+    </div>
+    </div> -->
+
+    <div  v-if="menuList.filter(item=>{ return item.url.search('/statistical/index')!=-1 }).length!=0"
+      onclick="openIdIsActivate('./statistical/index.html')"
+      style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+>
+  <img
+    src="./assets/images/homeContent4.png"
+    style="width: 18vw;height: 18vw;margin-left: 6vw;"
+  />
+  <div style="display:inline-block;margin-left: 6vw;">
+    <div
+      style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+    >
+      风险上报统计分析
+    </div>
+    <div
+      style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+    >
+      多维度数据采集统计
+    </div>
+  </div>
+</div>
+
+  <div  v-if="menuList.filter(item=>{ return item.url.search('/workordermanager')!=-1 }).length!=0"
+      onclick="openIdIsActivate('./workordermanager.html')"
+      style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+  >
+    <img
+          src="./assets/images/indexContent3.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+              style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        我的工单
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        处置工单任务
+      </div>
+    </div>
+  </div>
+
+      <div  v-if="menuList.filter(item=>{ return item.url.search('/epidemicControl/taskManagement')!=-1 }).length!=0"
+        onclick="openIdIsActivate('./epidemicControl/taskManagement.html')"
+        style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+    >
+      <img
+            src="./assets/images/homeContent4.png"
+            style="width: 18vw;height: 18vw;margin-left: 6vw;"
+      />
+      <div style="display:inline-block;margin-left: 6vw;">
+        <div
+                style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+        >
+          防控任务
+        </div>
+        <div
+                style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+        >
+          处置防控任务
+        </div>
+      </div>
+    </div>
+
+    <div  v-if="menuList.filter(item=>{ return item.url.search('/garbageClassification')!=-1 }).length!=0"
+      onclick="openIdIsActivate('./garbageClassification.html#/organizingActivities')"
+      style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+  >
+    <img
+          src="./assets/images/indexContent3.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+              style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        垃圾分类活动
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        查看垃圾分类活动
+      </div>
+    </div>
+  </div>
+
+  <div  v-if="menuList.filter(item=>{ return item.url.search('/OverallSituation')!=-1 }).length!=0"
+      onclick="openIdIsActivate('./OverallSituation.html#/')"
+      style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+  >
+    <img
+          src="./assets/images/indexContent3.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+    />
+    <div style="display:inline-block;margin-left: 6vw;">
+      <div
+              style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+      >
+        总体态势
+      </div>
+      <div
+              style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+      >
+        查看总体态势
+      </div>
+    </div>
+  </div>
+</div>
+<script src="./assets/js/vue.min.js"></script>
+<script>
+
+  var vm = new Vue({
+    el: "#content",
+    data: {
+      menuList:[]
+    },
+    methods: {
+     
+    }
+  });
+  //获取url连接参数
+  function parseUrl(url) {
+    if (!url) return { host: null, query: {} };
+    var schemaIndex = url.indexOf("://");
+    var url2 = url.substr(schemaIndex + 3);
+    var host = url2.substr(0, url2.indexOf("/"));
+
+    var paramIndex = url2.indexOf("?");
+    if (paramIndex != -1) {
+      var query = {};
+      var paramStr = url2.substr(paramIndex + 1);
+      paramStr.split("&").forEach(str => {
+        var params = str.split("=");
+        query[params[0]] = params[1];
+      });
+      return { host, query };
+    } else {
+      var query = {};
+      return { host, query };
+    }
+  }
+  
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: SERSVER_BASE_URL + "/testToken?token="+localStorage.getItem("token"),
+      contentType:'application/json',
+      success: function(res) {
+        console.log("/testToken", res);
+        if(res.code==0){
+            let formdata = new FormData();
+            formdata.append('username', 'WX');
+            formdata.append('password', getQueryString('openId'));
+            $.ajax({
+              async: false,
+              type: "POST",
+              url: SERSVER_BASE_URL.substring(0,SERSVER_BASE_URL.lastIndexOf('/ser')) + "/oauth/login",
+              data: formdata,
+              contentType:false,
+              processData:false,
+              success: function(res) {
+                console.log("/oauth/login", res);
+                if(res.code==0){
+                  localStorage.setItem("token", res.token);
+                  localStorage.setItem('contactorId',res.userId)
+                  localStorage.setItem('username',res.username)
+                  localStorage.setItem('mobile',res.mobile)
+                  $.ajax({
+                    async: false,
+                    type: "GET",
+                    url: SERSVER_BASE_URL + "/sys/menu/wxnav",
+                    headers: {
+                      token: localStorage.getItem('token')
+                    },
+                    contentType:'application/json',
+                    success: function(res) {
+                      console.log("/sys/menu/wxnav", res);
+                      if(res.code==0){
+                        vm.menuList=res.menuList
+                      }else{
+                        alert(res.msg)
+                      }          
+                    }
+                  });
+
+                }else if(res.code==500){
+                  alert(res.msg)
+                  window.location.href = `./activate.html?openId=` + getQueryString('openId');
+                }else{
+                  window.location.href = `./activate.html?openId=` + getQueryString('openId');
+                }       
+              }
+            });
+        
+        }else{
+          alert(res.msg)
+        }          
+      }
+    })
+  
+ 
+
+  
+
+  
+
+  //点击li之前判断该用户openId是否激活
+  function openIdIsActivate(url, flag) {
+    // window.location.href =url ;
+    // return;
+    var ua = navigator.userAgent.toLowerCase();
+    //openId
+    var cookieOpenId = parseUrl(location.href).query.openId;
+
+    if (ua.indexOf("micromessenger") > -1) {
+      console.log("微信用户");
+      if (cookieOpenId != null && cookieOpenId != "undefined") {
+        //说明有公众号
+        if (cookieOpenId.length == 28) {
+          getPlatformByOpenId(cookieOpenId, url, flag);
+        } else {
+          //说明仅仅只是在公众号上打开
+          var cookieOpenId = localStorage.getItem("openId");
+          console.log("微信用户,但没有公众号，cookieOpenId=", cookieOpenId);
+
+          if (cookieOpenId != null && cookieOpenId != "undefined") {
+            //如果缓存存在
+            console.log("微信用户,但没有公众号，缓存存在");
+            getPlatformByOpenId(cookieOpenId, url, flag);
+          } else {
+            var cookieOpenId = null;
+            getPlatformByOpenId(cookieOpenId, url, flag);
+          }
+        }
+      } else {
+        //alert("请关注服务号")
+        var cookieOpenId = localStorage.getItem("openId");
+        console.log("微信用户,但没有公众号，cookieOpenId=", cookieOpenId);
+
+        if (cookieOpenId != null && cookieOpenId != "undefined") {
+          //如果缓存存在
+          console.log("微信用户,但没有公众号，缓存存在");
+          getPlatformByOpenId(cookieOpenId, url, flag);
+        } else {
+          var cookieOpenId = null;
+          getPlatformByOpenId(cookieOpenId, url, flag);
+        }
+      }
+    } else if (ua.indexOf("com.huawei.welink") > -1) {
+      console.log("welink用户");
+      if (cookieOpenId != null && cookieOpenId != "undefined") {
+        //说明该用户关注了应用
+        getPlatformByOpenId(cookieOpenId, url, flag);
+      } else {
+        //说明该用户没有关注应用
+        var cookieOpenId = localStorage.getItem("openId");
+        if (cookieOpenId != null && cookieOpenId != "undefined") {
+          //如果缓存存在
+          getPlatformByOpenId(cookieOpenId, url, flag);
+        } else {
+          var cookieOpenId = null;
+          getPlatformByOpenId(cookieOpenId, url, flag);
+        }
+      }
+    } else {
+      console.log("非微信用户");
+      //取cookie缓存
+      var cookieOpenId = localStorage.getItem("openId");
+
+      if (cookieOpenId != null && cookieOpenId != "undefined") {
+        //如果缓存存在
+        console.log("非微信用户，缓存存在");
+        getPlatformByOpenId(cookieOpenId, url, flag);
+      } else {
+        //缓存不在的话，则重新激活
+        console.log("非微信用户，缓存不在的话，则重新激活");
+        var cookieOpenId = null;
+        getPlatformByOpenId(cookieOpenId, url, flag);
+      }
+    }
+  }
+
+  function getPlatformByOpenId(cookieOpenId, url, flag) {
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: SERSVER_BASE_URL + "/weChatHandleTask/getPlatformByOpenId",
+      data: {
+        openId: getQueryString('openId')||cookieOpenId
+      },
+      dataType: "json",
+      success: function(res) {
+        console.log("判断openId是否激活", res);
+
+        if (
+          res.mailContactorEntity == "null" ||
+          res.mailContactorEntity == null
+        ) {
+          //location.href.search('token')==-1
+          alert("该用户还没有激活，请先激活！");
+          window.location.href = `./activate.html?openId=` + cookieOpenId;
+        } else {
+          if (flag == 1 && location.href.search("token") == -1) {
+            alert("该用户还没加入系统用户，请联系管理员！");
+          } else {
+            localStorage.setItem(
+              "platformId",
+              res.mailContactorEntity.platformId
+            );
+            // localStorage.setItem("token", localStorage.getItem("token"));
+            localStorage.setItem("openId", res.mailContactorEntity.openId);
+
+            
+
+            setTimeout(() => {
+              window.location.href =
+                url + `?platformId=${res.mailContactorEntity.platformId}`;
+            });
+          }
+        }
+      }
+    });
+  }
+
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    var q = window.location.pathname.substr(1).match(reg_rewrite);
+    if (r != null) {
+      return unescape(r[2]);
+    } else if (q != null) {
+      return unescape(q[2]);
+    } else {
+      return null;
+    }
+  }
+
+  
+
+</script>
+<script src="./assets/js/getBannerTitle.js"></script>
+<script src= "./waterMark.js" ></script>
+<script>getBannerTitle("bannerTitle","WX_TOPNAME")</script>
+<!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>
+  eruda.init()
+</script> -->
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="x5-fullscreen" content="true"/>
+    <title>调用手机功能</title>
+    <style>
+        .btn {
+            border-bottom: 2px solid #fff;
+            display: block;
+            text-align: center;
+            padding: 2px 10%;
+            margin: 2px 0;
+        }
+
+        .btn:first-child {
+            border-top: 2px solid #fff;
+            margin-top: 20px;;
+        }
+    </style>
+</head>
+<body>
+<a class="btn picture">调用拍照</a>
+<a class="btn camera">调用视频</a>
+<a class="btn voice">调用录音</a>
+<div class="pic_Box" style="height: 100px;text-align: center;margin:20px">
+    <img src="" alt="" style="height: 100%"/>
+</div>
+</body>
+<!--js-->
+<script type="text/javascript" src="../assets/js/jquery-2.1.0.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+<script type="text/javascript">
+
+    //创建全局变量
+    var oCache = {};
+    //全局方法
+    var fn = {
+        //录制视频
+        OpenNorVideo: function () {
+            $("#vedioVerify").remove();
+            $("body").append('<div style="display:none;position:relative;" id="vedioVerify"><input type="file" name="record_file" id="vedio_file" accept="video/*" capture="camcorder" style="width:50%;height:0px;display:none;"></div>');
+            $("#vedio_file").click(function (e) {
+                $(this).attr('currenttime', new Date().getTime());
+            }).trigger("click");
+        },
+        //调用拍照
+        OpenCamera: function () {
+            $("#picture").remove();
+            $("body").append('<div style="display:none;position:relative;" id="picture"><input type="file" name="record_file" id="image_file" accept="image/*" capture="camera" style="width:50%;height:0px;display:none;"></div>');
+            $("#image_file").click(function (e) {
+                $(this).attr('currenttime', new Date().getTime());
+            }).trigger("click");
+        },
+        //调用录音
+        OpenMicrophone: function () {
+            $("#audio").remove();
+            $("body").append('<div style="display:none;position:relative;" id="audio"><input type="file" name="record_file" id="audio_file" accept="audio/*" capture="microphone" style="width:50%;height:0px;display:none;"></div>');
+            $("#audio_file").click(function (e) {
+                $(this).attr('currenttime', new Date().getTime());
+            }).trigger("click");
+        },
+        //判断file 的api
+        checkFileApi: function () {
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+                document.write("Great success! All the File APIs are supported.");
+            } else {
+                document.write('The File APIs are not fully supported in this browser.');
+            }
+        },
+        //判断类型是否为图片
+        isImage:function(type){
+            return type.match(/image\/.*/i);
+        }
+    };
+
+
+    //拍照
+    oCache.pic = $('.picture');
+    oCache.pic.on('click', function () {
+        fn.OpenCamera();
+    });
+    //摄像
+    oCache.cr = $('.camera');
+    oCache.cr.on('click', function () {
+        fn.OpenNorVideo();
+    });
+    //录音
+    oCache.audio = $('.voice');
+    oCache.audio.on('click', function () {
+        fn.OpenMicrophone();
+    });
+
+    //判断是否支持文件操作的api
+    fn.checkFileApi();
+    oCache.fr= window.plus?new plus.io.FileReader(): new FileReader;
+
+    /**
+     * FileReader的onload事件，文件读取成功完成时触发
+     *另外还有onloadstart：读取开始时触发；onprogress：读取中；
+     *onerror：出错时触发；onabort：中断时触发；onloadend：读取完成触发，无论成功或失败；
+     **/
+    oCache.fr.οnlοad=function(e){
+        console.log(this.result);
+        $('.pic_Box img').attr('src',this.result);
+    };
+
+    /**
+     * 为动态添加的元素绑定事件，用live，jquery 1.7之前的特性
+     * readAsDataURL为FileReader的方法，另外还有以下三种：
+     * readAsBinaryString，读取为二进制码；readAsText，读取为文本；abort，中断读取
+     * 另外，无论读取成功或失败，方法并不会返回读取结果，这一结果存储在 result属性中（回调中可用）。
+     * **/
+    $('#image_file').live('change' ,function(e){
+        //取得文件列表FileList
+        var $files = e.target.files;
+        if(!fn.isImage($files[0].type)){
+            alert('不是图片');
+        }else{
+            //通过readAsDataURL，将数据读取为base64；（FileReader对象的4种方法）
+            oCache.fr.readAsDataURL($files[0]);
+        }
+    });
+</script>
+<script src= "../waterMark.js" ></script>
+</html>

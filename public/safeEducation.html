@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .head_image {
+      background-image: url('./assets/images/Home/banner2.png');
+      background-size: 100% 100%;
+      /* padding: 20% 50%; */
+      height: 21vh;
+      text-align: center;
+      width: 100vw;
+      text-align: center;
+      line-height: 21vh;
+      color: #FFF;
+      font-size: 25px;
+      font-weight: bold;
+    color: rgba(255,255,255,1);
+    text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <div class="head_image"></div>
+  </div>
+  <div class="content">
+    
+    <div class="layui-collapse">
+    </div>
+
+    <ul >
+      <!-- <li style="position: relative;border-radius: 2px;border: 1px solid #ddd;padding-bottom: 3vh;width: 95%;margin: 10px auto;">
+        <div style="position: relative;height: 6.5vh;width: 100%;background-color: #f5f5f5;border-color: #ddd;">
+          <span style="position: absolute;left: 5%;line-height: 6.5vh;white-space: nowrap;color: #333;font-weight: bold;font-size: 14px;">敲诈勒索、聚众斗殴惹祸端</span>
+          <i class="layui-icon" style="position: absolute;right: 5%;line-height: 6.5vh;color: #333;font-size: 14px;">&#xe67a;</i> 
+        </div>
+        <div style="position: relative;width: 100%;">
+          <p style="font-size: 16px;text-indent: 2em;margin-top: 20px;">
+            <strong style="font-weight: 700;">【基本案情】</strong>
+          </p>
+          <p style="font-size: 16px;text-indent: 3em;width: 90%;margin: auto auto;margin-top: 10px;line-height: 24px;">       
+            杨森粤，男，21岁，强奸犯，汉族，在校学生，住陕西省王光马岗乡。李某向同学佘某索要钱物未成，佘某就告诉无业人员远某等人，远某得知后警告李某不要再向佘某索要钱物，如果再要就用武力。李某为此要“教训”远某。2009年6月12日下午，李某要求社会上的另一帮无业人员张某去教训远某，张某又叫了宋某持钢管至太仓市某镇新华桥，对远某及远某的朋友沈某、房某进行殴打，致远某、沈某受轻微伤。
+          </p>
+          <p style="font-size: 16px;text-indent: 2em;margin-top: 20px;">
+            <strong style="font-weight: 700;">【基本案情】</strong>
+          </p>
+          <p style="font-size: 16px;text-indent: 3em;width: 90%;margin: auto auto;margin-top: 10px;line-height: 24px;">       
+            杨森粤，男，21岁，强奸犯，汉族，在校学生，住陕西省王光马岗乡。李某向同学佘某索要钱物未成，佘某就告诉无业人员远某等人，远某得知后警告李某不要再向佘某索要钱物，如果再要就用武力。李某为此要“教训”远某。2009年6月12日下午，李某要求社会上的另一帮无业人员张某去教训远某，张某又叫了宋某持钢管至太仓市某镇新华桥，对远某及远某的朋友沈某、房某进行殴打，致远某、沈某受轻微伤。
+          </p>
+        </div>
+      </li> -->
+
+    </ul>
+  </div>
+  <script src="./constant.js"></script>
+  <script src="./assets/js/jquery/jquery-3.2.1.min.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script>
+  
+  
+
+    function skipUrl(url) {
+      let toUrl = url + '?openId=' + getQueryString('openId')
+      console.log(toUrl);
+      window.open(toUrl);
+    }
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+
+    $.ajax({
+      async: true,
+      type: "get",
+      url: SERSVER_BASE_URL + "/article/articlesafeeducation/page",
+
+      data: {
+        // token:
+        
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log("/article/articlesafeeducation/page",data)
+        var liNodeList=[]
+        if(data.page.list.length===0){
+          $('.content ul').html(`
+            <section  style="height: 70vh;line-height: 70vh;text-align: center;font-size: 20px;font-weight: bold;width:100%;color:#dcdfe6;">
+              暂无数据
+            </section>
+          `)
+        } else {
+              data.page.list.forEach((item,index) => {
+              liNodeList.push(`
+              <div class="layui-colla-item">
+                <h2 class="layui-colla-title">${item.title}</h2>
+                <div class="layui-colla-content">${item.content}</div>
+              </div>
+              `)
+
+              // <li style="position: relative;border-radius: 2px;border: 1px solid #ddd;padding-bottom: 3vh;width: 95%;margin: 10px auto;">
+              //   <div style="position: relative;height: 6.5vh;width: 100%;background-color: #f5f5f5;border-color: #ddd;">
+              //     <span style="position: absolute;left: 5%;line-height: 6.5vh;white-space: nowrap;color: #333;font-weight: bold;font-size: 14px;">${item.title}</span>
+              //     <i class="layui-icon" style="position: absolute;right: 5%;line-height: 6.5vh;color: #333;font-size: 14px;">&#xe67a;</i> 
+              //   </div>
+              //   <div style="position: relative;width: 100%;">
+              //     ${item.content}
+              //   </div>
+              // </li>
+            
+            });
+            document.querySelector(".content .layui-collapse").innerHTML=''
+            $('.content .layui-collapse').html(liNodeList.join(''))
+
+            setTimeout(()=>{
+              layui.use('element', function(){
+                var element = layui.element;
+                // var layer = layui.layer;
+                element.init(); //更新全部  2.1.6 可用 element.render() 方法替代
+                element.render('collapse'); 
+                //监听折叠
+                // element.on('collapse(test)', function(data){
+                //   layer.msg('展开状态：'+ data.show);
+                // });
+              });
+            })
+            
+        }
+        
+
+
+
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+
+    });
+
+    
+    
+      
+  
+     
+    
+  </script>
+  <script src="./assets/js/getBannerTitle.js"></script>
+  <script>getBannerTitle("head_image","WX_TZGG")</script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

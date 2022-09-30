@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <script src="./constant.js"></script>
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <title></title>
+  <style>
+    .layui-tab-title{
+      width: 100%;
+    }
+    .layui-tab-title li{
+      width: 24%;
+    }
+    .layui-tab-content{
+      padding: 0px;
+    }
+    .layui-tab-content ul{
+      width:100%;list-style:none;
+    }
+    .layui-tab-content ul li{
+      width:100%;border-top:1px solid #e2e2e2;border-bottom:1px solid #e2e2e2;height:60px;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="height: 40px;line-height: 40px;">
+      <span onclick="history.go(-1)" style="margin-left: 10px;">返回</span>
+  </div>
+  <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+      <li class="layui-this">工单类型</li>
+      <li>关注人</li>
+      <li>关注车</li>
+    </ul>
+    <div class="layui-tab-content">
+      <ul >
+        <!-- <li onclick="location.href='./historicalRecord.html'" style="display: flex;align-items:center;position: relative;">
+
+          <img src="./assets/images/01.png" style="width:40px;height:40px;margin-left: 20px;">
+          <span style="margin-left: 10px;">工单名称</span>
+          <span style="position: absolute;right: 5%;">09/25</span>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+
+  <script src="./assets/js/layui/layui.js"></script>
+  <script>
+
+    //请求历史数据
+    function getHistoryData(element){
+      $.ajax({
+        async: false,
+        type: "POST",
+        url: SERSVER_BASE_URL + "/wechatMobile/selectHistoryByDataSourceId",
+        data: {
+          "dataSourceId": element.eventInfoId, //数据来源
+          "flagType": element.eventInfoEntity.flagType//数据来源标记，如果flag是1是事件，或者是5工单
+          ,
+        },
+        dataType: "json",
+        success: function (data) {
+          console.log('/wechatMobile/selectHistoryByDataSourceId',data)
+          localStorage.setItem('historyObj',JSON.stringify(data))
+          location.href='./historicalRecord.html'
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+
+      });
+    }
+
+    var orderTypeLiArray=[],peopleLiArray=[],carLiArray=[];var orderTypeElements=[],peopleElements=[],carElements=[];
+    $.ajax({
+      async: false,
+      type: "POST",
+      url: SERSVER_BASE_URL + "/weChatHandleTask/selectEventOperationListByType",
+      data: {
+        openId:localStorage.getItem('openId'),
+            
+      },
+      dataType: "json",
+      success: function (data) {
+        console.log('/weChatHandleTask/selectEventOperationListByType',data)
+
+        //工单类型li数据
+        if(data.wordHasDisposalList.length>0){
+          //储存工单类型已完成数据，方便切换tabs时给li绑定点击事件
+          orderTypeElements=data.wordHasDisposalList;
+          data.wordHasDisposalList.forEach((element,index) => { //${element.operationUrl}
+          console.log('element,index',element,index)
+          orderTypeLiArray.push(`
+            <li  id="${index}" style="display: flex;align-items:center;position: relative;">
+
+                <img src="${element.eventInfoEntity.imageUrl?(element.eventInfoEntity.imageUrl.split(',')[0].substring(0,4)==='http'?element.eventInfoEntity.imageUrl.split(',')[0]:SERSVER_BASE_HOME+element.eventInfoEntity.imageUrl.split(',')[0]):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'} " style="width:40px;height:40px;margin-left: 20px;border-radius: 50%;">
+                <div style="margin-left: 10px;height: 60px;position: relative;">
+                  <span style="position: absolute;top: 15%;white-space: nowrap;font-weight: bold;">${element.eventInfoEntity.eventTypeName}</span>
+                  <span style="position: absolute;bottom: 15%;color: gray;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100px;">${element.eventInfoEntity.eventDescription}</span>
+                </div>
+
+                <span style="position: absolute;right: 5%;">${element.eventInfoEntity.gmtCreate.substr(0,10)}</span>
+
+            </li>
+            `)
+            setTimeout(()=>{
+              $(`li[id='${index}']`).click(()=>{
+                getHistoryData(element)
+              })
+            })
+
+          });
+        }else {
+          orderTypeLiArray.push(`<div style="margin-top:50px;text-align:center;">工单类型暂无数据</div>`)
+        }
+
+        //关注人li数据
+        if(data.personnelHasDisposalList.length>0){
+          //储存关注人已完成数据，方便切换tabs时给li绑定点击事件
+          peopleElements=data.personnelHasDisposalList;
+          data.personnelHasDisposalList.forEach((element,index) => { //${element.operationUrl}
+          peopleLiArray.push(`
+            <li id="${index}" style="display: flex;align-items:center;position: relative;">
+
+                <img src="${element.eventInfoEntity.imageUrl?(element.eventInfoEntity.imageUrl.split(',')[0].substring(0,4)==='http'?element.eventInfoEntity.imageUrl.split(',')[0]:SERSVER_BASE_HOME+element.eventInfoEntity.imageUrl.split(',')[0]):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'} " style="width:40px;height:40px;margin-left: 20px;border-radius: 50%;">
+                <div style="margin-left: 10px;height: 60px;position: relative;">
+                  <span style="position: absolute;top: 15%;white-space: nowrap;font-weight: bold;">${element.eventInfoEntity.eventTypeName}</span>
+                  <span style="position: absolute;bottom: 15%;color: gray;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100px;">${element.eventInfoEntity.eventDescription}</span>
+                </div>
+
+                <span style="position: absolute;right: 5%;">${element.eventInfoEntity.gmtCreate.substr(0,10)}</span>
+
+            </li>
+            `)
+            setTimeout(()=>{
+              $(`li[id='${index}']`).click(()=>{
+                getHistoryData(element)
+              })
+            })
+          });
+        }else {
+          peopleLiArray.push(`<div style="margin-top:50px;text-align:center;">关注人暂无数据</div>`)
+        }
+
+        //关注车li数据
+        if(data.carHasDisposalList.length>0){
+          //储存关注人已完成数据，方便切换tabs时给li绑定点击事件
+          carElements=data.carHasDisposalList;
+          data.carHasDisposalList.forEach((element,index) => { //${element.operationUrl}
+          carLiArray.push(`
+            <li id="${index}" style="display: flex;align-items:center;position: relative;">
+
+                <img src="${element.eventInfoEntity.imageUrl?(element.eventInfoEntity.imageUrl.split(',')[0].substring(0,4)==='http'?element.eventInfoEntity.imageUrl.split(',')[0]:SERSVER_BASE_HOME+element.eventInfoEntity.imageUrl.split(',')[0]):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'} " style="width:40px;height:40px;margin-left: 20px;border-radius: 50%;">
+                <div style="margin-left: 10px;height: 60px;position: relative;">
+                  <span style="position: absolute;top: 15%;white-space: nowrap;font-weight: bold;">${element.eventInfoEntity.eventTypeName}</span>
+                  <span style="position: absolute;bottom: 15%;color: gray;white-space: nowrap;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100px;">${element.eventInfoEntity.eventDescription}</span>
+                </div>
+
+                <span style="position: absolute;right: 5%;">${element.eventInfoEntity.gmtCreate.substr(0,10)}</span>
+
+            </li>
+            `)
+            setTimeout(()=>{
+              $(`li[id='${index}']`).click(()=>{
+                getHistoryData(element)
+              })
+            })
+          });
+        }else {
+          carLiArray.push(`<div style="margin-top:50px;text-align:center;">关注车暂无数据</div>`)
+        }
+
+        $('.layui-tab-content ul').html(orderTypeLiArray.join(''))
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+
+    });
+
+    $(function() {
+      //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function() {
+        var element = layui.element;
+
+        //切换tab监听事件
+        element.on('tab(docDemoTabBrief)', function(data){
+          console.log(this); //当前Tab标题所在的原始DOM元素
+          console.log(data.index); //得到当前Tab的所在下标
+          console.log(data.elem); //得到当前的Tab大容器
+          if(data.index===0){
+            $('.layui-tab-content ul').html('')
+            $('.layui-tab-content ul').html(orderTypeLiArray.join(''))
+
+            if(orderTypeElements.length>0){
+              orderTypeElements.forEach((element,index)=>{
+
+                $(`li[id='${index}']`).click(()=>{
+                    getHistoryData(element)
+                  })
+
+              })
+            }
+
+
+          }
+          if(data.index===1){
+            $('.layui-tab-content ul').html('')
+            $('.layui-tab-content ul').html(peopleLiArray.join(''))
+            console
+            if(peopleElements.length>0){
+              peopleElements.forEach((element,index)=>{
+
+                $(`li[id='${index}']`).click(()=>{
+                    getHistoryData(element)
+                  })
+
+              })
+            }
+
+          }
+          if(data.index===2){
+            $('.layui-tab-content ul').html('')
+            $('.layui-tab-content ul').html(carLiArray.join(''))
+            if(carElements.length>0){
+              carElements.forEach((element,index)=>{
+
+                $(`li[id='${index}']`).click(()=>{
+                    getHistoryData(element)
+                  })
+
+              })
+            }
+
+          }
+        });
+      });
+    })
+
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + "/weChatHandleTask/getPlatformByOpenId",
+        data:
+          {
+            openId:localStorage.getItem('openId'),
+            
+          },
+        dataType: "json",
+        success: function (res) {
+          console.log('获取平台信息',res)
+
+          if(res.sysPlatformEntity.platformTypeId!==3){
+            document.querySelectorAll("body > div.layui-tab.layui-tab-brief > ul > li")[0].setAttribute("style","width:91%;")
+            document.querySelectorAll("body > div.layui-tab.layui-tab-brief > ul > li")[1].setAttribute("style","display:none;")
+            document.querySelectorAll("body > div.layui-tab.layui-tab-brief > ul > li")[2].setAttribute("style","display:none;")
+          }
+
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+
+      });
+  </script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

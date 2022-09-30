@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="./assets/css/rest.css" />
+    <script src="./constant.js"></script>
+    <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+    <title>首页</title>
+    <style>
+      html,
+      body {
+      }
+
+      .head_image {
+        background-image: url("./assets/images/homeHeaderImg.png");
+        background-size: 100% 100%;
+        height: 24vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="head">
+      <div class="head_image"></div>
+    </div>
+    <div class="content" style="margin-top: -3vh;">
+      <div
+        onclick="openIdIsActivate('./epidemicControl/dengjijilu.html')"
+        style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+      >
+        <img
+          src="./assets/images/homeContent1.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+        />
+        <div style="display:inline-block;margin-left: 6vw;">
+          <div
+            style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+          >
+            防控排查
+          </div>
+          <div
+            style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+          >
+            排查辖区疫情线索上报
+          </div>
+        </div>
+      </div>
+      <div
+        onclick="openIdIsActivate('./unhandleList2.html')"
+        style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+      >
+        <img
+          src="./assets/images/homeContent2.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+        />
+        <div style="display:inline-block;margin-left: 6vw;">
+          <div
+            style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+          >
+            群防联控
+          </div>
+          <div
+            style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+          >
+            处置群防任务
+          </div>
+        </div>
+      </div>
+      <div
+        onclick="openIdIsActivate('./commentIndex.html')"
+        style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+      >
+        <img
+          src="./assets/images/homeContent3.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+        />
+        <div style="display:inline-block;margin-left: 6vw;">
+          <div
+            style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+          >
+            动态通报
+          </div>
+          <div
+            style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+          >
+            获取防控动态信息
+          </div>
+        </div>
+      </div>
+      <div
+        onclick="openIdIsActivate('./epidemicControl/taskManagement.html')"
+        style="width: 89vw;height: 16vh;margin:0px auto 2vh;display: flex;align-items: center;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 1vh 0px rgba(0,0,0,0.16);border-radius:1.6vw;border:1px solid rgba(238,238,238,1);"
+      >
+        <img
+          src="./assets/images/homeContent4.png"
+          style="width: 18vw;height: 18vw;margin-left: 6vw;"
+        />
+        <div style="display:inline-block;margin-left: 6vw;">
+          <div
+            style="font-size:20px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1)"
+          >
+            任务记录
+          </div>
+          <div
+            style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);"
+          >
+            查收下发的疫情防控任务
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //获取url连接参数
+      function parseUrl(url) {
+        if (!url) return { host: null, query: {} };
+
+        let schemaIndex = url.indexOf("://");
+        let url2 = url.substr(schemaIndex + 3);
+        let host = url2.substr(0, url2.indexOf("/"));
+
+        let paramIndex = url2.indexOf("?");
+        if (paramIndex != -1) {
+          let query = {};
+          let paramStr = url2.substr(paramIndex + 1);
+          paramStr.split("&").forEach(str => {
+            let params = str.split("=");
+            query[params[0]] = params[1];
+          });
+          return { host, query };
+        } else {
+          let query = {};
+          return { host, query };
+        }
+      }
+
+      //点击li之前判断该用户openId是否激活
+      function openIdIsActivate(url, flag) {
+        var ua = navigator.userAgent.toLowerCase();
+        //openId
+        var cookieOpenId = parseUrl(location.href).query.openId;
+
+        if (ua.indexOf("micromessenger") > -1) {
+          console.log("微信用户");
+          if (cookieOpenId != null && cookieOpenId != "undefined") {
+            //说明有公众号
+            if (cookieOpenId.length == 28) {
+              getPlatformByOpenId(cookieOpenId, url, flag);
+            } else {
+              //说明仅仅只是在公众号上打开
+              var cookieOpenId = localStorage.getItem("openId");
+              console.log("微信用户,但没有公众号，cookieOpenId=", cookieOpenId);
+
+              if (cookieOpenId != null && cookieOpenId != "undefined") {
+                //如果缓存存在
+                console.log("微信用户,但没有公众号，缓存存在");
+                getPlatformByOpenId(cookieOpenId, url, flag);
+              } else {
+                var cookieOpenId = null;
+                getPlatformByOpenId(cookieOpenId, url, flag);
+              }
+            }
+          } else {
+            //alert("请关注服务号")
+            var cookieOpenId = localStorage.getItem("openId");
+            console.log("微信用户,但没有公众号，cookieOpenId=", cookieOpenId);
+
+            if (cookieOpenId != null && cookieOpenId != "undefined") {
+              //如果缓存存在
+              console.log("微信用户,但没有公众号，缓存存在");
+              getPlatformByOpenId(cookieOpenId, url, flag);
+            } else {
+              var cookieOpenId = null;
+              getPlatformByOpenId(cookieOpenId, url, flag);
+            }
+          }
+        } else if (ua.indexOf("com.huawei.welink") > -1) {
+          console.log("welink用户");
+          if (cookieOpenId != null && cookieOpenId != "undefined") {
+            //说明该用户关注了应用
+            getPlatformByOpenId(cookieOpenId, url, flag);
+          } else {
+            //说明该用户没有关注应用
+            var cookieOpenId = localStorage.getItem("openId");
+            if (cookieOpenId != null && cookieOpenId != "undefined") {
+              //如果缓存存在
+              getPlatformByOpenId(cookieOpenId, url, flag);
+            } else {
+              var cookieOpenId = null;
+              getPlatformByOpenId(cookieOpenId, url, flag);
+            }
+          }
+        } else {
+          console.log("非微信用户");
+          //取cookie缓存
+          var cookieOpenId = localStorage.getItem("openId");
+
+          if (cookieOpenId != null && cookieOpenId != "undefined") {
+            //如果缓存存在
+            console.log("非微信用户，缓存存在");
+            getPlatformByOpenId(cookieOpenId, url, flag);
+          } else {
+            //缓存不在的话，则重新激活
+            console.log("非微信用户，缓存不在的话，则重新激活");
+            var cookieOpenId = null;
+            getPlatformByOpenId(cookieOpenId, url, flag);
+          }
+        }
+      }
+
+      function getPlatformByOpenId(cookieOpenId, url, flag) {
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/weChatHandleTask/getPlatformByOpenId",
+          data: {
+            openId: getQueryString('openId')||cookieOpenId,
+            
+          },
+          dataType: "json",
+          success: function(res) {
+            console.log("判断openId是否激活", res);
+
+            if (
+              res.mailContactorEntity == "null" ||
+              res.mailContactorEntity == null
+            ) {
+              //location.href.search('token')==-1
+              alert("该用户还没有激活，请先激活！");
+              window.location.href = `./activate.html?openId=` + cookieOpenId;
+            } else {
+              if (flag == 1 && location.href.search("token") == -1) {
+                alert("该用户还没加入系统用户，请联系管理员！");
+              } else {
+                localStorage.setItem(
+                  "platformId",
+                  res.mailContactorEntity.platformId
+                );
+                localStorage.setItem("token", localStorage.getItem("token"));
+                localStorage.setItem("openId", res.mailContactorEntity.openId);
+                setTimeout(() => {
+                  window.location.href =
+                    url + `?platformId=${res.mailContactorEntity.platformId}`;
+                });
+              }
+            }
+          }
+        });
+      }
+      function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        var q = window.location.pathname.substr(1).match(reg_rewrite);
+        if (r != null) {
+          return unescape(r[2]);
+        } else if (q != null) {
+          return unescape(q[2]);
+        } else {
+          return null;
+        }
+      }
+    </script>
+  </body>
+  <script src= "./waterMark.js" ></script>
+</html>

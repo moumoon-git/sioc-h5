@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../assets/css/rest.css">
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <!--引入vue玩玩-->
+  <script src="js/vue.min.js"></script>
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .imgContainer{
+      display: inline-block;
+      height: 100px;
+      margin-left: 1%;
+      border: 1px solid #30a5ff;
+      position: relative;
+      box-sizing: border-box;
+      margin-bottom: 5px;
+    }
+
+    .imgContainer img{
+      width: 100%;
+      height: 150px;
+      cursor: pointer;
+    }
+
+    .imgContainer p{
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: black;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: none;
+    }
+
+    .imgContainer:hover p{
+      display: block;
+    }
+
+    .layui-tab-content{
+      padding: initial;
+    }
+    .layui-tab-title li{
+      padding: initial;
+      width: 48%;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <input type="hidden" id="vehiclePageSize" name="vehiclePageSize" value="5" />
+  <input type="hidden" id="vehiclePageIndex" name="vehiclePageIndex" value="1" />
+
+  <div class="head">
+  </div>
+  <div id="vehicleHistory" class="content" style="width: 100%;">
+      <!--车的基本信息-->
+      <div style="width: 95%;margin: 2% auto;box-sizing: border-box;padding: 10px 10px;display: flex;justify-content: center;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+          <div style="display: inline-block;margin: 0 auto;border: 4px solid #aa8216;">
+              <button class="layui-btn" style="background-color: #FBBD17;font-size: 16px;font-weight: bold;color: #000 !important;">{{carNum}}</button>
+          </div>
+          <div style="width: 36%;display: inline-block;font-size: 14px;display: flex;align-items: center;flex-wrap: wrap;">
+              <span  style="border-bottom: 2px solid #1e9fff;padding: 0% 10% 0 10%;font-weight: bold;font-size: 16px;">
+                  {{formatterCarStatus(type)}}
+              </span>
+
+          </div>
+      </div>
+
+      <!--车的抓拍历史-->
+      <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+          <div v-for="(item, index) in vehicleHistoryList" :key="index">
+              <div class="layui-tab-content" style="">
+                  <div class="layui-tab-item layui-show"
+                       style="position: relative;margin:3%; border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                      <div style="position: relative;">
+                          <div style="font-size: 13px;display: inline-block;">
+                              <div style="box-sizing: border-box;padding: 10px 10px 5px 10px;">{{item.cameraName}}</div>
+                              <div style="box-sizing: border-box;padding: 5px 10px 10px 10px;" v-text="item.alarmTime.substring(0,19)">00:00:00</div>
+                          </div>
+
+                          <span @click="getVehicleDisposeRecord(item.eventInfoId,platformId)" v-if="item.eventInfoId" style="position: absolute;right: 5%;top: 50%;transform: translateY(-50%);padding: 8px 16px;
+                          border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">查看</span>
+                          <span @click="vehicleOrder(item.id,platformId,4,id)" v-else style="position: absolute;right: 5%;top: 50%;transform: translateY(-50%);padding: 8px 16px;
+                          border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">派单</span>
+                      </div>
+                      <div style="text-align: center;display: flex;flex-wrap: wrap;justify-content: space-evenly;align-items: center;padding: 0px 0px 2% 0px;">
+                          <!--<img :src="item.picPlate" style="width:45%;height:100px;margin: 5px 0px;" alt="">-->
+                          <img v-if="item.picPlate && item.picPlate.indexOf('http') > -1" :src="item.picPlate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                          <img v-else :src="SERSVER_BASE_HOME+item.picPlate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+
+                          <img v-if="item.picAbbreviate && item.picAbbreviate.indexOf('http') > -1" :src="item.picAbbreviate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                          <img v-else :src="SERSVER_BASE_HOME+item.picAbbreviate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+
+          <!--分頁-->
+          <div style="width: 205px;margin: 0 auto;" id="demo11"></div>
+      </div>
+
+  </div>
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="js/vehicleDetail.js"></script>
+  <script>
+
+    //车辆抓拍
+    var hpvh = new Vue({
+      el: "#vehicleHistory",
+      data: {
+        //抓拍历史列表
+        vehicleHistoryList: [],
+        //处置形成工单的信息
+        vehicleInfo: {},
+        //处置形成工单的历史列表
+        vehicleInfoDisposeList: [],
+        //类型
+        type: 0,
+        //车牌
+        carNum: "000001",
+        //平台id
+        platformId: 0,
+        //id
+        id: 0
+      },
+      methods: {
+          formatterCarStatus(carType){
+              switch (Number(carType)){
+                  case 0:carType = '其它车型';
+                      break;
+                  case 1:carType = '客车';
+                      break;
+                  case 2:carType = '货车';
+                      break;
+                  case 3:carType = '轿车';
+                      break;
+                  case 4:carType = '面包车';
+                      break;
+                  case 5:carType = '小货车';
+                      break;
+                  case 6:carType = '行人';
+                      break;
+                  case 7:carType = '二轮车';
+                      break;
+                  case 8:carType = '三轮车';
+                      break;
+                  case 9:carType = 'SUV/MPV';
+                      break;
+                  case 10:carType = '中型客车';
+                      break;
+                  default:carType = "其他";
+              }
+
+              return carType;
+          }
+      }
+    });
+
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

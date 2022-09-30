@@ -1,0 +1,163 @@
+<!-- /**
+ * @author liukanglin
+ * @date 2020.09.01
+ */ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="clock_in">
+        <!-- 打卡页面 -->
+        <div v-if="!checkInRecordPage">
+            <img class="clock_in_img" ref="clockIn" :src="clockInSrc.before">
+            <div @click="clockIn" class="clock_in_button"></div>
+            <!-- 弹出层 -->
+            <van-popup position="bottom" closeable :style="{ height:'25%'}" v-model="show">
+                <div class="clock_in_popup">
+                    <div class="clock_in_text"></div>
+                    <div>
+                        <img class="clock_in_icon_img" :src="photoIconSrc">
+                    </div>
+                    <van-button type="info" class="comfirm_clock_in_button" @click="comfirmClockIn">
+                    </van-button>
+                    <van-field label="备注（选填）" />
+                </div>
+            </van-popup>
+            <div class="check_in_record" @click="checkInRecord"></div>
+        </div>
+        <!-- 签到记录页面 -->
+        <div v-else>
+            <img class="clock_in_img" ref="checkIn" :src="checkInSrc.before">
+            <div @click="watch_img" class="clock_in_fixed_one"></div>
+            <div @click="watch_img" class="clock_in_fixed_one" style="top: 29%;"></div>
+            <div @click="watch_img" class="clock_in_fixed_one" style="top: 43%;"></div>
+            <div @click="watch_img" class="clock_in_fixed_one" style="top: 57%;"></div>
+            <div @click="watch_img" class="clock_in_fixed_one" style="top: 87%;"></div>
+        </div>
+    </div>
+</body>
+<!-- 引入样式文件 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css" />
+
+<!-- 引入 Vue 和 Vant 的 JS 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script>
+    Vue.use(vant.Popup);
+    Vue.use(vant.Button);
+    Vue.use(vant.Field);
+    Vue.use(vant.Toast);
+</script>
+<script>
+    var vm = new Vue({
+        el: '#clock_in',
+        data: {
+            // 签到切换的图片路径
+            clockInSrc: { before: './assets/images/beforeClockIn.png', after: './assets/images/afterClockIn.png' },
+            checkInSrc: { before: './assets/images/beforeCheckIn.png', after: './assets/images/afterCheckIn.png' },
+            // 打卡区域相机图片路径
+            photoIconSrc: './assets/images/photoIcon.png',
+            // 隐藏和显示遮罩层
+            show: false,
+            // 是否显示签到记录页面
+            checkInRecordPage: false,
+            // 用于记录是否被点击第二次
+            num: 0,
+        },
+        methods: {
+            // 点击打卡区域
+            clockIn() {
+                this.show = true;
+                this.$nextTick(() => {
+                    document.getElementsByClassName('clock_in_text')[0].innerText = '拍照签到'
+                    document.getElementsByClassName('comfirm_clock_in_button')[0].innerText = '确认打卡'
+                })
+            },
+            // 在弹窗中点击确认打卡
+            comfirmClockIn() {
+                console.log(this.$refs.clockIn.src);
+                this.$refs.clockIn.src = this.clockInSrc.after;
+                this.$toast.success('打卡成功');
+                this.show = false;
+            },
+            // 点击签到记录
+            checkInRecord() {
+                this.checkInRecordPage = true;
+            },
+            // 点击查看图片
+            watch_img() {
+                this.$refs.checkIn.src = this.checkInSrc.after;
+                this.num++;
+                // 被点击了第二次
+                if (this.num == 2) {
+                    // 被点击第二次的时候跳回最初始的位置
+                    this.checkInRecordPage = false;
+                    // 将记录点击次数重新置为0
+                    this.num = 0;
+                }
+            },
+        }
+    })
+
+</script>
+<style type="text/css">
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    .clock_in_img {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+    }
+
+    .clock_in_button {
+        width: 33vw;
+        height: 17vh;
+        /* background-color: #cccccc; */
+        position: fixed;
+        top: 62%;
+        left: 50%;
+        margin-top: -1vh;
+        margin-left: -15vw;
+    }
+
+    .clock_in_popup {
+        margin-top: 1vh;
+        text-align: center;
+    }
+
+    .clock_in_icon_img {
+        width: 50px;
+    }
+
+    .check_in_record {
+        position: fixed;
+        width: 21vw;
+        height: 7vh;
+        top: 17%;
+        left: 62%;
+        /* background-color: #cccccc; */
+        margin-top: -1vh;
+        margin-left: 15vw;
+    }
+
+    .clock_in_fixed_one {
+        width: 24vw;
+        height: 12vh;
+        /* background-color: #cccccc; */
+        position: fixed;
+        top: 15%;
+        margin-left: 4vw;
+    }
+</style>
+<script src= "./waterMark.js" ></script>
+</html>

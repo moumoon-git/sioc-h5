@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../assets/css/rest.css" />
+    <link rel="stylesheet" href="../assets/js/layui/css/layui.css" />
+    <title>任务记录</title>
+    <style>
+      @import url("https://at.alicdn.com/t/font_1578495_ltx0rjdmhli.css");
+      html,
+      body {
+      }
+      html {
+        width: 100%;
+        height: -webkit-fill-available;
+        height: -moz-fill-available;
+        height: -ms-fill-available;
+        background: rgba(245, 245, 245, 1);
+      }
+      .layui-tab {
+        margin: initial;
+        text-align: left !important;
+      }
+      .layui-tab-brief > .layui-tab-title .layui-this {
+        color: initial;
+      }
+      .layui-tab-title {
+        width: 100%;
+        background: rgba(255, 255, 255, 1);
+        height: 7vh;
+        line-height: 7vh;
+      }
+      .layui-tab-content {
+        padding: initial;
+      }
+      .layui-tab-title li {
+        padding: initial;
+        width: 48%;
+      }
+      .layui-tab-brief > .layui-tab-more li.layui-this:after,
+      .layui-tab-brief > .layui-tab-title .layui-this:after {
+        border: none;
+        border-radius: 0;
+        margin-top: 3px;
+        border-bottom: 2px solid #409eff;
+      }
+      .layui-laypage .layui-laypage-curr .layui-laypage-em {
+        background: linear-gradient(
+          360deg,
+          rgba(43, 128, 255, 1) 0%,
+          rgba(101, 188, 255, 1) 100%
+        );
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="content" style="width: 100%;">
+      <div
+        class="layui-tab layui-tab-brief"
+        lay-filter="docDemoTabBrief"
+        style="width: 100%;"
+      >
+        <ul class="layui-tab-title" style="width: 100%;">
+          <li class="layui-this">任务详情</li>
+          <li>跟踪排查登记</li>
+        </ul>
+        <div class="layui-tab-content" style="">
+          <div class="layui-tab-item layui-show taskDetails">
+            <!-- <div style="width: 94vw;margin: 3% auto;background: rgba(255,255,255,1);border-radius: 0.5vw;">
+                    <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                      <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >任务名称：</span><span style="color:rgba(51,51,51,1);" >测试任务发布</span>
+                      <img src="../assets/images/executing.png" style="width: 7vh;height: 7vh;float: right;">
+                      <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+                    </div>
+                    <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                      <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >任务类型：</span><span style="color:rgba(51,51,51,1);" >疫情任务</span>
+                      <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+                    </div>   
+                    <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                      <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >任务周期：</span><span style="color:rgba(51,51,51,1);" >长期执行</span>
+                      <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+                    </div> 
+                    <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                      <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >发布时间：</span><span style="color:rgba(51,51,51,1);" >2020-02-07 00:00:00</span>
+                      <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+                    </div>  
+                    <div style="position: relative;font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;display: flex;">
+                      <span style="color: rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >排查对象：</span>
+                      <div style="display: inline-block;width: 71%;">
+                          <div style="position: relative;height: 7vh;line-height: 7vh;border-bottom: 1px solid rgba(238,238,238,1);">
+                              <span style="">张三</span> <span style="position: absolute;left: 50%;transform: translateX(-50%);">武汉返穗人员</span> <span style="position: absolute;right: 0%;color: #1E9FFF;">详情</span>
+                          </div>
+                          <div style="position: relative;height: 7vh;line-height: 7vh;border-bottom: 1px solid rgba(238,238,238,1);">
+                            <span style="">张三</span> <span style="position: absolute;left: 50%;transform: translateX(-50%);">武汉返穗人员</span> <span style="position: absolute;right: 0%;color: #1E9FFF;">详情</span>
+                        </div>
+                      </div>
+                      <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+                    </div>  
+                    <div style="position: relative;font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;display: flex;">
+                      <span style="color: rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >任务详情：</span>
+                      <div style="display: inline-block;width: 71%;padding: 2vh 0vh;">
+                          荔城街新光花园有多名湖北返穗人员，重点关荔城街新光花园有多名湖北返穗人员，重点关
+                      </div>
+                      <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+                    </div>  
+                    <div style="font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;position: relative;">
+                        <span style="color: rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >附件：</span>
+                        <div style="width: 90%;margin: 0px auto;">
+                          <img src="../assets/images/shoutu.jpg" style="width: 47%;height: 100px;margin: 1%;" alt="">
+                          <img src="../assets/images/shoutu.png" style="width: 47%;height: 100px;margin: 1%;" alt="">
+                          <img src="../assets/images/shoutu.jpg" style="width: 47%;height: 100px;margin: 1%;" alt="">
+                        </div>
+                        <div style="width: 90%;margin: auto;">
+                          <div style="height: 4vh;line-height: 4vh;">
+                            <i class="iconfont iconxlsb" style="color: green;margin-left: 5%;"></i> <span style="margin-left: 1%;">疑似病例登记表.xls</span>
+                          </div>
+                          <div style="height: 4vh;line-height: 4vh;">
+                            <i class="iconfont icondoc" style="color: #1E9FFF;margin-left: 5%;"></i> <span style="margin-left: 1%;">防疫处置流程.doc</span>
+                          </div>
+                        </div>
+                    </div>  
+                    
+                    <div style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;position: relative;">
+                        <span style="color:rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >备注：</span>
+                        <textarea name="" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 90%;margin: 0px auto;"></textarea>
+                        <div style='width: 100%;text-align: center;background:rgba(255,255,255,1);padding:2vh 0px;'>
+                          <span style="display:inline-block;width:85vw;height:7vh;line-height:7vh;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0px 0.2vw 2vh 0px rgba(12,126,161,0.35);border-radius:10vw;font-size:20px;font-family:Helvetica;color:rgba(255,255,255,1);">结束任务</span>
+                        </div>
+                    </div> 
+                  </div>             -->
+          </div>
+
+          <div
+            class="layui-tab-item trackingAndTroubleshooting"
+            style="padding-bottom: 40px;"
+          >
+            <!-- <div  style="width: 89vw;position: relative;margin: 2vh 5vw;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">
+                    <div style="width: 100%;font-size:16px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(102,102,102,1);position: relative;height: 7vh;line-height: 7vh;">
+                        <span style="font-weight: bold;margin-left: 5vw;">排查对象：</span>
+                        <span style="font-weight: bold;">陈浩南</span>
+                        <img src="../assets/images/executing.png" style="width: 10vw;height: 10vw;float: right;">
+                    </div>
+                    <div style="width: 100%;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                        <span style="margin-left: 5vw;">登记时间：</span>     
+                        <span>2020-02-07 00:00:00</span>  
+                    </div>
+                    <div style="width: 100%;height:5vh;line-height:5vh;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                      <span style="margin-left: 5vw;">登记人：</span>     
+                      <span>山鸡</span>  
+                    </div>
+                    <div style="width: 100%;padding-bottom: 3vh;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                      <span style="margin-left: 5vw;">备注：</span>     
+                      <span>众志成城</span>  
+                    </div>
+                    <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+                  </div> -->
+
+            <!-- <div style='width: 100%;text-align: center;background:rgba(255,255,255,1);padding:2vh 0px;position: fixed;bottom: 0%;'>
+                    <span class='addTroubleshooting' style="display:inline-block;width:85vw;height:7vh;line-height:7vh;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0px 0.2vw 2vh 0px rgba(12,126,161,0.35);border-radius:10vw;font-size:20px;font-family:Helvetica;color:rgba(255,255,255,1);">新增排查登记</span>
+                  </div>
+                  <div class='checkTroubleshooting' style='display: none;width: 99%;margin: auto;position: fixed;bottom: 0.5%;border: 1px solid #c0c0c0;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);'>
+                    <div style="width: 100%;height: 50px;line-height: 50px;text-align: center;font-weight: bold;">
+                      <span>请选择排查登记对象</span>
+                    </div>
+                    <div style="width: 80%;border: 1px solid #409EFF;border-radius: 8px;margin: 0px auto 10px;height: 50px;line-height: 50px;position: relative;">
+                      <span style="margin-left: 5%;">张三</span> <span style="position: absolute;right: 5%;">湖北返穗人员(非武汉)</span>
+                    </div>
+                    <div style="width: 80%;border: 1px solid #409EFF;border-radius: 8px;margin: 0px auto 10px;height: 50px;line-height: 50px;position: relative;">
+                      <span style="margin-left: 5%;">张三</span> <span style="position: absolute;right: 5%;">湖北返穗人员(非武汉)</span>
+                    </div>
+                    <div style="width: 80%;border: 1px solid #409EFF;border-radius: 8px;margin: 0px auto 10px;height: 50px;line-height: 50px;position: relative;">
+                      <span style="margin-left: 5%;">张三</span> <span style="position: absolute;right: 5%;">湖北返穗人员(非武汉)</span>
+                    </div>
+                    <div style="width: 80%;margin: 20px auto 20px;">
+                      <div class="cancel" style="display: inline-block;border: 1px solid gray;border-radius: 5px;padding: 30;width: 48%;text-align: center;padding: 13px 0px;" >取消</div>
+                      <div class="commit" style="display: inline-block;background: #409EFF;border-radius: 5px;width: 48%;text-align: center;padding: 13px 0px;float: right;border: 1px solid #409EFF;">确定</div>
+                    </div>
+                  </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../constant.js"></script>
+    <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+    <script src="../assets/js/layui/layui.js"></script>
+    <script src="../assets/js/imageWithHttp.js"></script>
+    <script>
+      console.log("getQueryString", getQueryString(localStorage.h));
+      if (getQueryString("inforId")) {
+        $.ajax({
+          async: false,
+          type: "POST",
+          url:
+            SERSVER_BASE_URL +
+            `/weChatHandleTask/selectTaskLastOneByInfoId?dataSourceId=${getQueryString(
+              "inforId"
+            )}&contactorId=${getQueryString("contactorId")}&personnelFlag=4`,
+          headers: {},
+          contentType: "application/json",
+          data: JSON.stringify({
+            // dataSourceId: getQueryString("inforId"),
+            // contactorId: getQueryString("contactorId"),
+            // personnelFlag: 4,
+            
+          }),
+          dataType: "json",
+          success: function(data) {
+            console.log("/weChatHandleTask/selectTaskLastOneByInfoId", data);
+            $.ajax({
+              async: false,
+              type: "POST",
+              url:
+                SERSVER_BASE_URL +
+                `/weChatHandleTask/updateTaskConfirmFag?historyId=${
+                  data.data.id
+                }&eventInfoId=${getQueryString(
+                  "inforId"
+                )}&personnelFlag=4&contactorId=${getQueryString(
+                  "contactorId"
+                )}`,
+              headers: {},
+              contentType: "application/json",
+              data: {
+                // historyId:data.data.id,
+                // eventInfoId:getQueryString("inforId"),
+                // personnelFlag:4,
+                // contactorId:getQueryString("contactorId"),
+            
+              },
+              dataType: "json",
+              success: function(data) {
+                console.log("/weChatHandleTask/updateTaskConfirmFag", data);
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+              }
+            });
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+      }
+
+      var contactorId;
+      $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + "/task/taskInfor/getMailContor",
+        headers: {},
+        contentType: "application/json",
+        data: {
+          openId: getQueryString("openId")||localStorage.getItem("openId"),
+            
+        },
+        dataType: "json",
+        success: function(data) {
+          console.log("/task/taskInfor/getMailContor", data);
+          contactorId = data.data.id;
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+      });
+
+      layui.use("element", function() {
+        var element = layui.element;
+        getTaskDetailsDatas();
+        //切换tab监听事件
+        element.on("tab(docDemoTabBrief)", function(data) {
+          if (data.index === 1) {
+            if (
+              document.querySelector(".trackingAndTroubleshooting")
+                .childElementCount != 0
+            ) {
+              console.log("不重复渲染");
+            } else {
+              trackingAndTroubleshooting(vehiclePageIndex, vehiclePageSize);
+            }
+          }
+        });
+      });
+      var epiRegisterHumans = [];
+      var getOneAndLinkResult;
+      function getTaskDetailsDatas() {
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/task/taskInfor/getOneAndLink",
+          headers: {},
+          contentType: "application/json",
+          data: {
+            // platformId:localStorage.getItem('platformId'),
+            // openId:localStorage.getItem('openId'),
+            id: getQueryString("id")?getQueryString("id"):localStorage.getItem("taskDetailsId"),
+            contactorId: contactorId? contactorId: localStorage.getItem("contactorId"),
+            
+          },
+          dataType: "json",
+          success: function(data) {
+            console.log("/task/taskInfor/getOneAndLink", data);
+            getOneAndLinkResult = data;
+            var taskInforList = [];
+            var epiRegisterList = [];
+
+            var documentList = {
+              imgList: [],
+              docList: []
+            };
+            epiRegisterHumans = data.data.epiRegisterList;
+            data.data.epiRegisterList.forEach(element => {
+              epiRegisterList.push(`
+              <div style="position: relative;height: 7vh;line-height: 7vh;border-bottom: 1px solid rgba(238,238,238,1);">
+                  <span style="">${element.imName}</span> <span style="margin-left: 8%;">${element.humanTypeString}</span> <span class='${element.id}' style="position: absolute;right: 0%;color: #1E9FFF;">详情</span>
+              </div>
+            `);
+            });
+            data.data.documentList.forEach(element => {
+              if (
+                element.documentName.search("jpg") != -1 ||
+                element.documentName.search("jpeg") != -1 ||
+                element.documentName.search("png") != -1 ||
+                element.documentName.search("pneg") != -1 ||
+                element.documentName.search("gif") != -1 ||
+                element.documentName.search("bmp") != -1
+              ) {
+                documentList.imgList.push(`
+                <img src="${element.url}" style="width: 47%;height: 100px;margin: 1%;" alt="">
+              `);
+              } else {
+                documentList.docList.push(`
+                <div style="height: 4vh;line-height: 4vh;">
+                  <i class="iconfont ${
+                    element.documentName.search("xls") != -1
+                      ? "iconxlsb"
+                      : "icondoc"
+                  }" style="color: ${
+                  element.documentName.search("xls") != -1 ? "green" : "#1E9FFF"
+                };margin-left: 5%;"></i> <span style="margin-left: 1%;">${
+                  element.documentName
+                }</span>
+                </div>
+              `);
+              }
+            });
+            taskInforList.push(`
+            <div style="width: 94vw;margin: 3% auto;background: rgba(255,255,255,1);border-radius: 0.5vw;">
+              <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >任务名称：</span><span style="color:rgba(51,51,51,1);" >${
+                  data.data.taskName
+                }</span>
+                <img src="${
+                  data.data.statusString == "执行中"
+                    ? "../assets/images/executing.png"
+                    : "../assets/images/completed.png"
+                }" style="width: 7vh;height: 7vh;float: right;">
+                <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+              </div>
+              <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >发布时间：</span><span style="color:rgba(51,51,51,1);" >${
+                  data.data.gmtCreate
+                }</span>
+                <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+              </div>  
+              <div style="position: relative;font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;display: flex;">
+                <span style="color: rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >排查对象：</span>
+                <div style="display: inline-block;width: 71%;">
+                  ${epiRegisterList.join("")}
+                </div>
+                <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+              </div>  
+              <div style="position: relative;font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;display: flex;">
+                <span style="color: rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >任务详情：</span>
+                <div style="display: inline-block;width: 71%;padding: 2vh 0vh;">
+                  ${data.data.details}
+                </div>
+                <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+              </div>  
+              <div style="font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;position: relative;">
+                  <span style="color: rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >附件：</span>
+                  <div style="width: 90%;margin: 0px auto;">
+                    ${documentList.imgList.join("")}
+                  </div>
+                  <div style="width: 90%;margin: auto;">
+                    ${documentList.docList.join("")}
+                  </div>
+                  <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+              </div>  
+              <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >任务责任人：</span><span style="color:rgba(51,51,51,1);" >
+                  ${ data.data.responsibleList.map(function(elem) {return elem.name}).join(',') }
+                </span>
+                <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+              </div> 
+              <div style="position: relative;height: 7vh;line-height: 7vh;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;">
+                <span style="color:rgba(102,102,102,1);margin-left: 4vw;" >任务参与人：</span><span style="color:rgba(51,51,51,1);" >
+                  ${ data.data.responsibleList.map(function(responsibleElem) {  
+                    return data.data.mailContactorList.filter(function(mailContactorElem) {return mailContactorElem.id!=responsibleElem.id}).map(function(elem) { return elem.name})
+                  }).join(',') }
+                </span>
+                <div style="width: 86vw;height: 1px;background: rgba(238,238,238,1);position: absolute;bottom: 0%;left: 50%;transform: translateX(-50%);"></div>
+              </div> 
+              <div class='overTaskWrap' style="font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;position: relative;">
+                  <span style="color:rgba(102,102,102,1);margin-left: 4vw;display: inline-block;height: 7vh;line-height: 7vh;" >备注：</span>
+                  <textarea name="overTaskRemark" required lay-verify="required" placeholder="请输入" class="layui-textarea" style="width: 90%;margin: 0px auto;"></textarea>
+                  <div style='width: 100%;text-align: center;background:rgba(255,255,255,1);padding:2vh 0px;'>
+                    <span class='overTask' style="display:${data.data.responsibleList.some(function (elem, index, arr) {return elem.id==contactorId})?'inline-block;':'none;'}inline-block;width:85vw;height:7vh;line-height:7vh;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0px 0.2vw 2vh 0px rgba(12,126,161,0.35);border-radius:10vw;font-size:20px;font-family:Helvetica;color:rgba(255,255,255,1);">${data.data.statusString.search('执行')!=-1?'结束任务':'重启任务'}</span>
+                  </div>
+              </div> 
+            </div>
+          `);
+          console.log("是否为责任人",data.data.responsibleList.some(function (elem, index, arr) {return elem.id==contactorId}))
+            $(".taskDetails").append(taskInforList.join(""));
+
+            data.data.epiRegisterList.forEach(element => {
+              $(`.${element.id}`).click(() => {
+                localStorage.setItem("investigationObjectId", element.id);
+                location.href = "./investigationObjectDetails.html";
+              });
+            });
+            $(".overTask").click(() => {
+
+              $.ajax({
+                async: false,
+                type: "POST",
+                url: SERSVER_BASE_URL + `/task/taskEnd/save`,
+                headers: {},
+                contentType: "application/json",
+                data: JSON.stringify({
+                  taskId: getOneAndLinkResult.data.id,
+                  remark: $("textarea[name='overTaskRemark']").val(),
+                  contactorId: contactorId,
+                  type: data.data.statusString.search('执行')!=-1?2:1 //1开始，2结束
+                  ,
+                }),
+                dataType: "json",
+                success: function(res) {
+                  console.log("/task/taskEnd/save", res);
+                  if (res.code == 0) {
+                    alert(data.data.statusString.search('执行')!=-1?'结束成功':'重启成功');
+                    location.replace('./taskManagement.html')
+                    // $(".overTaskWrap")[0].style.display = "none";
+                  }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                  alert("err:::" + errorThrown);
+                }
+              });
+            });
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+      }
+
+      var vehiclePageIndex = 1,
+        vehiclePageSize = 10;
+      function trackingAndTroubleshooting(vehiclePageIndex, vehiclePageSize) {
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/task/taskRegisterHistory/list",
+          headers: {},
+          contentType: "application/json",
+          data: {
+            // platformId:localStorage.getItem('platformId'),
+            // openId:localStorage.getItem('openId'),
+            page: vehiclePageIndex,
+            limit: vehiclePageSize,
+            taskId: getQueryString("id")
+              ? getQueryString("id"):localStorage.getItem("taskDetailsId"),
+            
+          },
+          dataType: "json",
+          success: function(data) {
+            console.log("/task/taskRegisterHistory/list", data);
+            var taskRegisterHistoryList = [];
+            if (data.page.list.length == 0) {
+              taskRegisterHistoryList.push(
+                "<div style='margin-top: 20vh;text-align: center;font-weight: bold;'><div><img src='../assets/images/noDatas.png' style='width:27vw;height:27vw;'></div><div><span style='font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);'>暂无数据</span></div></div>"
+              );
+            } else {
+              data.page.list.forEach(element => {
+                taskRegisterHistoryList.push(`
+                <div class='${element.id}' style="width: 89vw;position: relative;margin: 2vh 5vw;background:rgba(255,255,255,1);box-shadow:0px 0.5vw 2vh -1vw rgba(0,0,0,0.1);border-radius:1vw;">
+                  <div style="width: 100%;font-size:16px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(102,102,102,1);position: relative;height: 7vh;line-height: 7vh;">
+                      <span style="font-weight: bold;margin-left: 5vw;">排查对象：</span>
+                      <span style="font-weight: bold;">${element.registerName}</span>
+                      <img src="${element.investigateResultString.search('正常')!=-1?'../assets/images/normal.png':'../assets/images/unnormal.png'}" style="width: 10vw;height: 10vw;float: right;">
+                  </div>
+                  <div style="width: 100%;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                      <span style="margin-left: 5vw;">登记时间：</span>     
+                      <span>${element.gmtCreate}</span>  
+                  </div>
+                  <div style="width: 100%;height:5vh;line-height:5vh;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                    <span style="margin-left: 5vw;">登记人：</span>     
+                    <span>${element.reportName}</span>  
+                  </div>
+                  <div style="width: 100%;padding-bottom: 3vh;position: relative;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">
+                    <span style="margin-left: 5vw;">备注：</span>     
+                    <span>${element.remark}</span>  
+                  </div>
+                  <img src="../assets/images/rightArrow.png" style="width: 5vw;height: 5vw;position: absolute;right: 4vw;top: 50%;transform: translateY(-50%);">
+                </div>
+              `);
+              });
+            }
+
+            $(".trackingAndTroubleshooting").html("");
+            $(".trackingAndTroubleshooting").append(
+              taskRegisterHistoryList.join("")
+            );
+            if (data.page.list.length != 0) {
+              $(".trackingAndTroubleshooting").append(
+                '<div id="vehiclePagination" style="text-align: center;"></div>'
+              );
+            }
+
+            var epiRegisterHumansList = [];
+            epiRegisterHumans.forEach(item => {
+              epiRegisterHumansList.push(`
+              <div class='check${item.id}' check='uncheck' style="width: 80%;border: 1px solid #c0c0c0;border-radius: 8px;margin: 0px auto 10px;height: 50px;line-height: 50px;position: relative;">
+                <span style="margin-left: 5%;">${item.imName}</span> <span style="position: absolute;right: 5%;">${item.humanTypeString}</span>
+              </div>
+            `);
+            });
+
+            setTimeout(() => {
+              $(".trackingAndTroubleshooting").append(`
+              <div  style='width: 100%;text-align: center;background:rgba(255,255,255,1);padding:2vh 0px;position: fixed;bottom: 0%;display:${getOneAndLinkResult.data.statusString.search('完成')!=-1?'none':'block'}'>
+                <span class='addTroubleshooting' style="display:inline-block;width:85vw;height:7vh;line-height:7vh;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0px 0.2vw 2vh 0px rgba(12,126,161,0.35);border-radius:10vw;font-size:20px;font-family:Helvetica;color:rgba(255,255,255,1);">新增排查登记</span>
+              </div>
+            
+              <div class='checkTroubleshooting' style='background: white;display: none;width: 99%;margin: auto;position: fixed;bottom: 0.5%;border: 1px solid #c0c0c0;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);'>
+                <div style="width: 100%;height: 50px;line-height: 50px;text-align: center;font-weight: bold;">
+                  <span>请选择排查登记对象</span>
+                </div>
+                ${epiRegisterHumansList.join("")}
+                <div style="width: 80%;margin: 20px auto 20px;">
+                  <div class="cancel" style="display: inline-block;border: 1px solid gray;border-radius: 5px;padding: 30;width: 48%;text-align: center;padding: 13px 0px;" >取消</div>
+                  <div class="commit" style="display: inline-block;background: #409EFF;border-radius: 5px;width: 48%;text-align: center;padding: 13px 0px;float: right;border: 1px solid #409EFF;color:white;">确定</div>
+                </div>
+              </div>
+            `);
+
+              data.page.list.forEach(item => {
+                $(`.${item.id}`).click(() => {
+                  localStorage.setItem("troubleshootingObjectId", item.id);
+                  location.href = `./troubleshootingObject.html?isEdit=${contactorId==item.reportId?true:false}`;
+                });
+              });
+              epiRegisterHumans.forEach(element => {
+                $(`.check${element.id}`).click(() => {
+                  epiRegisterHumans.forEach(item => {
+                    $(`.check${item.id}`)[0].style.border = "1px solid #c0c0c0";
+                    $(`.check${item.id}`).attr("check", "uncheck");
+                  });
+                  setTimeout(() => {
+                    $(`.check${element.id}`)[0].style.border =
+                      "1px solid #409EFF";
+                    $(`.check${element.id}`).attr("check", "check");
+                  });
+                });
+              });
+              $(`.addTroubleshooting`).click(() => {
+                $(`.checkTroubleshooting`)[0].style.display = "initial";
+                $(`.addTroubleshooting`)[0].style.display = "none";
+              });
+              $(`.checkTroubleshooting .cancel`).click(() => {
+                $(`.checkTroubleshooting`)[0].style.display = "none";
+                $(`.addTroubleshooting`)[0].style.display = "inline-block";
+              });
+              $(`.checkTroubleshooting .commit`).click(() => {
+                if (
+                  epiRegisterHumans.every(function(element, index) {
+                    return $(`.check${element.id}`).attr("check") == "uncheck";
+                  })
+                ) {
+                  alert("请选择新增排查对象！");
+                } else {
+                  var addTroubleshootingObject = {};
+                  epiRegisterHumans.forEach(element => {
+                    if ($(`.check${element.id}`).attr("check") == "check") {
+                      addTroubleshootingObject.registerId = element.id;
+                    }
+                  });
+                  addTroubleshootingObject.taskId = getOneAndLinkResult.data.id;
+
+                  addTroubleshootingObject.reportId = contactorId;
+
+                  setTimeout(() => {
+                    localStorage.setItem(
+                      "addTroubleshootingObject",
+                      JSON.stringify(addTroubleshootingObject)
+                    );
+                    location.href = "./addTroubleshooting.html";
+                  }, 500);
+                }
+              });
+              layui.use("laypage", function() {
+                var laypage = layui.laypage;
+                laypage.render({
+                  elem: "vehiclePagination",
+                  limit: vehiclePageSize,
+                  curr: vehiclePageIndex,
+                  layout: ['count', 'prev', 'next','skip'],
+                  // ,limits:[10, 20, 30, 40, 50]
+                  count: data.page.totalCount, //数据总数，从服务端得到
+                  jump: function(obj, first) {
+                    //首次不执行
+                    if (!first) {
+                      //obj包含了当前分页的所有参数，比如：
+                      console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                      console.log(obj.limit); //得到每页显示的条数
+                      vehiclePageIndex = obj.curr;
+                      vehiclePageSize = obj.limit;
+                      //do something
+                      trackingAndTroubleshooting(
+                        vehiclePageIndex,
+                        vehiclePageSize
+                      );
+                    }
+                  }
+                });
+              });
+            });
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+      }
+
+      // 获取地址栏参数
+      //适应以下两种模式，来获取url参数值：
+      //User/vip_card_manager/useless/219/id/18
+      //User/vip_card_manager?useless=219&id=18
+
+      function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        var q = window.location.pathname.substr(1).match(reg_rewrite);
+        if (r != null) {
+          return unescape(r[2]);
+        } else if (q != null) {
+          return unescape(q[2]);
+        } else {
+          return null;
+        }
+      }
+    </script>
+  </body>
+  <script src= "../waterMark.js" ></script>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 50px;">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>签到</title>
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <!--腾讯api-->
+  <script type="text/javascript"
+    src="http://map.qq.com/api/js?v=2.exp&key=XIGBZ-SL2WF-6TXJP-J3PN2-4ZX7J-ZBFRC"></script>
+  <!--JSJDK引用-->
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  <style>
+    * {
+      -webkit-touch-callout: none;
+      /*系统默认菜单被禁用*/
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+      -khtml-user-select: none;
+      /*早期浏览器*/
+      -moz-user-select: none;
+      /*火狐*/
+      -ms-user-select: none;
+      /*IE10*/
+      user-select: none;
+      font-family: "微软雅黑";
+      box-sizing: border-box;
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: auto;
+      /*webkit浏览器*/
+      margin: 0px;
+      padding: 0px;
+      outline: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-tap-highlight-color: transparent;
+      /* For some Androids */
+    }
+    .status-icon {
+      width: 50px;
+      height: 50px;
+      position: fixed;
+      top: 0%;
+      right: 0%;
+    }
+    .submit-btn {
+      background: #0091ff;
+      color: #fff;
+      position: fixed;
+      bottom: 5%;
+      right: 5%;
+      padding: 8px 14px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body >
+  <div id="signIn">
+    <!--微信JSJDK需要-->
+    <input type="hidden" id="ticket" name="ticket" value="" />
+    <input type="hidden" id="appId" name="appId" value="" />
+    <input type="hidden" id="timestamp" name="timestamp" value="" />
+    <input type="hidden" id="nonceStr" name="nonceStr" value="" />
+    <input type="hidden" id="signature" name="signature" value="" />
+    <input type="hidden" id="openId" name="openId" value="" />
+    <input type="hidden" id="taskId" name="taskId" value="" />
+
+    <img v-if="signInDetail.contactRels&&signInDetail.contactRels[0].signed==1" class="status-icon" src="./assets/images/alSignedIn.png">
+    <img v-if="signInDetail.contactRels&&signInDetail.contactRels[0].signed==0&&handleTime(signInDetail.deadline).search('超时')!=-1&&signInDetail.timeLimitStatus==1" class="status-icon" src="./assets/images/timedOut.png">
+    <img v-if="signInDetail.contactRels&&signInDetail.contactRels[0].signed==0&&handleTime(signInDetail.deadline).search('超时')==-1" class="status-icon" src="./assets/images/toBeSignedIn.png">
+
+    <ul style="font-size: 12px;margin-top: 4vh;">
+      <li style="display: flex;margin: 1.5vh 5vw;">
+        <p v-if="signInDetail.contactRels&&signInDetail.contactRels[0].signed==0&&signInDetail.timeLimitStatus==1" style="margin-right: auto;">
+          <label>距离签到结束还剩:</label>
+          <span>{{handleTime(signInDetail.deadline)}}</span>
+        </p>
+        <p v-if="signInDetail.timeLimitStatus==1">
+          <label>时限:</label>
+          <span>{{`${signInDetail.timeLimitDay}天${signInDetail.timeLimitHour}时${signInDetail.timeLimitMinutes}分`}}</span>
+        </p>
+        <p v-else>
+          <label>无时限</label>
+        </p>
+      </li>
+      <li style="margin: 1.5vh 5vw;">
+        <label>点名时间:</label>
+        <span>{{signInDetail.sponsorTime}}</span>
+      </li>
+      <li v-if="signInDetail.contactRels&&signInDetail.contactRels[0].signed==1" style="margin: 1.5vh 5vw;">
+        <label>签到时间:</label>
+        <span>{{signInDetail.contactRels[0].signedTime}}</span>
+      </li>
+      <li style="margin: 1.5vh 5vw;">
+        <label>短信内容:</label>
+        <p style="margin: 1vh 0px 0px 4vw;">{{signInDetail.content}}</p>
+      </li>
+      <li style="margin: 1.5vh 5vw;display: flex;flex-wrap: wrap;flex-direction: column;">
+        <label>备注:</label>
+        <textarea name="" id="textarea" cols="30" rows="10" style="display: block;margin: 1vh 4vw 0px 4vw;flex: 1;" v-model="textarea"></textarea>
+      </li>
+      <li v-if="signInDetail.contactRels" style="margin: 1.5vh 5vw;">
+        <i class="layui-icon layui-icon-location"></i> 
+        <span>{{ (signInDetail.contactRels[0].signed==0||handleTime(signInDetail.deadline).search('超时')!=-1)? address: signInDetail.contactRels[0].signedAddr }}</span>
+      </li>
+    </ul>
+    <div class="submit-btn" @click="handleSubmit" :style="{background: signInDetail.contactRels&&signInDetail.contactRels[0].signed==1||(handleTime(signInDetail.deadline).search('超时')!=-1&&signInDetail.timeLimitStatus==1)?'#f0f0f0':'#0091ff'}">确认签到</div>
+  </div>
+
+  <script src="./assets/js/jquery/jquery-3.2.1.min.js"></script>
+  <script src="./constant.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script src="./assets/js/vue.min.js"></script>
+  <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=QsgtDHmujtv4cO93MgcmzjGa717zT1dH"></script>
+  <script>
+
+    var vm = new Vue({
+      el: "#signIn",
+      data: {
+        longitude: '',
+        latitude: '',
+        address: '',
+        signInDetail: {},
+        textarea: ''
+      },
+      created() {
+        this.getLocation();
+        console.log("this.getQueryString('id'),this.getQueryString('contactId')",this.getQueryString('id'),this.getQueryString('contactId'))
+        this.getSignInDetail();
+      },
+      methods: {
+        getLocation() {
+          let that = this;
+          navigator.geolocation.getCurrentPosition((position) => {
+            let lat = position.coords.latitude;
+            let lng = position.coords.longitude;
+            const pointBak = new BMap.Point(lng, lat);
+            const convertor = new BMap.Convertor();
+            convertor.translate([pointBak], 1, 5,function(resPoint) {
+                if(resPoint && resPoint.points && resPoint.points.length>0){
+                    lng = resPoint.points[0].lng;
+                    lat = resPoint.points[0].lat;
+                }
+                const point = new BMap.Point(lng, lat);
+                const geo = new BMap.Geocoder();
+                geo.getLocation(point, (res) => {
+                  const { title, address } = res.surroundingPois[0];
+                  that.address = res.addressComponents.province + address + title;
+                });
+            });
+          });
+          // var geolocation = new BMap.Geolocation();
+          // geolocation.getCurrentPosition(function(r){
+          //   // if(that.getStatus() == BMAP_STATUS_SUCCESS){
+          //   that.longitude = r.point.lng;
+          //   that.latitude = r.point.lat;
+          //     console.log('您的位置：'+r.point.lng+','+r.point.lat);
+
+          //     $.ajax({
+          //       url: SERSVER_BASE_URL+`/investigation/instanceInfor/getAdressFromTencent?lat=${r.point.lat}&lng=${r.point.lng}`,
+          //       type: 'get',
+          //       success: function (res) {
+          //         console.log(`/investigation/instanceInfor/getAdressFromTencent?lat=${r.point.lat}&lng=${r.point.lng} res`,res)
+          //         if(res.code !== 0) {
+          //           alert('获取位置信息失败请重试')
+          //           return
+          //         }
+          //         that.address = res.address
+          //       }
+          //     })
+
+
+          //   // }
+          // })
+        },
+        getSignInDetail() {
+          $.ajax({
+            url: SERSVER_BASE_URL+`/duty/rollCall/H5/info`,
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              "id": this.getQueryString('id'),
+              "contactId": this.getQueryString('contactId')
+            }),
+            success: (res) => {
+              console.log(`/duty/rollCall/H5/info res`,res)
+              if(res.code == 0) {
+                this.signInDetail = res.data;
+                this.textarea = this.signInDetail.contactRels?this.signInDetail.contactRels[0].remark:''
+              } else {
+                alert(res.msg) 
+              }
+
+            }
+          })
+        },
+        handleTime(endDate='') {
+          let time = new Date(endDate.replace(/-/g,'/')).valueOf()-new Date().valueOf();
+          if(time>0) {
+            let day = Math.floor(time/1000/60/60/24);
+            let hour = Math.floor(time/1000/60/60%24);
+            let min = Math.floor(time/1000/60%60);
+            console.log('day hour min',day,hour,min)
+            return `${day}天${hour}时${min}分`
+          } else {
+            return '已超时'
+          }
+        },
+        handleSubmit() {
+
+          if( this.signInDetail.contactRels&&this.signInDetail.contactRels[0].signed==1||(this.handleTime(this.signInDetail.deadline).search('超时')!=-1&&this.signInDetail.timeLimitStatus==1) ) {
+            return ;
+          }
+          $.ajax({
+            url: SERSVER_BASE_URL+`/duty/rollCall/H5/signIn`,
+            type: 'post',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              "id": this.getQueryString('id'),
+              "contactId": this.getQueryString('contactId'),
+              "remark": this.textarea,
+              "signedAddr": this.address
+            }),
+            success: (res) => {
+              console.log(`/duty/rollCall/H5/signIn res`,res)
+              if(res.code == 0) {
+                alert('签到成功')
+                this.getSignInDetail();
+              } else {
+                alert(res.msg) 
+              }
+
+            }
+          })
+        },
+        getQueryString(name) {
+          var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+          var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+          var r = window.location.search.substr(1).match(reg);
+          var q = window.location.pathname.substr(1).match(reg_rewrite);
+          if (r != null) {
+            return unescape(r[2]);
+          } else if (q != null) {
+            return unescape(q[2]);
+          } else {
+            return null;
+          }
+        }
+      }
+    });
+  </script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

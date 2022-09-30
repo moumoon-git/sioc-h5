@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>修改登记</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.layui-textarea{
+        margin:10px auto 0px;
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-radio {
+        display: block;
+    }
+    .layui-form-checkbox {
+        display: block;
+    }
+    .layui-form-checkbox[lay-skin=primary]{
+        min-width: initial;
+    }
+    .mixedAnswer .layui-form-radio{
+        /* display: inline-block; */
+        display: flex;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size: 14px;
+        font-family: PingFangSC-Regular,PingFang SC;
+        font-weight: 400;
+        color: rgba(153,153,153,1);
+    }
+    input::-webkit-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-moz-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-ms-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);">
+  
+    <form class="layui-form jibenxinxi" lay-filter="jibenxinxi" style="background: rgba(255,255,255,1);margin-bottom: 2vh;padding-bottom: 15px;">
+        <div style="width: 100%;height: 7.5vh;line-height: 7.5vh;margin-bottom: 15px;font-size: 16px;font-family: PingFangSC-Medium,PingFang SC;font-weight: 500;color: rgba(51,51,51,1);border-bottom: 0.1vh solid rgba(221,221,221,1);">
+            <span style="margin-left: 5vw;">基本信息</span>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>所属区域：</label>
+            <div class="layui-input-block">
+                <select name="area" class="area" lay-filter="area" disabled="disabled">
+                </select>
+                <select name="town" class="town" lay-filter="town" disabled="disabled">
+                </select>
+                <select name="grid" class="grid" lay-filter="grid" disabled="disabled">
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>详细地址：</label>
+            <div class="layui-input-block">
+                <input type="text" name="detailedAddress"  placeholder="请输入详细地址" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>姓名：</label>
+            <div class="layui-input-block">
+                <input type="text" name="imName" placeholder="请输入姓名" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>联系方式：</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" placeholder="请输入联系方式" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄：</label>
+            <div class="layui-input-block">
+                <input type="text" type="number" name="age" required lay-verify="number" placeholder="请输入年龄" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">籍贯：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="nativePlace"  value="1" title="非湖北" disabled="disabled">
+                <input type="radio" name="nativePlace" value="2" title="湖北" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">家庭人员数：</label>
+            <div class="layui-input-block">
+                <input type="text" type="number" name="familyNumber" placeholder="请输入家庭人员数" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证号码：</label>
+            <div class="layui-input-block">
+                <input type="text" name="credentialsNum" placeholder="请输入身份证号码" autocomplete="off" class="layui-input" disabled="disabled">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red;">*</span>人员类型：</label>
+            <div class="layui-input-block">
+                <input type="radio" name="humanType"  value="1" title="持续在穗人员于2020年1月1日之前到目前一直在穗人员" disabled="disabled">
+                <input type="radio" name="humanType" value="2" title="外地返穗人员(非湖北)于2020年1月1日之后到目前曾往返穗人员" disabled="disabled">
+                <input type="radio" name="humanType" value="3" title="湖北返穗人员(非武汉)" disabled="disabled">
+                <input type="radio" name="humanType" value="4" title="武汉返穗人员" disabled="disabled">
+            </div>
+        </div>
+    </form>
+
+    <form class="layui-form dengjixinxi" lay-filter="dengjixinxi" style="background: rgba(255,255,255,1);margin-bottom: 2vh;padding-bottom: 15px;">
+        <div style="width: 100%;height: 7.5vh;line-height: 7.5vh;margin-bottom: 15px;font-size: 16px;font-family: PingFangSC-Medium,PingFang SC;font-weight: 500;color: rgba(51,51,51,1);border-bottom: 0.1vh solid rgba(221,221,221,1);">
+            <span style="margin-left: 5vw;">登记信息</span>
+        </div>
+        <!-- <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入，停留，经过）</div>
+                <div style="text-align: center;">
+                    <input type="radio" name="sex" value="男" title="是">
+                    <input type="radio" name="sex" value="女" title="否">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入，停留，经过）</div>
+                <div style="text-align: center;">
+                    <input type="radio" name="sex" value="男" title="是">
+                    <input type="radio" name="sex" value="女" title="否">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入，停留，经过）</div>
+                <div style="">
+                    <input type="checkbox" name="" title="写作" lay-skin="primary" >
+                    <input type="checkbox" name="" title="发呆" lay-skin="primary"> 
+                    <input type="checkbox" name="" title="禁用" lay-skin="primary" > 
+                    <input type="checkbox" name="" title="写作" lay-skin="primary" >
+                    <input type="checkbox" name="" title="发呆" lay-skin="primary"> 
+                    <input type="checkbox" name="" title="禁用" lay-skin="primary" >
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">企业单位名称</div>
+                <div>
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入企业单位名称" autocomplete="off" class="layui-input">  
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">企业单位名称</div>
+                <div>
+                    <textarea name="" required lay-verify="required" placeholder="请输入企业单位名称" class="layui-textarea"></textarea> 
+                </div>
+            </div>
+        </div> -->
+    </form>
+
+    <form class="layui-form paichaqingkuang" lay-filter="paichaqingkuang" style="background: rgba(255,255,255,1);margin-bottom: 2vh;padding-bottom: 15px;">
+        <div style="width: 100%;height: 7.5vh;line-height: 7.5vh;margin-bottom: 15px;font-size: 16px;font-family: PingFangSC-Medium,PingFang SC;font-weight: 500;color: rgba(51,51,51,1);border-bottom: 0.1vh solid rgba(221,221,221,1);">
+            <span style="margin-left: 5vw;">排查情况</span>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">排查情况</div>
+                <div style="margin-left: 10vw;">
+                    <input type="radio" name="investigateResult" value="1" title="正常">
+                    <input type="radio" name="investigateResult" value="2" title="存在隐患">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div style="margin: 0px 15px;">备注</div>
+                <div>
+                    <textarea name="remark" placeholder="请输入备注" class="layui-textarea"></textarea> 
+                </div>
+            </div>
+        </div>
+        <div style="width: 100%;text-align: center;padding: 2vh 0px;">
+            <span style="width: 43vw;height:6vh;line-height: 6vh;display: inline-block;background:rgba(237,237,237,1);border-radius:1vw;font-size:17px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(0,145,255,1);" class="cancel">取消</span>
+            <span style="margin-left: 3.5vw;width: 43vw;height:6vh;line-height: 6vh;display: inline-block;background:rgba(0,145,255,1);border-radius:1vw;font-size:17px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(255,255,255,1);" class="submit">更新</span> 
+        </div>
+        <!-- <div class="layui-form-item">
+            <div class="layui-input-block" style="text-align: center;">
+                <button type="reset" class="layui-btn layui-btn-primary" style="padding: 0px 30px;">取消</button>
+                <button class="layui-btn" lay-submit lay-filter="*" style="padding: 0px 30px;">确认</button>
+            </div>
+        </div> -->
+    </form>
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function toast(src,text){
+        $(document).dialog({
+            type : 'toast',
+            infoIcon: src,
+            infoText: text,
+            autoClose: 2000
+        });
+    }
+
+    getArea();
+    function getArea(){
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: SERSVER_BASE_URL + "/wechatMobile/listByParent",
+            headers:{
+            },
+            contentType:'application/json',
+            data: {
+                parentId:'0',
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log("/wechatMobile/listByParent",data)
+                data.list.forEach(item=>{
+                    var option = $("<option>").val(item.id).text(item.townName);
+                    $('.area').append(option);
+                })
+                setTimeout(()=>{
+                    getTown()
+                })
+                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+            }
+        });
+    }
+
+    function getTown(){
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: SERSVER_BASE_URL + "/wechatMobile/listByParent",
+            headers:{
+            },
+            contentType:'application/json',
+            data: {
+                parentId:$('.area').val(),
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log("/wechatMobile/listByParent",data)
+                $('.town').html('')
+                $('.town').append('<option value="">请选择镇街！</option>');
+                data.list.forEach(item=>{
+                    var option = $("<option>").val(item.id).text(item.townName);
+                    $('.town').append(option);
+                })
+                // setTimeout(()=>{
+                //     getGrid()
+                // })
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+            }
+        });
+    }
+
+    function getGrid(){
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: SERSVER_BASE_URL + "/wechatMobile/selectPlatformListByTownId",
+            headers:{
+            },
+            contentType:'application/json',
+            data: {
+                townId: $('.town').val(),
+                platformTypeId: 5,
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log("/wechatMobile/selectPlatformListByTownId",data)
+                $('.grid').html('')
+                $('.grid').append('<option value="">请选择社区/村居！</option>');
+                data.list.forEach(item=>{
+                    var option = $("<option>").val(item.id).text(item.platformName);
+                    $('.grid').append(option);
+                })
+                $('.grid').append('<option value="0">其他</option>');
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+            }
+        });
+    }
+
+    
+    var form,epiRegister;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + "/task/taskRegisterHistory/getOneAndLink",
+        headers:{
+        },
+        contentType:'application/json',
+        data: {
+            id:localStorage.getItem("troubleshootingObjectId"),
+            
+        },
+        dataType: "json",
+        success: function (data) {
+        var questionList=[]
+        console.log('/epi/epiRegisterTiku/getOneAndLink',data)
+        data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+            if(element.topicName=='单选题'){
+                var radioList=[]
+                element.epiSelectEntityList.forEach(item=>{ 
+                    radioList.push(`
+                        <input type="radio" name="${item.questionId}" value="${item.id}" title="${item.content}">
+                    `)    
+                })
+                questionList.push(`
+                    <div class="layui-form-item">
+                        <div class="layui-input-block"> 
+                            <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                            <div style="margin-left: 10vw;">
+                                ${radioList.join('')}
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+            if(element.topicName=='混答+单选'){
+                var radioList=[]
+                element.epiSelectEntityList.forEach(item=>{
+                    if(item.ifInput=='1'){
+                            
+                        radioList.push(`
+                        <div class='mixedAnswer' style="display: flex;width: 90%;">                             
+                            <input type="radio" name="${item.questionId}" lay-filter="${item.questionId}" value="${item.id}" title="${item.content}" >                              
+                            <input type="text" name="${item.questionId+'##'+item.id}" placeholder="请填写${item.remark?item.remark:''}" autocomplete="off" class="layui-input" style="display: inline-block;width: inherit;margin: 0px 0px 0px -10px;">
+                        </div>
+                            
+                        `)  
+                    }else{
+                        radioList.push(`
+                            <input type="radio" name="${item.questionId}" value="${item.id}" title="${item.content}">
+                        `) 
+                    }
+                        
+                })
+                questionList.push(`
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                            <div style="margin-left: 10vw;">
+                                ${radioList.join('')}
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+            if(element.topicName=='混答+多选'){
+                var checkList=[]
+                element.epiSelectEntityList.forEach(item=>{
+                    if(item.ifInput=='1'){
+                        checkList.push(`
+                        <div class='mixedAnswer' style="display: flex;width: 90%;"> 
+                            <input type="checkbox" name="${item.questionId}" lay-filter="${item.questionId}" value="${item.id}" title="${item.content}" lay-skin="primary" >
+                            <input type="text" name="${item.questionId+'##'+item.id}" placeholder="请填写${item.remark?item.remark:''}" autocomplete="off" class="layui-input" style="display: inline-block;width: inherit;margin: 0px 0px 0px -10px;">
+                        </div>
+                            
+                        `)  
+                    }else{
+                        checkList.push(`
+                            <input type="checkbox" name="${item.questionId}" value="${item.id}" title="${item.content}" lay-skin="primary" >
+                        `)
+                    }
+                        
+                })
+                questionList.push(`
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                            <div style="margin-left: 10vw;">
+                                ${checkList.join('')}
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+            if(element.topicName=='简答-输入'){
+                questionList.push(`
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                            <div>
+                                <input type="text" name="${element.id}" placeholder="请输入${element.title}" autocomplete="off" class="layui-input">  
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+            if(element.topicName=='简答-文本'){
+                questionList.push(`
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <div style="margin: 0px 15px;">${element.isAnswer=='1'?'<span style="color: red;">*</span>':''} ${element.title}：</div>
+                            <div>
+                                <textarea name="${element.id}" placeholder="请输入${element.title}" class="layui-textarea"></textarea> 
+                            </div>
+                        </div>
+                    </div>
+                `)
+            }
+        });
+
+        setTimeout(()=>{
+            $('.dengjixinxi').append(questionList.join(''))
+            layui.use('form', function(){
+                form = layui.form;
+
+                form.on('select(town)', function(data){
+                    // console.log(data.elem); //得到select原始DOM对象
+                    console.log(data.value); //得到被选中的值
+                    // console.log(data.othis); //得到美化后的DOM对象
+                    var opt=$(".town").val();
+                    if(opt){
+                        console.log('进来了')
+                        getGrid()                           
+                        form.render();
+                    }else{
+                        $('.grid').html('')
+                        $('.grid').append('<option value="">请选择社区/村居！</option>');
+                        form.render();
+                    }
+                });
+
+                $("input[name='detailedAddress']").blur((e)=>{
+                    if( !$("input[name='detailedAddress']").val() ){
+                        if(e.relatedTarget){
+                            alert('请填写详细地址')
+                        }
+                    }
+                })
+                $("input[name='imName']").blur((e)=>{
+                    if( !$("input[name='imName']").val() ){
+                        if(e.relatedTarget){
+                            alert('请填写姓名')
+                        }
+                    }
+                })
+                $("input[name='phone']").blur((e)=>{
+                    if(e.relatedTarget){
+                        if( !$("input[name='phone']").val() ){
+                            alert('请填写联系方式')  
+                            return;
+                        }
+                        if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+                            alert("请输入正确的联系方式")
+                        }
+                    }            
+                })
+                $("input[name='age']").blur((e)=>{
+                    if( $("input[name='age']").val() ){
+                        if( !Number($("input[name='age']").val()) ){
+                            if(e.relatedTarget){
+                                alert('年龄请输入整数')
+                            }
+                        }
+                    }
+                })
+                $("input[name='familyNumber']").blur((e)=>{
+                    if(e.relatedTarget){
+                        if( !$("input[name='familyNumber']").val() ){
+                            alert('请填写家庭人数')
+                            return;
+                        }
+                        if( $("input[name='familyNumber']").val() ){
+                            if( !Number($("input[name='familyNumber']").val()) ){ 
+                                alert('家庭人数请输入整数')   
+                            }
+                        }
+                    }
+                })
+                $("input[name='credentialsNum']").blur((e)=>{
+                    if(e.relatedTarget){
+                        if( !$("input[name='credentialsNum']").val() ){
+                            alert('请填写身份证号码')
+                            return;
+                        }
+                        if( identityCodeValid( $("input[name='credentialsNum']").val(),'请输入正确的身份证号码' )=='fail' ){
+                        }
+                    }                      
+                })
+                var epiQuestionEntityList=data.data.epiRegisterTikuEntity.epiQuestionEntityList
+                for(let i=0;i<epiQuestionEntityList.length;i++){
+                    if(epiQuestionEntityList[i].isAnswer=='1'){
+                        if(epiQuestionEntityList[i].topicName=='简答-输入'||epiQuestionEntityList[i].topicName=='简答-文本'){
+                            if(epiQuestionEntityList[i].topicName=='简答-输入'){
+                                $(`input[name='${epiQuestionEntityList[i].id}']`).blur((e)=>{
+                                    if( !$(`input[name='${epiQuestionEntityList[i].id}']`).val() ){
+                                        if(e.relatedTarget){
+                                            alert('请填写'+epiQuestionEntityList[i].title)
+                                        }
+                                    }
+                                })
+                                if(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1){
+                                    $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                        if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                            if(e.relatedTarget){
+                                                alert(`请输入正确的${epiQuestionEntityList[i].title}`);
+                                            }
+                                        }
+                                    })
+                                }
+                                if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                    $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                        if(e.relatedTarget){
+                                            if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){      
+                                            }
+                                        }                                    
+                                    })
+                                }
+                            }
+                            if(epiQuestionEntityList[i].topicName=='简答-文本'){
+                                $(`textarea[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                    if( !$(`textarea[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                        if(e.relatedTarget){
+                                            alert('请填写'+epiQuestionEntityList[i].title)
+                                        }
+                                    }
+                                })
+                            }
+                        }else{
+                            $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                if( !$(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() ){
+                                    if(e.relatedTarget){
+                                        alert('请选择'+epiQuestionEntityList[i].title)
+                                    }
+                                }
+                            })
+                        }
+                    }else{
+                        if(epiQuestionEntityList[i].topicName=='简答-输入'){
+
+                            
+                                if(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1){
+                                    $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                        if( $(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                            if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                                if(e.relatedTarget){
+                                                    alert(`请输入正确的${epiQuestionEntityList[i].title}`);
+                                                }
+                                            }
+                                        }
+                                    })
+                                }
+                                if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                    $(`input[name=${epiQuestionEntityList[i].id}]`).blur((e)=>{
+                                        if( $(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                            if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){
+                                                if(e.relatedTarget){
+                                                }
+                                            }
+                                        }
+                                    })
+                                }
+                            
+                                                    
+                        }
+                    }
+                }
+
+                $(`.cancel`).click(()=>{
+                    window.history.go(-1) 
+                })
+                $(`.submit`).click(()=>{
+                    var data1 = form.val("jibenxinxi");
+                    var data2 = form.val("dengjixinxi");
+                    var data3 = form.val("paichaqingkuang");
+                    if( !$("select[name='area']").val() ){
+                        alert('请选择区域')
+                        return false;
+                    }
+                    if( !$("select[name='town']").val() ){
+                        alert('请选择镇街')
+                        return false;
+                    }
+                    if( !$("select[name='grid']").val() ){
+                        alert('请选择街道')
+                        return false;
+                    }
+                    if( !$("input[name='detailedAddress']").val() ){
+                        alert('请填写详细地址')
+                        return false;
+                    }
+                    if( !$("input[name='imName']").val() ){
+                        alert('请填写姓名')
+                        return false;
+                    }
+                    if( !$("input[name='phone']").val() ){
+                        alert('请填写联系方式')
+                        return false;
+                    }
+                    if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($("input[name='phone']").val()) )) ){
+                        alert("请输入正确的联系方式"); 
+                        return false;
+                    }  
+                    if( $("input[name='age']").val().trim().length!=0 && !Number($("input[name='age']").val()) ){
+                        alert('年龄请输入整数')
+                        return false;
+                    }
+                    if( !$("input[name='nativePlace']:checked").val() ){
+                        alert('请选择籍贯')
+                        return false;
+                    }
+                    if( !$("input[name='familyNumber']").val() ){
+                        alert('请填写家庭人员数')
+                        return false;
+                    }
+                    if( $("input[name='familyNumber']").val().trim().length!=0 && !Number($("input[name='familyNumber']").val()) ){
+                        alert('家庭人员数请输入整数')
+                        return false;
+                    }
+                    if( !$("input[name='credentialsNum']").val() ){
+                        alert('请填写身份证号码')
+                        return false;
+                    }
+                    if( identityCodeValid( $("input[name='credentialsNum']").val() )=='fail' ){
+                        console.log('false')
+                        return false;
+                    }           
+                    if( !$("input[name='humanType']:checked").val() ){
+                        alert('请选择人员类型')
+                        return false;
+                    }
+                    var epiQuestionEntityList=data.data.epiQuestionEntityList
+                    for(var i=0;i<epiQuestionEntityList.length;i++){
+
+                        if(epiQuestionEntityList[i].isAnswer=='1'){
+                                if(epiQuestionEntityList[i].topicName=='简答-输入'||epiQuestionEntityList[i].topicName=='简答-文本'){
+                                    if(epiQuestionEntityList[i].topicName=='简答-输入'){
+                                        if( !$(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                            alert('请填写'+epiQuestionEntityList[i].title)
+                                            return false;
+                                        }
+                                        if(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1){
+                                            if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                                alert(`请输入正确的${epiQuestionEntityList[i].title}`); 
+                                                return false;
+                                            } 
+                                        }
+                                        if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                            if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){
+                                                console.log('false')
+                                                return false;
+                                            }
+                                        }
+                                    }
+                                    if(epiQuestionEntityList[i].topicName=='简答-文本'){
+                                        if( !$(`textarea[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                            alert('请填写'+epiQuestionEntityList[i].title)
+                                            return false;
+                                        }
+                                    }
+                                }else{
+                                    if( !$(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() ){
+                                        alert('请选择'+epiQuestionEntityList[i].title)
+                                        return false;
+                                    }
+                                    if(epiQuestionEntityList[i].topicName.search('混答')!=-1){
+                                        if( $(`input[name='${epiQuestionEntityList[i].id}##${ $(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() }']`).length!=0 && !$(`input[name='${epiQuestionEntityList[i].id}##${ $(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() }']`).val() ){
+                                            toast('../assets/images/fail.png','请填写'+epiQuestionEntityList[i].epiSelectEntityList.filter(function (elem) {return (elem.id == $(`input[name=${epiQuestionEntityList[i].id}]:checked`).val() )})[0].remark )
+                                            return false;
+                                        }
+                                    }
+                                }
+                            }else{
+                            if(epiQuestionEntityList[i].topicName=='简答-输入'){
+                                if( $(`input[name=${epiQuestionEntityList[i].id}]`).val() ){
+                                    if(epiQuestionEntityList[i].title.search('联系方式')!==-1||epiQuestionEntityList[i].title.search('手机号')!==-1){
+                                    if( !(/^1[3|4|5|7|8|9][0-9]\d{8}$/.test( Number($(`input[name=${epiQuestionEntityList[i].id}]`).val()) )) ){
+                                            alert(`请输入正确的${epiQuestionEntityList[i].title}`); 
+                                            return false;
+                                        } 
+                                    }
+                                    if(epiQuestionEntityList[i].title.search('身份证')!==-1){
+                                        if( identityCodeValid( $(`input[name=${epiQuestionEntityList[i].id}]`).val(),`请输入正确的${epiQuestionEntityList[i].title}` )=='fail' ){
+                                            console.log('false')
+                                            return false;
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                    setTimeout(()=>{
+                        console.log("data1,data2,data3",data1,data2,data3)
+                        
+                        var epiAnswerEntityList=[]
+                        Object.keys(data2).forEach(key=>{
+                            if(key.indexOf('##')!=-1){
+                                epiAnswerEntityList.forEach(item=>{
+                                    if(item.questionId==key.substr(key.indexOf('##')+2)){
+                                        item.answer=item.answer+'##'+data2[key]
+                                    }
+                                })
+                            }else{
+                                epiAnswerEntityList.push({
+                                    questionId:key,
+                                    answer:data2[key]
+                                })
+                            }
+                            
+                        })
+                        
+                        setTimeout(()=>{
+                            data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+                                if(element.topicName=='混答+多选'){
+                                
+                                    
+                                    console.log("$(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`).val()",$(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`).val(),$(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`))
+                                    var allCheck=[]
+                                    var newArray=[].slice.call($(`input[name='${element.epiSelectEntityList[0].questionId}']:checked`))
+                                    newArray.forEach(item=>{
+                                        allCheck.push(item.value) 
+                                    })
+                                    var id=element.epiSelectEntityList[0].questionId
+
+                                    epiAnswerEntityList.forEach(item=>{
+                                        if(item.questionId==id){
+                                            console.log('进来了',item,item.answer.substr(item.answer.lastIndexOf("#")+1))
+                                            if(item.answer.lastIndexOf("#")!=-1){
+                                                item.answer=allCheck.join(',')+'##'+item.answer.substr(item.answer.lastIndexOf("#")+1)
+                                            }else{
+                                                item.answer=allCheck.join(',')+'##'
+                                            }
+                                        }
+                                        
+                                    })
+                                                   
+                                }
+                            })
+
+                            },500)
+
+                        setTimeout(()=>{
+                            $.ajax({
+                                async: false,
+                                type: "POST",
+                                url: SERSVER_BASE_URL + "/task/taskRegisterHistory/update",
+                                headers:{
+                                },
+                                // contentType:'application/x-www-form-urlencoded',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    id:epiRegister.id,
+                                    openId:localStorage.getItem("openId"),
+                                    platformId:localStorage.getItem("platformId"),
+                                    tikuId:data.data.epiRegisterTikuEntity.epiQuestionEntityList[0].tikuId,
+                                    "reportId":JSON.parse( localStorage.getItem('addTroubleshootingObject') ).reportId,
+                                    "registerId":JSON.parse( localStorage.getItem('addTroubleshootingObject') ).registerId,
+                                    "taskId":JSON.parse( localStorage.getItem('addTroubleshootingObject') ).taskId,
+                                    areaName:data1.area,
+                                    townName:data1.town,
+                                    gridName:data1.grid,
+                                    imName: data1.imName,
+                                    phone: data1.phone,
+                                    detailedAddress:data1.detailedAddress,
+                                    age:Number(data1.age),
+                                    nativePlace:data1.nativePlace,
+                                    familyNumber:Number(data1.familyNumber),
+                                    credentialsNum:data1.credentialsNum,
+                                    humanType:data1.humanType,
+                                    investigateResult:data3.investigateResult,
+                                    remark:data3.remark,
+                                    taskRegisterAnswerEntityList:epiAnswerEntityList,
+                                    
+                                }),
+                                dataType: "json",
+                                success: function (data) {
+                                    console.log('/epi/epiRegister/update',data) 
+                                    if(data.code==0){
+                                        alert('提交成功!')
+                                        location.replace('./taskDetails.html')
+                                    }else{
+                                        alert(data.msg)
+                                    }
+                                        
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                    alert("err:::" + errorThrown);
+                                }
+                            });
+                        },800)
+
+                    },1000)
+
+                    
+
+                })
+
+
+                $.ajax({
+                    async: false,
+                    type: "GET",
+                    url: SERSVER_BASE_URL + "/task/taskRegisterHistory/getOneAndLink",
+                    headers:{
+                    },
+                    contentType:'application/json',
+                    data: {
+                        id:localStorage.getItem("troubleshootingObjectId"),
+                        
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        console.log("/task/taskRegisterHistory/getOneAndLink",data)
+                        epiRegister=data.data
+                        var dengjixinxi={}
+                        data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(item=>{
+                            dengjixinxi[String(item.id)]=item.answer
+                       
+                            if(item.topicName=="单选题"||item.topicName=="混答+单选"||item.topicName=="混答+多选"){
+                                
+                               
+                                if( item.epiSelectEntityList.some(function (elem, index){return elem.ifInput=='1'}) ){
+                                    // dengjixinxi[String(item.id)+'##'+item.epiSelectEntityList[0].ifInput]=item.answer
+                                    $(`input[name='${String(item.id)+'##'+item.answer.substr(0,item.answer.indexOf('#')) }']`).val( item.answer.substr(item.answer.lastIndexOf('#')+1) )
+                                    item.answer.substr(0,item.answer.indexOf('#')).split(',').forEach(item=>{
+                                        $(`input[value='${item}']`).prop("checked",true);
+                                    })
+                                }
+                            }
+                        })
+                        form.val("jibenxinxi", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                            "area":data.data.epiRegisterEntity.areaName,
+                            "town":data.data.epiRegisterEntity.townName,
+                            "detailedAddress": data.data.epiRegisterEntity.detailedAddress
+                            ,"imName": data.data.epiRegisterEntity.imName
+                            ,"phone": data.data.epiRegisterEntity.phone
+                            ,"age": data.data.epiRegisterEntity.age
+                            ,"nativePlace":data.data.epiRegisterEntity.nativePlace
+                            ,"familyNumber": data.data.epiRegisterEntity.familyNumber
+                            ,"credentialsNum": data.data.epiRegisterEntity.credentialsNum
+                            ,"humanType":data.data.epiRegisterEntity.humanType
+                        });
+                        getGrid()
+                        form.render();
+                        setTimeout(()=>{
+                            form.val("jibenxinxi", {
+                                "grid":data.data.epiRegisterEntity.gridName
+                            })
+                        },500)
+                        form.val("paichaqingkuang", { //formTest 即 class="layui-form" 所在元素属性 lay-filter="" 对应的值
+                            "investigateResult": data.data.investigateResult
+                            ,"remark": data.data.remark
+                        });
+                        form.val("dengjixinxi", dengjixinxi);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("err:::" + errorThrown);
+                    }
+                });
+
+                // form.on('submit(*)', function(data){
+                //     console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+                //     console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+                //     console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+                //     var data1 = form.val("jibenxinxi");
+                //     var data2 = form.val("dengjixinxi");
+                //     var data3 = form.val("paichaqingkuang");
+                //     if( !$("input[name='imName']").val() ){
+                //         alert('请填写姓名')
+                //         return false;
+                //     }
+                //     if( !$("input[name='phone']").val() ){
+                //         alert('请填写联系方式')
+                //         return false;
+                //     }
+                //     if( !$("input[name='humanType']:checked").val() ){
+                //         alert('请选择人员类型')
+                //         return false;
+                //     }
+                //     data.data.epiQuestionEntityList.forEach(element=>{
+                //         console.log("element",element)
+                //         // if(element.isAnswer=='1'){
+                //         //     if(element.topicName=='简答-输入'||element.topicName=='简答-文本'){
+                //         //         if( !$(`input[name=${element.id}]`).val() ){
+                //         //             alert('请填写'+element.title)
+                //         //             return false;
+                //         //         }
+                //         //     }else{
+                //         //         if( !$(`input[name=${element.id}]:checked`).val() ){
+                //         //             alert('请选择'+element.title)
+                //         //             return false;
+                //         //         }
+                //         //     }
+                //         // }
+                //     })
+                //     setTimeout(()=>{
+                //         console.log("data1,data2,data3",data1,data2,data3)
+                //         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                //     },1000)
+                    
+                // });
+            
+                
+            });
+
+            
+        },500)
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+        }
+    });
+    
+    function identityCodeValid(id) {
+    // 1 "验证通过!", 0 //校验不通过
+        var format = /^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\d{4}(([1][9]\d{2})|([2]\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\d{3}[0-9xX]$/;
+        //号码规则校验
+        if(!format.test(id)){
+            alert('请输入正确的身份证号码')
+            return 'fail'
+        }
+        //区位码校验
+        //出生年月日校验   前正则限制起始年份为1900;
+        var year = id.substr(6,4),//身份证年
+            month = id.substr(10,2),//身份证月
+            date = id.substr(12,2),//身份证日
+            time = Date.parse(month+'-'+date+'-'+year),//身份证日期时间戳date
+            now_time = Date.parse(new Date()),//当前时间戳
+            dates = (new Date(year,month,0)).getDate();//身份证当月天数
+        if(time>now_time||date>dates){
+            alert('请输入正确的身份证号码')
+            return 'fail'
+        }
+        //校验码判断
+        var c = new Array(7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2);   //系数
+        var b = new Array('1','0','X','9','8','7','6','5','4','3','2');  //校验码对照表
+        var id_array = id.split("");
+        var sum = 0;
+        for(var k=0;k<17;k++){
+            sum+=parseInt(id_array[k])*parseInt(c[k]);
+        }
+        if(id_array[17].toUpperCase() != b[sum%11].toUpperCase()){
+            alert('请输入正确的身份证号码')
+            return 'fail'
+        }
+        return 'success'
+    }
+        
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>申请通行证</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-form-item {
+        margin-bottom: initial;
+        padding: 15px 0px 0px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-select,.jibenxinxi .layui-textarea {
+        border-width: 0px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.layui-textarea{
+        margin:10px auto 0px;
+    }
+    .dengjixinxi .layui-form-checkbox span{
+        font-size:12px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(153,153,153,1);
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        font-size: 16px;
+        font-family: PingFangSC-Regular,PingFang SC;
+        font-weight: 400;
+        color:rgba(51,51,51,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    
+    input::-webkit-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-moz-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-ms-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+    .mixedAnswer .layui-form-radio{
+        /* display: inline-block; */
+        display: flex;
+    }
+    .layui-form-radio{
+        display: block;
+    }
+    .dialog-content-title{
+        font-size: 18px!important;
+        font-weight: bold!important;
+        color: #333333!important;
+    }
+    .dialog-content-ft{
+        padding: 8px;
+    }
+    .dialog-btn,.dialog-btn-confirm{
+        font-size: 18px;
+        font-weight: bold;
+        color: #0091FF;
+        cursor: pointer!important;
+        
+    }
+    .dialog-content-bd.content-scroll{
+        font-size: 18px;
+        color: #999999;
+    }
+    .layui-form-radio div{
+        white-space: nowrap;
+    }
+    .layui-form-checkbox span{
+        white-space: nowrap;
+    }
+    
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);">
+    <canvas id="canvas" width="800px" height="800px" style="background-color: lightcoral;"></canvas>
+    <img id="img" src="../assets/images/jihua1.jpg" style="width:200px;height:260px;display: block;">
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+  <script src="../assets/js/imgUtils.js"></script>
+  <script>
+    var img = document.getElementById('img')
+
+    var canvas = document.getElementById('canvas')
+
+    var ctx = canvas.getContext("2d")
+
+  
+
+
+
+    // ctx.drawImage(img, 0, 0)
+    ctx.rotate(90*Math.PI / 180)
+    
+
+    ctx.drawImage(img, 0, -500)
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

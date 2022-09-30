@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>选择联系人</title>
+    <link rel="stylesheet" href="css/rest.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/selectpage.css" type="text/css">
+    <style>
+        .imgContainer{
+            display: inline-block;
+            height: 100px;
+            margin-left: 1%;
+            border: 1px solid #30a5ff;
+            position: relative;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+
+        .imgContainer img{
+            width: 100%;
+            height: 150px;
+            cursor: pointer;
+        }
+
+        .imgContainer p{
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: black;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+        }
+
+        .imgContainer:hover p{
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+<input type="hidden" id="pics" name="pics" value="" />
+<input type="hidden" id="eventPosition" name="eventPosition" value="" />
+<input type="hidden" id="eventDescription" name="eventDescription" value="" />
+<input type="hidden" id="eventTypeName" name="eventTypeName" value="" />
+<input type="hidden" id="platformId" name="platformId" value="" />
+<input type="hidden" id="alarmId" name="alarmId" value="" />
+<input type="hidden" id="type" name="type" value="" />
+
+    <div style="width: 95%;margin: 6% auto;">
+        <div id="vehicleHumanImg" style="text-align: center;">
+            <img src="" alt=""  style="width: 45%; height: 100px; border: 1px solid rgb(0, 145, 255);">
+            <img src="" alt="" style="width: 45%; height: 100px; border: 1px solid rgb(0, 145, 255);">
+        </div>
+
+        <div>
+            <div  style="width:95%;margin: 6% auto;">
+                <textarea id="textarea" name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+        <div>
+            <div style="">
+                <input style="width: 96% !important;height: 28px" type="text" id="selectPage"  placeholder="请选择联系人" >
+            </div>
+        </div>
+
+        <div class="" style="position: fixed;bottom: 2%;width: 100%;margin-bottom: 0px;display: flex;">
+            <button onclick="reset()" type="reset" class="layui-btn layui-btn-primary"
+                    style="width: 50%;margin: auto;height: 8vh;line-height: 8vh; background:rgba(232,242,252,1);font-size:16px;
+                    font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);" >重置</button>
+            <button id="submitBtn"  onclick="save()" class="layui-btn"
+                    style="width: 50%;margin: auto;height: 8vh;line-height: 8vh;background:rgba(0,145,255,1);font-size:16px;
+                    font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);">提交</button>
+        </div>
+    </div>
+
+    <script src="../assets/js/jquery-2.1.0.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+    <script type="text/javascript" src="../constant.js" ></script>
+    <script type="text/javascript" src="js/selectpage.js" ></script>
+    <script type="text/javascript" src="js/b.selectpage.js" ></script>
+    <script src="../assets/js/layui/layui.js"></script>
+    <script type="text/javascript" src="js/initData.js" ></script>
+
+
+
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

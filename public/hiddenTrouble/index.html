@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+  <title>查看隐患</title>
+  <link rel="stylesheet" href="css/all.css">
+  <link rel="stylesheet" href="css/swiper.css">
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+    <script type="text/javascript" src="../assets/js/jquery-2.1.0.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+    <script src="../assets/js/layui/layui.js"></script>
+    <!--引入vue玩玩-->
+    <script src="js/vue.min.js"></script>
+
+  <style>
+      p{
+          margin: 0px;
+          padding: 0px;
+      }
+
+      .imgContainer{
+          display: inline-block;
+          height: 100px;
+          margin-left: 1%;
+          border: 1px solid #30a5ff;
+          position: relative;
+          box-sizing: border-box;
+          margin-bottom: 5px;
+      }
+
+      .imgContainer img{
+          width: 100%;
+          height: 150px;
+          cursor: pointer;
+      }
+
+      .imgContainer p{
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          width: 100%;
+          height: 30px;
+          background: black;
+          text-align: center;
+          line-height: 30px;
+          color: white;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          display: none;
+      }
+
+      .imgContainer:hover p{
+          display: block;
+      }
+
+
+
+  </style>
+
+</head>
+
+
+<body>
+
+<input type="hidden" id="globalPlatformTypeId" name="globalPlatformTypeId" value="" />
+<input type="hidden" id="platformTypeId" name="platformTypeId" value="" />
+<input type="hidden" id="platformId" name="platformId" value="" />
+<input type="hidden" id="flagType" name="flagType" value="" />
+<input type="hidden" id="pageSize" name="pageSize" value="5" />
+<input type="hidden" id="pageIndex" name="pageIndex" value="1" />
+
+
+<section class="container" >
+
+    <ul class="kinerNav" id="accreditFlag">
+        <!-- <li class="active">疫情</li>
+        <li>市场</li>
+        <li>人员</li>
+        <li>车辆</li> -->
+    </ul>
+
+    <div class="box">
+        <div class="kinerContent">
+
+            <div class="wrapper" id="accredPanel">
+
+                <!--小区-->
+                <div id="hpanel-community" class="kinerItem">
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;">
+                        <span>开始时间</span>
+                        <input type="text" class="layui-input" id="laydate1" placeholder="开始时间" style="width: 28%;display: inline;">
+                        <span style="margin-left: 2vw;">结束时间</span>
+                        <input type="text" class="layui-input" id="laydate2" placeholder="结束时间" style="width: 28%;display: inline;">
+                    </div>
+
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;    position: relative;">
+                        <i class="layui-icon layui-icon-search" id="onSearch1" style="position: absolute;right: 10%;top: 50%;transform: translateY(-50%);"></i>        
+                        <input type="text" id="search1" autocomplete="off" placeholder="请输入查询内容" class="layui-input" style="width: 87%;display: inline;">
+                    </div>
+                    
+                
+                   
+                    
+
+                        
+                    <div v-for="(item,index) in communityTroubleList" :key="index">
+                        <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;
+                             box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);background-color: #FFFFFF">
+                            <div @click=skipUrl("./communitySchoolDetail.html?eventInfoId="+item.id+"&platformId="+item.platformId) style="font-size: medium;font-weight: 500;position: relative;padding: 1.5% 0;font-family:PingFangSC-Regular,PingFang SC;color: #51504e;">
+                                <span style="color: #000000; margin-left: 5%;margin-top: 6%;display: block;" v-text="item.townName+'-'+item.platformName">新塘镇锦绣新天地</span>
+                                <span style="color: #F59A23;position: absolute;right: 5%;top: 16%;" v-text="item.status">处置中</span>
+                            </div>
+                            <div style="font-size: 14px;width: 90%;margin: 0 auto;position: relative;font-family:PingFangSC-Regular,PingFang SC;color: rgb(83, 79, 79);">
+                                <span class="layui-badge layui-bg-blue" style="border-radius: 7%;font-size: small;font-weight: 500;" v-text="item.eventTypeName">
+                                    消防通道堵塞
+                                </span>
+                                <span style="">
+                                &nbsp{{item.eventDescription}}
+                                </span>
+                                <span></span>
+                            </div>
+                            <div  v-for="(item2,index2) in item.imgList" :key="index2" style="text-align: center;margin-top: 2.5%;">
+                                <div>
+                                   <img v-if="item2.indexOf('http')>-1" :src="item2" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                   <img v-else :src="SERSVER_BASE_HOME+item2" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                </div>
+                            </div>
+
+                            <div v-for="(item3,index3) in item.audioList" :key="index3" style="text-align: center;margin-top: 2.5%;">
+                                <audio style="height: 36px;" controls="controls"><source :src="SERSVER_BASE_HOME+item3" type="audio/mpeg" /></audio>
+                            </div>
+
+                            <div style="font-size: 14px;font-family:PingFangSC-Regular,PingFang SC;color:rgba(153,153,153,1);position: relative;padding: 10px 0px;">
+                                <span style="font-family:PingFangSC-Regular,PingFang SC;color:rgba(153,153,153,1);margin-left: 5%;" >&nbsp;{{item.gmtCreate}}</span>
+                                <button v-if="item.validFlag == 1" class="layui-btn-primary"
+                                        style="position: absolute;right: 5%;padding: 3px 12px;margin-top: -6px;">有效</button>
+                                <button v-if="item.validFlag == 2" class="layui-btn-primary"
+                                        style="position: absolute;right: 5%;padding: 3px 12px;margin-top: -6px;">无效</button>
+                                <!--<a href="javascript:void(0)" @click=skipUrl("./communitySchoolDetail.html?eventInfoId="+item.id)>
+                                    <button class="layui-btn-primary" style="position: absolute;right: 5%;padding: 3px 12px;margin-top: -6px;">操作</button>
+                                </a>-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--分頁-->
+                    <div style="width: 70%;margin: 0 auto;" id="demo7"></div>
+                </div>
+
+                <!--学校-->
+                <div id="hpanel-school" class="kinerItem">
+
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;">
+                        <span>开始时间</span>
+                        <input type="text" class="layui-input" id="laydate3" placeholder="开始时间" style="width: 28%;display: inline;">
+                        <span style="margin-left: 2vw;">结束时间</span>
+                        <input type="text" class="layui-input" id="laydate4" placeholder="结束时间" style="width: 28%;display: inline;">
+                    </div>
+
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;    position: relative;">
+                        <i class="layui-icon layui-icon-search" id="onSearch2" style="position: absolute;right: 10%;top: 50%;transform: translateY(-50%);"></i>        
+                        <input type="text" id="search2" autocomplete="off" placeholder="请输入查询内容" class="layui-input" style="width: 87%;display: inline;">
+                    </div>
+                            
+                    <div v-for="(item,index) in schoolTroubleList" :key="index">
+                        <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;
+                             box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);background-color: #FFFFFF">
+                            <div @click=skipUrl("./communitySchoolDetail.html?eventInfoId="+item.id) style="font-size: medium;font-weight: 500;position: relative;padding: 1.5% 0;font-family:PingFangSC-Regular,PingFang SC;color: #51504e;">
+                                <span style="color: #000000; margin-left: 5%;margin-top: 6%;display: block;" v-text="item.townName+'-'+item.platformName">新塘镇锦绣新天地</span>
+                                <span style="color: #F59A23;position: absolute;right: 5%;top: 16%;" v-text="item.status">处置中</span>
+                            </div>
+                            <div style="font-size: 14px;width: 90%;margin: 0 auto;position: relative;font-family:PingFangSC-Regular,PingFang SC;color: rgb(83, 79, 79);">
+                                <span class="layui-badge layui-bg-blue" style="border-radius: 7%;font-size: small;font-weight: 500;" v-text="item.eventTypeName">
+                                    消防通道堵塞
+                                </span>
+                                <span style="">
+                                &nbsp{{item.eventDescription}}
+                                </span>
+                                <span></span>
+                            </div>
+                            <div  v-for="(item2,index2) in item.imgList" :key="index2" style="text-align: center;margin-top: 2.5%;">
+                                <div>
+                                    <img v-if="item2.indexOf('http')>-1" :src="item2" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                    <img v-else :src="SERSVER_BASE_HOME+item2" style="width:24%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                </div>
+                            </div>
+
+                            <div v-for="(item3,index3) in item.audioList" :key="index3" style="text-align: center;margin-top: 2.5%;">
+                                <audio style="height: 36px;" controls="controls"><source :src="SERSVER_BASE_HOME+item3" type="audio/mpeg" /></audio>
+                            </div>
+
+                            <div style="font-size: 14px;font-family:PingFangSC-Regular,PingFang SC;color:rgba(153,153,153,1);position: relative;padding: 10px 0px;">
+                                <span style="font-family:PingFangSC-Regular,PingFang SC;color:rgba(153,153,153,1);margin-left: 5%;" >&nbsp;{{item.gmtCreate}}</span>
+                                <button v-if="item.validFlag == 1" class="layui-btn-primary"
+                                        style="position: absolute;right: 5%;padding: 3px 12px;margin-top: -6px;">有效</button>
+                                <button v-if="item.validFlag == 2" class="layui-btn-primary"
+                                        style="position: absolute;right: 5%;padding: 3px 12px;margin-top: -6px;">无效</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--分頁-->
+                    <div style="width: 70%;margin: 0 auto;" id="demo8"></div>
+                </div>
+
+                <!--人员-->
+                <div id="hpanel-humman" class="kinerItem">
+
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;">
+                        <span>开始时间</span>
+                        <input type="text" class="layui-input" id="laydate5" placeholder="开始时间" style="width: 28%;display: inline;">
+                        <span style="margin-left: 2vw;">结束时间</span>
+                        <input type="text" class="layui-input" id="laydate6" placeholder="结束时间" style="width: 28%;display: inline;">
+                    </div>
+                      
+
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;">
+                        <select id="select1" style="width: 38%;height: 5.4vh;display: inline-block;border: 1px solid #e6e6e6;">
+                        </select>
+                        <div style="width: 50%;position: relative;display: inline-block;margin-left: 1%;">
+                            <i class="layui-icon layui-icon-search" id="onSearch3" style="position: absolute;right: 10%;top: 50%;transform: translateY(-50%);"></i>        
+                            <input type="text" id="search3" autocomplete="off" placeholder="请输入查询内容" class="layui-input" >
+                        </div>
+                    </div>
+                   
+
+                    <div v-for="(item, index) in humanAlarmList" :key="index" class="person0"
+                         style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                        <div>
+                            <div @click=skipUrl("./humanDetail.html?platformId="+platformId+"&humanId="+item.humanId+"&id="+item.id) style="font-size: 14px;position: relative;padding: 7px 0px;">
+                                <span style="font-weight: bold;margin-left: 5%;" v-text="item.humanName">张三</span>
+                                <span class="layui-badge layui-bg-blue" style="margin-left: 3%;"  v-text="item.listLibName">关注人员</span>
+                                <!--<span style="color: #AAAAAA;margin-left: 3%;" v-text="item.similarity*100+'%'">85.88%</span>-->
+                                <span style="color: #F59A23;position: absolute;right: 5%;">相似度：{{Math.round(item.similarity*100)+'%'}}</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <!-- <img v-if="item.facePicUrl.indexOf('http') > -1" :src="item.facePicUrl" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)"> -->
+                                <img :src="item.facePicUrl" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                <!-- <img v-else :src="SERSVER_BASE_HOME+item.facePicUrl" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)"> -->
+
+                                <!-- <img v-if="item.bkgPicMinUrl.indexOf('http') > -1" :src="item.bkgPicMinUrl" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)"> -->
+                                <img :src="item.bkgPicMinUrl" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                <!-- <img v-else :src="SERSVER_BASE_HOME+item.bkgPicMinUrl" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)"> -->
+                            </div>
+                            <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                                <span style="color: #AAAAAA;margin-left: 5%;" v-text="item.alarmTime">2020-04-13 16:08:13</span>
+                                <div style="display: inline-block;position: absolute;right: 3%;">
+                                    <i class="layui-icon layui-icon-location"></i>
+                                    <span v-text="item.cameraName">国贸大厦</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--分頁-->
+                    <div style="width: 70%;margin: 0 auto;" id="demo9"></div>
+                </div>
+
+                <!--车辆-->
+                <div id="hpanel-vehicle" class="kinerItem">
+
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;">
+                        <span>开始时间</span>
+                        <input type="text" class="layui-input" id="laydate7" placeholder="开始时间" style="width: 28%;display: inline;">
+                        <span style="margin-left: 2vw;">结束时间</span>
+                        <input type="text" class="layui-input" id="laydate8" placeholder="结束时间" style="width: 28%;display: inline;">
+                    </div>
+
+                    <div style="width: 100%;text-align: center;    margin: 1vh auto;">
+                        <select id="select2" style="width: 38%;height: 5.4vh;display: inline-block;border: 1px solid #e6e6e6;">
+                        </select>
+                        <div style="width: 50%;position: relative;display: inline-block;margin-left: 1%;">
+                            <i class="layui-icon layui-icon-search" id="onSearch4" style="position: absolute;right: 10%;top: 50%;transform: translateY(-50%);"></i>        
+                            <input type="text" id="search4" autocomplete="off" placeholder="请输入查询内容" class="layui-input" >
+                        </div>
+                    </div>
+
+                    <div v-for="(item, index) in vehicleAlarmList" :key="index"  class="vehicle0" style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                        <div>
+                            <div @click=skipUrl("./vehicleDetail.html?platformId="+platformId+"&type="+item.type+"&carNum="+item.plateInfo+"&id="+item.id) style="font-size: 14px;position: relative;padding: 7px 0px;">
+                                <span style="font-weight: bold;margin-left: 5%;" v-text="item.plateInfo">粤000000港</span>
+                                <span class="layui-badge layui-bg-green" style="margin-left: 3%;background: green!important;">
+                                {{formatterCarStatus(item.type)}}
+                            </span>
+                                <!--<span style="color: #F59A23;position: absolute;right: 5%;">处置中</span>-->
+                            </div>
+                            <div style="text-align: center;">
+                                <img v-if="item.picPlate.indexOf('http') > -1" :src="item.picPlate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                <img v-else :src="SERSVER_BASE_HOME+item.picPlate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+
+                                <img v-if="item.picAbbreviate.indexOf('http') > -1" :src="item.picAbbreviate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                <img v-else :src="SERSVER_BASE_HOME+item.picAbbreviate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                            </div>
+                            <!--<div style="text-align: center;">
+                                <img :src="item.picPlate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                                <img :src="item.picAbbreviate" style="width:45%;height:100px;border: 1px solid #0091ff;" alt="" onclick="imgDisplay(this)">
+                            </div>-->
+                            <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                                <span style="color: #AAAAAA;margin-left: 5%;" v-text="item.alarmTime.substring(0,19)">2020-01-03 09:10:29</span>
+                                <div style="display: inline-block;position: absolute;right: 5%;">
+                                    <i class="layui-icon layui-icon-location"></i>
+                                    <span>{{item.cameraName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--分頁-->
+                    <div style="width: 70%;margin: 0 auto;" id="demo10"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <script src="../constant.js"></script>
+    <!--我的逻辑接口实现-->
+    <!--<script src="js/HTkiner-swiper-panel.js"></script>-->
+    <script src="js/initTroubleVueObj.js"></script>
+    <script>
+        $.ajax({
+         async: false,
+         type: "GET",
+         url: SERSVER_BASE_URL + "/sys/config/infoByKey?key=TJFX_VIEW",
+         data:
+             {          
+             },
+         dataType: "json",
+         success: function (res) {
+             console.log('菜单为',res)
+             if(res.code === 0) {
+                 var newList = []
+                 var new2List = []
+                 var navList = JSON.parse(res.config.paramValue)
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '5') {
+                         newList.push(navList[i])
+                         new2List.push({name: navList[i],value: 5})
+                     }
+                 }
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '6') {
+                         newList.push(navList[i])
+                         new2List.push({name: navList[i],value: 6})
+                     }
+                 }
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '3') {
+                         newList.push(navList[i])
+                     }
+                 }
+                 for(var i = 0; i< navList.length; i++) {
+                     if(navList[i].status == '4') {
+                         newList.push(navList[i])
+                     }
+                 }
+                 $('#globalPlatformTypeId').val(new2List[0].value)
+                 var ul = document.getElementById('accreditFlag')
+                //  var global = document.getElementsByClassName('realBorder')[0]
+                //  ul.removeChild(global)
+                 for(var i = 0; i < newList.length; i++) {
+                     var li = document.createElement('li')
+                     li.innerHTML = newList[i].name
+                     if(i == 0) {
+                         li.className = 'active'
+                     }
+                     ul.appendChild(li)
+                 }
+             }
+         }
+     });
+   </script>
+    <script src="js/myHiddenTrouble.js"></script>
+    <script src="js/HTkiner-swiper-panel.js"></script>
+    <script>
+          
+        function skipUrl(url) {
+            console.log("url:"+url)
+            let toUrl = encodeURI(url);
+            console.log("跳转的url:"+toUrl)
+            window.location.href = toUrl;
+        }
+    </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 50px;">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>加入义工队</title>
+  <link rel="stylesheet" href="./assets/css/rest.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="./assets/js/layui/css/mymodules/pickerView.css">
+  <!-- 引入样式文件 -->
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/vant@2.9/lib/index.css"
+/>
+
+<!-- 引入 Vue 和 Vant 的 JS 文件 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+  <!--腾讯api-->
+  <script type="text/javascript"
+    src="http://map.qq.com/api/js?v=2.exp&key=XIGBZ-SL2WF-6TXJP-J3PN2-4ZX7J-ZBFRC"></script>
+  <!--JSJDK引用-->
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  <script src="./assets/js/jquery/jquery-3.2.1.min.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <style>
+    * {
+
+      -webkit-touch-callout: none;
+      /*系统默认菜单被禁用*/
+
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+
+      -khtml-user-select: none;
+      /*早期浏览器*/
+
+      -moz-user-select: none;
+      /*火狐*/
+
+      -ms-user-select: none;
+      /*IE10*/
+
+      user-select: none;
+
+    }
+
+
+    @keyframes spin {
+      from {
+        transform: scale(1) rotate(0deg);
+      }
+
+      to {
+        transform: scale(1) rotate(360deg);
+      }
+    }
+
+    /* IE9以上 */
+    @-ms-keyframes spin3 {
+      from {
+        -ms-transform: scale(1) rotate(0deg);
+      }
+
+      to {
+        -ms-transform: scale(1) rotate(360deg);
+      }
+    }
+
+    /* Firefox */
+    @-moz-keyframes spin4 {
+      from {
+        -moz-transform: rotate(0deg);
+      }
+
+      to {
+        -moz-transform: rotate(360deg);
+      }
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: auto;
+      /*webkit浏览器*/
+      margin: 0px;
+      padding: 0px;
+      outline: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-tap-highlight-color: transparent;
+      /* For some Androids */
+    }
+
+
+    /* .verifySubject .eventTop .topBgImage {
+      position: relative;
+      padding: 20% 50%;
+      background: url(./assets/images/top.png) no-repeat;
+      background-size: 100% 100%;
+    } */
+
+    .personApply ul li {
+      position: relative;
+      /* margin: 1px 0;
+      background: white;
+      padding: 0 3%;
+      overflow: hidden; */
+      border-bottom: solid 1px rgba(221,221,221,1);
+      font-size: 0.32rem;
+      overflow: hidden;
+      height: 7.35vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* width: 100%; */
+    }
+
+    .verifySubject ul li label {
+      position: absolute;
+      left: 5%;
+      top: 0;
+      line-height: 8vh;
+      width: 25%;
+      text-align: right;
+    }
+
+    .verifySubject ul li input {
+      /* position: absolute;
+      left: 35%; */
+      /* line-height: 8vh; */
+      /* padding-left: 6%; */
+      border: none;
+      /* margin-left: 1.5rem; */
+      height: 100%;
+      margin-left: 2.93vw;
+      font-size: 0.32rem;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      line-height: 8vh;
+    }
+    .verifySubject ul li input::-webkit-input-placeholder {
+      font-size: 0.32rem;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:rgba(153,153,153,1);
+      /* color: red; */
+    }
+    .verifySubject ul li a {
+      width: 75%;
+      display: inline-block;
+      line-height: 1rem;
+      padding-left: 6%;
+      border: none;
+      margin-left: 1.5rem;
+      color: #000;
+    }
+
+    a:link,
+    a:visited,
+    a:hover {
+      text-decoration: none;
+    }
+
+    a:active {
+      color: #4a99df;
+    }
+
+    input:disabled {
+      background-color: #fff;
+      /* color: #666;
+      opacity: 1;
+      -webkit-text-fill-color: #666;
+      -webkit-opacity: 1; */
+      font-size: 0.32rem;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:rgba(153,153,153,1);
+    }
+
+    .prompt {
+      z-index: 500;
+      position: fixed;
+      padding: 0.2em 0.8rem;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-size: 0.30rem;
+      border-radius: 3px;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+    }
+    .eventTop {
+        position: relative;
+        /* width: 100vw; */
+        /* height: 17.4vh; */
+        padding: 1.5vh 5.33vw 0.9vh 5.33vw;
+        background: #fff;
+        }
+     .eventTop img {
+        width: 89.33vw;
+        height: 14.99vh;
+     }
+     .eventTop .bannerTitle {
+       position: absolute;
+       left: 50%;
+       top: 50%;
+       transform: translate(-50%,-50%);
+       font-size: 0.44rem;
+        font-family:TaipeiSansTCBeta-Bold,TaipeiSansTCBeta;
+        font-weight:bold;
+        color:rgba(255,255,255,1);
+        text-shadow:0px 2px 4px rgba(0,0,0,0.5);
+        width: 82.27vw;
+        text-align: center;
+     }
+     html,body {
+       background-color: rgba(245,245,245,1);
+     }
+     .personApply {
+       background: #fff;
+       margin-top: 1.5vh;
+     }
+     .labelTitle {
+       width: 12.8vw;
+       height: 7.35vh;
+       line-height: 7.35vh;
+       font-size: 0.32rem;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(153,153,153,1);
+
+     }
+     .enterStyle {
+       width: 2.8vw;
+       height: 2.32vh;
+       margin-right: 6.53vw;
+     }
+     .imgWrapper {
+       display: flex;
+       margin-right: 5.33vw;
+     }
+     .imgWrapper img {
+       width: 9.33vw;
+       height: 5.25vh;
+     }
+     .womanStyle {
+       margin-left: 4vw;
+     }
+     .joinButtonStyle {
+       height: 6.75vh;
+       width: 85.33vw;
+       background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);
+        box-shadow:0px 6px 12px 0px rgba(12,126,161,0.35);
+        border-radius:75px;
+        font-size: 0.4rem;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(255,255,255,1);
+        line-height: 6.75vh;
+        margin: 0 auto;
+     }
+     .chooseDialog {
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background-color: rgba(0,0,0,0.5);
+     }
+     .containerWrapper {
+       background-color: #fff;
+       border-radius:32px 32px 0px 0px;
+       position: absolute;
+       bottom: 0;
+       left: 0;
+       right: 0;
+     }
+     .containerHeader {
+       height: 10.04vh;
+       display: flex;
+       padding: 3vh 5.33vw;
+       align-items: center;
+     }
+     .containerHeader img {
+       width: 6.4vw;
+       height: 3.6vh;
+
+     }
+     .chooseTitle {
+      font-size: 0.36rem;
+      font-family:PingFangSC-Medium,PingFang SC;
+      font-weight:1000;
+      color:rgba(51,51,51,1);
+     }
+     .van-picker {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        left: 0;
+     }
+  </style>
+</head>
+
+<body>
+  <!--微信JSJDK需要-->
+  <input type="hidden" id="ticket" name="ticket" value="" />
+  <input type="hidden" id="appId" name="appId" value="" />
+  <input type="hidden" id="timestamp" name="timestamp" value="" />
+  <input type="hidden" id="nonceStr" name="nonceStr" value="" />
+  <input type="hidden" id="signature" name="signature" value="" />
+  <input type="hidden" id="openId" name="openId" value="" />
+  <input type="hidden" id="taskId" name="taskId" value="" />
+  <div class="verifySubject" id="app">
+    <div class="eventTop">
+      <img src="./assets/images/Home/banner.png" alt="">
+      <div class="bannerTitle">
+      </div>
+    </div>
+    <form class="personApply">
+      <ul style="padding-left: 5.33vw;">
+        <!-- <li>
+          <label>手机号:</label>
+          <input type="text" id="mobile" name="mobile" placeholder="请输入手机号" style="width:45%;">
+          <button id="getCode" style="padding: 0px 5px;border-radius: 5px;" class="layui-btn layui-btn-primary gold-sun-vecode-btn">获取验证码</button>
+        </li> -->
+        <li >
+          <!-- <label><span style="color: red;margin-right: 5px;">*</span>镇街:</label>
+          <select name="town" id="town"
+            style="    position: absolute;left: 34%;height: 100%;width: initial;">
+            <option value="">请选择镇街</option>
+          </select> -->
+        <div style="display: flex;align-items: center;">
+          <div class="labelTitle">镇街</div>
+            <input style="width: 42.4vw;" type="text" name="town" id="town" placeholder="请选择镇街" readonly @click="showDialog = true" v-model="townValue">
+        </div>
+        <img src="./assets/images/Home/enterArrow.png" alt="" class="enterStyle">
+        </li>
+        <li >
+          <!-- <label><span style="color: red;margin-right: 5px;">*</span>学段:</label>
+          <select name="schoolPeriod" id="schoolPeriod"
+            style="    position: absolute;left: 34%;height: 100%;width: initial;">
+            <option value="">请选择学段</option>
+
+          </select> -->
+          <div style="display: flex;align-items: center;">
+            <div class="labelTitle">学段</div>
+            <input style="width: 42.4vw;" type="text" name="schoolPeriod" id="schoolPeriod" placeholder="请选择学段" readonly @click="showschoolPeriodDialog = true" v-model="schoolPeriodValue">
+          </div>
+          <img src="./assets/images/Home/enterArrow.png" alt="" class="enterStyle">
+        </li>
+
+        <li >
+          <!-- <label><span style="color: red;margin-right: 5px;">*</span>学校:</label>
+          <select name="school" id="school"
+            style="    position: absolute;left: 34%;height: 100%;width: initial;">
+            <option value="">请选择学校</option>
+
+          </select> -->
+          <div style="display: flex;align-items: center;">
+            <div class="labelTitle">学校</div>
+            <input style="width: 42.4vw;" type="text" name="school" id="school" placeholder="请选择学校" readonly v-model="schoolValue" @click="showschoolDialog = true">
+          </div>
+          <img src="./assets/images/Home/enterArrow.png" alt="" class="enterStyle">
+        </li>
+        <li >
+          <!-- <label ><span style="color: red;margin-right: 5px;">*</span>姓名:</label>
+          <input style="width: 45%;" type="text" id="name" name="name" placeholder="请输入姓名"> -->
+          <div style="display: flex;align-items: center;">
+            <div class="labelTitle">姓名</div>
+            <input style="width: 42.4vw;" type="text" id="name" name="name" placeholder="请输入姓名">
+          </div>
+          <div class="imgWrapper">
+          <img src="./assets/images/Home/manUncheck.png" alt="" onclick="chooseSex(1)" id="manAvatar">
+          <img src="./assets/images/Home/womanUncheck.png" alt="" class="womanStyle" onclick="chooseSex(2)" id="womanAvatar">
+          <!-- <img src="./assets/images/Home/manCheck.png" alt="">
+          <img src="./assets/images/Home/womanCheck.png" alt=""> -->
+          </div>
+        </li>
+
+        <li>
+          <!-- <label><span style="color: red;margin-right: 5px;">*</span>手机号:</label>
+          <input style="width: 45%;" type="text" id="mobile1" name="mobile1" placeholder="请输入手机号"> -->
+          <div style="display: flex;align-items: center;">
+          <div class="labelTitle">手机号</div>
+          <input style="width: 42.4vw;" type="text" id="mobile1" name="mobile1" placeholder="请输入手机号">
+        </div>
+        </li>
+
+        <li>
+          <!-- <label>职业:</label>
+          <input style="width: 45%;" type="text" id="position" name="position" placeholder="请输入职业"> -->
+          <div style="display: flex;align-items: center;">
+            <div class="labelTitle">职业</div>
+            <input style="width: 42.4vw;" type="text" id="position" name="position" placeholder="请输入职业（选填）">
+          </div>
+        </li>
+
+        <!-- <li style="line-height: 0.95rem;text-align: center;border-bottom: none;">
+          <label>可加入队伍:</label>
+          <select name="city" id="veracity" name="veracity"
+            style="position: absolute;left: 41%;height: 100%;">
+
+              <option value="你的工号">江西省</option>
+              <option value="你最喜欢的老师">福建</option>
+          </select>
+        </li> -->
+
+        <li>
+          <!-- <label>特长:</label>
+          <input style="width: 45%;" type="text" id="specialty" name="specialty" placeholder="请输入特长"> -->
+          <div style="display: flex;align-items: center;">
+            <div class="labelTitle">特长</div>
+            <input style="width: 42.4vw;" type="text" id="specialty" name="specialty" placeholder="请输入特长（选填）">
+          </div>
+        </li>
+
+        
+
+        
+
+      </ul>
+
+    </form>
+    <div style="text-align: center;height: 6.75vh;margin-top: 2.25vh;">
+      <div  id="btn" type="button" class="joinButtonStyle">加入义工队</div>
+    </div>
+    <!-- 选择弹框-->
+    <!-- <div class="chooseDialog">
+      <div class="containerWrapper">
+        <div class="containerHeader">
+          <img src="./assets/images/Home/closeDialog.png" alt="">
+          <div class="chooseTitle">请选择镇街</div>
+          <div class="sureButton">确定</div>
+        </div>
+        <div class="containerMain">
+        <ul>
+          <li>11</li>
+          <li>21</li>
+          <li>31</li>
+          <li>41</li>
+          <li>51</li>
+          <li>61</li>
+          <li>11</li>
+         
+        </ul>
+        </div>
+      </div>
+    </div> -->
+    <van-picker
+    title="请选择镇街"
+    show-toolbar
+    :columns="columns"
+    @confirm="onConfirm"
+    @cancel="onCancel"
+    v-if="showDialog"
+    >
+    </van-picker>
+   <van-picker
+    title="请选择学段"
+    show-toolbar
+    :columns="schoolPeriodcolumns"
+    @confirm="onschoolPeriodConfirm"
+    @cancel="onschoolPeriodCancel"
+    v-else-if="showschoolPeriodDialog"
+   >
+   </van-picker>
+   <van-picker
+    title="请选择学校"
+    show-toolbar
+    :columns="schoolcolumns"
+    @confirm="onschoolConfirm"
+    @cancel="onschoolCancel"
+    v-else-if="showschoolDialog"
+   >
+   </van-picker>
+  </div>
+  
+  <script type="text/javascript">
+    resizeFontSize()
+          window.onresize=function () {
+            resizeFontSize()
+          }
+    
+          function  resizeFontSize(){
+            //获取根元素
+            const docEl = document.documentElement;
+            //获取设备宽度
+            const clientWidth = docEl.clientWidth ;
+            console.log("clientWidth",clientWidth)
+            //若未获取到设备宽度，则终止函数执行
+            if (!clientWidth) return ;
+            //计算rem基础配置：设计图以750px为准时，px rem比例为1：100
+            const fs= 100*(clientWidth/750) ;
+            //为根元素字体赋值
+            console.log("docEl",docEl.style.fontSize)
+            docEl.style.fontSize = fs+'px'
+          }
+    </script>
+    <script>
+      function chooseSex(id) {
+        var manImage = document.getElementById('manAvatar')
+        var womanImage = document.getElementById('womanAvatar')
+        if (id === 1) {
+            manImage.src="./assets/images/Home/manCheck.png"
+            womanImage.src="./assets/images/Home/womanUncheck.png"
+        }else {
+            manImage.src="./assets/images/Home/manUncheck.png"
+            womanImage.src="./assets/images/Home/womanCheck.png"
+        }
+      }
+    </script>
+  
+  <script src="./assets/js/layui/layui.js"></script>
+  <script src="./constant.js"></script>
+  <script src="./assets/js/layui/lay/mymodules/pickerView.js"></script>
+  
+  <script>
+    (function ($) {
+      $.getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+      }
+    })(jQuery);
+
+    // function getQueryVariable(variable) {
+    //   var query = window.location.search.substring(1);
+    //   var vars = query.split("&");
+    //   for (var i = 0; i < vars.length; i++) {
+    //     var pair = vars[i].split("=");
+    //     if (pair[0] == variable) { return pair[1]; }
+    //   }
+    //   return (false);
+    // }
+    $(function () {
+      $('#getCode').click(function () {
+        getCode()
+      });
+      $('#btn').click(function () {
+        
+        // name: $('#name').val(),
+        // mobile1: $('#mobile1').val(),
+        // position: $('#position').val(),
+        // groupld: $('#groupld').val(),
+        checkname(); checkMobile1(); checkPosition()
+        if(!$('#name').val()){alert("请输入名称");return ;}
+        if(!$('#mobile1').val()){alert("请输入手机号");return ;}
+        if(!$('#town').val()){alert("请选择镇街");return ;}
+        if(!$('#schoolPeriod').val()){alert("请选择学段");return ;}
+        if(!$('#school').val()){alert("请选择学校");return ;}
+        if (checkname() && checkMobile1() && checkPosition()) {
+          submit()
+        } else {
+          alert('请填写完整信息')
+        }
+      })
+      VolunteerData()
+    })
+
+    //获取镇街select 
+
+
+
+
+
+
+let townList = []//接收城镇名
+let townIndexList = []//接收索引
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: SERSVER_BASE_URL + "/wechatMobile/townList",
+      data:{
+        
+      },
+      success: function (data) {
+        console.log("/wechatMobile/townList",data)
+        if (data.list.length > 0) {
+          for (var i = 0; i < data.list.length; i++) {
+            //镇街 townId
+            var townId = data.list[i].id;
+            townIndexList.push(townId)
+            //镇街名称
+            var townName = data.list[i].townName;
+            townList.push(townName)
+            //拼接
+            var option = $("<option>").val(townId).text(townName);
+            $("#town").append(option);
+          }
+        }
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+    });
+    let schollAreaList = []
+    let schollAreaIndexList = []
+    //获取学段select
+    $.ajax({
+      async: false,
+      type: "GET",
+      url: SERSVER_BASE_URL + "/wechatMobile/periodList",
+      data:{
+        
+      },
+      success: function (data) {
+        console.log("/wechatMobile/periodList",data)
+        if (data.list.length > 0) {
+          for (var i = 0; i < data.list.length; i++) {
+            //学段Id
+            var schoolPeriodId = data.list[i].id;
+            schollAreaIndexList.push(schoolPeriodId)
+            //学段名称
+            var schoolPeriodName = data.list[i].name;
+            schollAreaList.push(schoolPeriodName)
+            //拼接
+            var option = $("<option>").val(schoolPeriodId).text(schoolPeriodName);
+            $("#schoolPeriod").append(option);
+          }
+        }
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        alert("err:::" + errorThrown);
+      }
+    });
+
+    //获取学校select
+    $("#town").change(function(){
+        console.log("触发学校")
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/woker/volunteer/selectSchool",
+          data:{
+            townId :$("#town").val(),
+            schoolType :$("#schoolPeriod").val()?$("#schoolPeriod").val():'',
+            
+          },
+          success: function (data) {
+            console.log("/woker/volunteer/selectSchool",data)
+            $("#school").html("<option value=''>请选择学校</option>")
+            if (data.data.length > 0) {
+              for (var i = 0; i < data.data.length; i++) {
+
+                //学校Id
+                var schoolId = data.data[i].id;
+                //学校名称
+                var schoolName = data.data[i].platformName;
+                //拼接
+                var option = $("<option>").val(schoolId).text(schoolName);
+                $("#school").append(option);
+              }
+            }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+    });
+
+    $("#schoolPeriod").change(function(){
+        console.log("触发学校")
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/woker/volunteer/selectSchool",
+          data:{
+            townId :$("#town").val()?$("#town").val():'',
+            schoolType :$("#schoolPeriod").val(),
+            
+          },
+          success: function (data) {
+            console.log("/woker/volunteer/selectSchool",data)
+            $("#school").html("<option value=''>请选择学校</option>")
+            if (data.data.length > 0) {
+              for (var i = 0; i < data.data.length; i++) {
+
+                //学校Id
+                var schoolId = data.data[i].id;
+                //学校名称
+                var schoolName = data.data[i].platformName;
+                //拼接
+                var option = $("<option>").val(schoolId).text(schoolName);
+                $("#school").append(option);
+              }
+            }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+    });
+
+    // 判空
+    function print(x) {
+      while (x.length > 0 && x.charAt(0) == ' ')
+        x = x.substring(1, x.length);
+      while (x.length > 0 && x.charAt(x.length - 1) == ' ')
+        x = x.substring(0, x.length - 1);
+      return x;
+    }
+    // 判空
+    function isNull(elem, message) {
+      var va = print(elem.value);
+      if (va == "") {
+        alert(message);
+        elem.focus();
+        return false;
+      }
+      return true;
+    }
+    // 姓名验证
+    function checkname() {
+      var exp = /^[\u4E00-\u9FA5]{2,4}$/i;
+      if (isNull(document.forms[0].name, "姓名不能为空，请输入姓名")) {
+        if (!exp.test(document.forms[0].name.value)) {
+          alert("请输入正确格式的姓名！");
+          document.forms[0].name.focus();
+          return false;
+        }
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    // 手机号验证
+    function checkMobile1() {
+      var exp = /(^1[3|4|5|7|8|9]\d{9}$)|(^09\d{8}$)/;
+      if (isNull(document.forms[0].mobile1, "手机号不能为空，请输入手机号!")) {
+        if (!exp.test(document.forms[0].mobile1.value)) {
+          alert("请输入正确格式的手机号码！");
+          document.forms[0].mobile1.focus();
+          return false;
+        }
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    // 职业验证
+    function checkPosition() {
+      if (isNull(document.forms[0].position, "职业不能为空，请输入职业!")) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    // 获取义工队信息
+    function VolunteerData() {
+      var openId = getQueryString("openId");
+      $.ajax({
+        url: SERSVER_BASE_URL+'/mail/opencontactor/getVolunteer',
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: {
+          openId: openId,
+            
+        },
+        success: function (result) {
+          if (result && result.code === 0) {
+            result.data.forEach(item => {
+              $('#veracity').append(`<option value="${item.id}">${item.name}</option>`)
+            })
+          }
+        }
+      })
+    }
+    // 提交
+    function submit() {
+      console.log('超级id',StownId)
+      console.log('超级值',$('#town').val())
+      console.log('超级学段id',SschoolPeriodId)
+      console.log('超级学校id',SschoolId)
+      console.log('超级学校名',$('#school').val())
+      var openId = getQueryString("openId");
+      var objJSON = {
+        name: $('#name').val(),
+        mobile: $('#mobile1').val(),
+        job: $('#position').val(),
+        // groupId: $('#veracity').val(),
+        // openId: openId,
+        specialty:$('#specialty').val(),
+        townId: StownId,
+        townName: $('#town').val(),
+        platformId: SschoolId,
+        platformName:$('#school').val(),
+        schoolType:SschoolPeriodId
+
+      }
+      console.log(objJSON)
+      $.ajax({
+        url: SERSVER_BASE_URL+'/woker/volunteer/save',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({
+          ...objJSON,
+            
+        }),
+        success: function (result) {
+          alert("加入成功！");
+          if (result && result.code === 0) {
+            window.location.href = './index.html?openId=' + getQueryString('openId')
+          }
+        }
+      })
+    }
+
+    // 获取验证码方法
+    function getCode() {
+      $.ajax({
+        type: "get",
+        url: SERSVER_BASE_URL+"/mail/mailcontactor/getMobileVerificationCode",
+        dataType: "json",
+        data: {
+          mobile: $('#mobile').val(),
+          loginType:1
+        },
+        success: function (result) {
+          console.log(result);
+          if(result.code == 500){
+            alert(result.msg);
+          }
+        }
+      })
+    }
+
+    $('.gold-sun-vecode-btn').click(function () {
+      time(90, $(this))
+      prompt('验证码已发送')
+      $(this).off('click')
+    })
+    // 发送验证码倒计时
+    function time(wait, o) {
+      if (wait == 0) {
+        wait = 90
+        o.text("重新获取");
+        o.on('click', function () {
+          time(wait, $(this));
+          getCode()
+          $(this).off('click');
+        });
+      } else {
+        o.text("等待" + wait + "秒");
+        wait--;
+        setTimeout(function () {
+          time(wait, o);
+        }, 1000)
+      }
+    }
+
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function prompt(msg) {
+      $('body').append('<div class="prompt">' + msg + '</div>');
+      setTimeout(function () {
+        $('body').find('.prompt').fadeOut(1000);
+        setTimeout(function () {
+          $('body').find('.prompt').remove();
+        }, 1000);
+      }, 500);
+    }
+    console.log('totototo',townList)
+
+  </script>
+  <script>
+    // 通过 CDN 引入时不会自动注册 Lazyload 组件
+    // 可以通过下面的方式手动注册
+    var StownId;
+    var SschoolPeriodId;
+    var SschoolId;
+    console.log("townList",townList)
+    console.log('townIndexList',townIndexList)
+    console.log('schollAreaList',schollAreaList)
+    console.log('schollAreaIndexList',schollAreaIndexList)
+    new Vue({
+    el: '#app',
+    
+    data: {
+      columns: townList,
+      showDialog: false,
+      showschoolPeriodDialog: false,
+      showschoolDialog: false,
+      schoolPeriodcolumns: schollAreaList,
+      schoolcolumns: [],
+      schoolIndexColumns: [],
+      townId: '',
+      schoolPeriodId: '',
+      schoolId: '',
+      townValue: '',
+      schoolPeriodValue: '',
+      schoolValue: ''
+    },
+    methods: {
+      onConfirm(value, index) {
+      var that = this
+      var schoolList = []
+      var schoolIndexList = []
+      console.log("镇街值为",value,"索引为：",index)
+      this.townId = townIndexList[index]
+      this.townValue = value
+      this.showDialog = false
+      StownId = this.townId
+      $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/woker/volunteer/selectSchool",
+          data:{
+            townId : townIndexList[index],
+            schoolType :this.schoolPeriodId? this.schoolPeriodId: '',
+            
+          },
+          success: function (data) {
+            console.log("/woker/volunteer/selectSchool",data)
+            $("#school").html("<option value=''>请选择学校</option>")
+            if (data.data.length > 0) {
+              for (var i = 0; i < data.data.length; i++) {
+
+                //学校Id
+                var schoolId = data.data[i].id;
+                schoolIndexList.push(schoolId)
+                //学校名称
+                var schoolName = data.data[i].platformName;
+                schoolList.push(schoolName)
+                
+                //拼接
+                var option = $("<option>").val(schoolId).text(schoolName);
+                $("#school").append(option);
+              }
+              that.schoolcolumns = schoolList
+              that.schoolIndexColumns = schoolIndexList
+            }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+    },
+    onCancel() {
+      console.log('取消');
+      this.townValue = ''
+      StownId = ''
+      this.showDialog = false
+    },
+    onschoolPeriodConfirm(value, index) {
+      var that = this
+      var schoolList = []
+      var schoolIndexList = []
+      console.log("学段值为",value,"索引为：",index)
+      this.schoolPeriodId = schollAreaIndexList[index]
+      this.schoolPeriodValue = value
+      SschoolPeriodId = this.schoolPeriodId
+      this.showschoolPeriodDialog = false
+      $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/woker/volunteer/selectSchool",
+          data:{
+            townId : this.townId? this.townId:'',
+            schoolType : schollAreaIndexList[index],
+            
+          },
+          success: function (data) {
+            console.log("/woker/volunteer/selectSchool",data)
+            $("#school").html("<option value=''>请选择学校</option>")
+            if (data.data.length > 0) {
+              for (var i = 0; i < data.data.length; i++) {
+
+                //学校Id
+                var schoolId = data.data[i].id;
+                schoolIndexList.push(schoolId)
+                //学校名称
+                var schoolName = data.data[i].platformName;
+                schoolList.push(schoolName)
+                //拼接
+                var option = $("<option>").val(schoolId).text(schoolName);
+                $("#school").append(option);
+              }
+              that.schoolcolumns = schoolList
+              that.schoolIndexColumns = schoolIndexList
+            }
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+         
+    },
+    onschoolPeriodCancel() {
+      this.schoolPeriodValue = ''
+      SschoolPeriodId = ''
+      this.showschoolPeriodDialog = false
+    },
+    onschoolConfirm(value, index) {
+        console.log('选的学校为',value,'索引为',index)
+        this.schoolId = this.schoolIndexColumns[index]
+        this.schoolValue = value
+        SschoolId = this.schoolId
+        this.showschoolDialog = false
+    },
+    onschoolCancel() {
+      this.schoolValue = ''
+      SschoolId = ''
+        this.showschoolDialog = false
+    }
+    }
+  });
+    Vue.use(vant.Picker);
+  </script>
+  <script src="./assets/js/getBannerTitle.js"></script>
+  <script>getBannerTitle("bannerTitle","WX_XX")</script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

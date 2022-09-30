@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <title>我的认证</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 61.3vw;; 
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-form-item {
+        margin-bottom: initial;
+        padding: 15px 0px 0px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-select,.jibenxinxi .layui-textarea {
+        border-width: 0px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.dengjixinxi .layui-textarea{
+        margin:10px auto 0px;
+    }
+    .dengjixinxi .layui-form-checkbox span{
+        font-size:12px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(153,153,153,1);
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 1.2vh 5vw;
+        width: 65px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size:14px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(153,153,153,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    .layui-colla-title{
+        padding: 0 15px 0 5vw;
+    }
+    .layui-colla-icon {
+        position: absolute;
+        left: initial;
+        right: 5vw!important;
+        top: 0;
+        font-size: 14px;
+    }
+    .layui-colla-content, .layui-colla-item {
+        border-top-width: initial;
+        border-top-style: initial;
+    }
+    .layui-colla-content {
+        padding: initial;
+    }
+    .layui-form-item{
+        margin-bottom: initial;
+    }
+    .layui-tab-title li{
+        width: 100%;height: 8vh;line-height: 8vh;
+        padding: initial;
+        width: 48%;
+        font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);
+    }
+    .layui-tab-title .layui-this:after {
+        border-style: initial;
+    }
+    .layui-tab-title .layui-this {
+        color: white;
+        border: 1px solid;
+        background: rgba(0,145,255,1);
+    }
+    .layui-layer-content {
+        text-align: center;
+      }
+      .layui-layer-title {
+        padding: initial !important;
+        text-align: center;
+        background-color: white !important;
+      }
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);">
+    <div class="jibenxinxi">
+        <!-- <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+            <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                <span style="margin-left: 5vw;">基本信息</span>
+            </div>
+            <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+            <div style="width: 100%;box-sizing: border-box;padding: 4.2vh 5.3vw;">
+                <div style="display: inline-block;">
+                    <img src="../assets/images/jihua1.jpg" style="width: 25vw;height: 25vw;" alt="" >
+                </div>
+                <div style="height: 14.4vh;width: 64%;font-size: 13px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);float: right;display: flex;flex-wrap: wrap;">
+                    <div style="width:100%;">
+                        <span>姓名：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">马伟强</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>手机号码：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">15054654558</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>证件号：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">440183xxxxxxxx7310</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>所属区域：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">A园区B企业</span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="layui-collapse" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">登记信息</h2>
+            <div class="layui-colla-content">
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="" style="width: 95vw;margin:1.5vh auto 0px;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+        <div class="layui-tab">
+            <ul class="layui-tab-title" style="height: 8vh;line-height: 8vh;">
+              <li class="layui-this">出入登记</li>
+              <li>其他操作</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <form class="layui-form" lay-filter="churudengji">
+                        <div class="layui-form-item" style="margin: 2.7vh 0px;">
+                            <label class="layui-form-label"><span style="color: red;">*</span>验证口令</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="entryExitMessageCode" required  lay-verify="required" placeholder="请输入验证口令" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="margin: 2.7vh 0px;">
+                            <label class="layui-form-label"><span style="color: red;">*</span>体温检测</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="entryExitTemperature" value="1" title="正常" checked>
+                                <input type="radio" name="entryExitTemperature" value="2" title="异常">
+                               
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="margin: 2.7vh 0px;">
+                            <label class="layui-form-label"><span style="color: red;">*</span>进出选择</label>
+                            <div class="layui-input-block">
+                                <input type="radio" name="entryExitType" value="1" title="离开园区">
+                                <input type="radio" name="entryExitType" value="2" title="进入园区">
+                                
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text" style="margin: 2.7vh 0px;">
+                            <label class="layui-form-label">审核备注</label>
+                            <div class="layui-input-block">
+                            <textarea name="entryExitRemark" placeholder="请输入审核备注" class="layui-textarea"></textarea>
+                            </div>
+                        </div>
+                        <div style="margin: 3.7vh 0px 2.7vh;font-size:18px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);text-align: center;">
+                            <span class="reject" style="display: inline-block;width: 40vw;height: 6.74vh;line-height: 6.74vh;text-align: center;background:rgba(0,145,255,1);border-radius:1.1vw;">拒绝放行</span>
+                            <span class="allow" style="display: inline-block;width: 40vw;height: 6.74vh;line-height: 6.74vh;text-align: center;background:rgba(54,209,161,1);border-radius:1.1vw;margin-left: 3vw;">允许放行</span>
+                        </div>
+                    </form>
+                </div>
+              <div class="layui-tab-item">
+                <form class="layui-form" lay-filter="churudengji">
+                    <div class="layui-form-item" style="margin: 2.7vh 0px;">
+                        <label class="layui-form-label"><span style="color: red;">*</span>验证口令</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="otherMessageCode" required  lay-verify="required" placeholder="请输入验证口令" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="margin: 2.7vh 0px;">
+                        <label class="layui-form-label"><span style="color: red;">*</span>操作类型</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="otherOperation" value="1" title="锁定账号">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text" style="margin: 2.7vh 0px;">
+                        <label class="layui-form-label">备注信息</label>
+                        <div class="layui-input-block">
+                        <textarea name="otherRemark" placeholder="请输入备注信息" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div style="margin: 3.7vh 0px 2.7vh;font-size:18px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);text-align: center;">
+                        <span class="cancel" style="display: inline-block;width: 40vw;height: 6.74vh;line-height: 6.74vh;text-align: center;background:rgba(0,145,255,1);border-radius:1.1vw;">取消</span>
+                        <span class="submit" style="display: inline-block;width: 40vw;height: 6.74vh;line-height: 6.74vh;text-align: center;background:rgba(54,209,161,1);border-radius:1.1vw;margin-left: 3vw;">确定</span>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+       
+        
+    </div> -->
+     
+        
+
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function closeWindow(){
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Presto") != -1) {
+            window.location.replace("about:blank");
+        } else {  
+            window.opener=null;
+            window.open(' ','_self');
+            window.location.replace("about:blank");
+            window.close();
+        }
+    }
+
+    function entryAndExit(id,allowOrReject){
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: SERSVER_BASE_URL + "/pass/passRegisterHistory/save",
+            headers:{
+            },
+            // contentType:'application/x-www-form-urlencoded',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "passId": id,
+                "temperatureStatus": $("input[name='entryExitTemperature']:checked").val(),
+                "remark": $("input[name='entryExitRemark']").val(),
+                "type": $("input[name='entryExitType']:checked").val(),
+                "passStatus": allowOrReject,
+                "messageCode":$("input[name='entryExitMessageCode']").val(),
+                
+            }),
+            dataType: "json",
+            success: function (data) {
+                console.log('/pass/passRegister/updateLockStatus',data) 
+                if(data.code==0){
+                    localStorage.setItem('entryExitMessageCode',$("input[name='entryExitMessageCode']").val())
+                    alert('出入登记完成!')
+                    location.replace(`https://www.baidu.com`)
+                }else{
+                    alert(data.msg)
+                }
+                    
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+            }
+        });
+    }
+    
+
+    layui.use('form', function(){
+        var form = layui.form;
+        
+        form.render()
+    });
+
+    
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + `/pass/passRegister/getOneAndLinkByCodeNum?codeNum=${getQueryString('codeNum')}`,
+        headers:{
+        },
+        contentType:'application/json',
+        data: {
+            
+        },
+        dataType: "json",
+        success: function (data) {
+            var jibenxinxi=[],dengjixinxi=[]
+            console.log('/pass/passRegister/getOneAndLinkByCodeNum',data)
+            // if(data.data.lockStatus=='-2'||data.data.lockStatus=='1'){
+            //     location.replace(`./rejectPass.html?codeNum=${getQueryString('codeNum')}`)
+            // }
+            jibenxinxi.push(`
+                <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+                    <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                        <span style="margin-left: 5vw;">基本信息</span>
+                    </div>
+                    <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+                    <div style="padding: 4vh 0px 4.5vh;display: flex;align-items: center;justify-content: center;">
+                        <div style="display: inline-block;position:relative;">
+                            <img src="${data.data.imgUrl?data.data.imgUrl:'../assets/images/male.png'}" style="width: 25vw;height: 25vw;border-radius:1vw;" alt="" >
+                            <span class="update" style="font-size: 13px;font-family: PingFangSC-Regular;font-weight: 400;color: rgb(0, 145, 255);margin-left: 9.5vw;position: absolute;white-space: nowrap;left: -29%;bottom: -26%;display: none;">修改个人资料</span>
+                        </div>
+                        <div style="display: inline-block;font-size: 13px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);position: relative;margin-left: 5vw;">
+                            <div style="display: flex;align-items: center;margin: 6px 0px;">
+                                <span>姓名：</span>
+                                <span style="color: rgba(51,51,51,1);margin-left: 8vw;white-space: nowrap;">${data.data.imName}</span>
+                            </div>
+                            <div style="display: flex;align-items: center;margin: 6px 0px;">
+                                <span>手机号码：</span>
+                                <span style="color: rgba(51,51,51,1);margin-left: 0.5vw;">${data.data.phone}</span>
+                            </div>
+                            <div style="display: flex;align-items: center;margin: 6px 0px;">
+                                <span>身份证号：</span>
+                                <span style="color: rgba(51,51,51,1);margin-left: 0.5vw;">${data.data.credentialsNum}</span>
+                            </div>
+                            <div style="display: flex;align-items: center;margin: 6px 0px;">
+                                <span>所属企业：</span>
+                                <span style="color: rgba(51,51,51,1);margin-left: 0.5vw;">${data.data.platformNameString}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="${data.data.lockStatus=='0'?'../assets/images/yishenhe.png':(data.data.lockStatus=='-2'?'../assets/images/yibohui.png':(data.data.lockStatus=='-3'?'../assets/images/yicexiao.png':'../assets/images/daishenhe.png'))}" style="width: 24vw;height: 10vh;position: absolute;right: 7.5vw;top: 6vw;">
+                </div>
+            `)
+            var epiQuestionEntityList=[]
+            
+            data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+                var answerString=[],answerArray=[]
+                if(element.topicName=='简答-文本'||element.topicName=='简答-输入'){
+                    answerString.push(element.answer?element.answer:'无')
+                }else if(element.topicName=='图片'){
+                   
+                    if(element.answer&&element.answer!=""){
+                        if(JSON.parse(element.answer).length!=0){
+                            JSON.parse(element.answer).forEach((answerItem,answerItemIndex)=>{
+                                answerString.push(`
+                                    <img id='imgWrapItem${element.id}${answerItemIndex}' src="${answerItem.oldPath}" style="width:25vw;height:25vw;">
+                                `)
+
+                                
+                            })
+                        }
+                        
+                    }else{
+                        answerString.push(`无`)
+                    }
+                  
+               }else{
+                    if(!element.answer){
+                        answerString.push(`无`)
+                    }else if((element.answer&&element.answer.search('##')!=-1)){
+                        answerArray=element.answer.substr(0,element.answer.indexOf('#')).split(',')
+                    }else{
+                        if(element.answer&&element.answer.search(',')!=-1){
+                            answerArray=element.answer.split(',')
+                        }else{
+                            if(element.answer){
+                                answerArray=[element.answer]
+                            }
+                            
+                        }
+                    }
+                }
+                
+                if(element.topicName!='简答-文本'||element.topicName!='简答-输入'){
+                    if(element.topicName!='图片'){
+                    answerArray.forEach(answerItem=>{
+                        element.epiSelectEntityList.forEach(epiSelectItem=>{
+                            if(String(answerItem)==String(epiSelectItem.id)){
+                                if(element.answer&&epiSelectItem.ifInput=='1'){
+                                    answerString.push(epiSelectItem.content+(element.answer.substr(element.answer.search('##')+2)?':':'')+element.answer.substr(element.answer.search('##')+2))
+                                }else{
+                                    answerString.push(epiSelectItem.content)
+                                }
+                                
+                            }
+                        })
+                    })
+                }
+                }
+                
+                setTimeout(()=>{
+                    if(element.topicName=='图片'){
+                        answerString=answerString.join('')
+                    }else{
+                        answerString=answerString.join(',')
+                    }
+                    epiQuestionEntityList.push(`
+                        <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                            <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                            <div style="line-height: initial;padding: 2.4vh 5vw 0px;">${element.title}</div>
+                            <div style="color:rgba(153,153,153,1);padding:2.4vh 0px;margin-left: 8.7vw;">${answerString}</div>
+                        </div>
+                    `)
+                },500)
+            });
+            setTimeout(()=>{
+                dengjixinxi.push(`
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">登记信息</h2>
+                        <div class="layui-colla-content layui-show">
+                            ${epiQuestionEntityList.join('')}
+                        </div>
+                    </div>
+                `)
+
+                setTimeout(()=>{
+                    data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+                        if(element.answer&&element.answer!=""&&element.topicName=='图片'){
+
+                            if(JSON.parse(element.answer).length!=0){
+                                JSON.parse(element.answer).forEach((answerItem,answerItemIndex)=>{
+                                    console.log($(`#imgWrapItem${element.id}${answerItemIndex}`))
+                                    $(`#imgWrapItem${element.id}${answerItemIndex}`).unbind('click').click((e)=>{                                                                                               
+                                        layui.use('layer', function(){ //独立版的layer无需执行这一句
+                                            var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+                                            layer.open({
+                                                content: `<img src="${e.target.src}" style="width:${e.toElement.naturalWidth<=document.documentElement.clientWidth*0.3?e.toElement.naturalWidth*2:(e.toElement.naturalWidth>=document.documentElement.clientWidth*0.7?e.toElement.naturalWidth/((e.toElement.naturalWidth/document.documentElement.clientWidth)+1):e.toElement.naturalWidth)}px;height:${e.toElement.naturalHeight<=document.documentElement.clientHeight*0.3?e.toElement.naturalHeight*2:(e.toElement.naturalHeight>=document.documentElement.clientHeight*0.7?e.toElement.naturalHeight/((e.toElement.naturalHeight/document.documentElement.clientHeight)+1):e.toElement.naturalHeight)}px;" >`,
+                                                offset: 'auto',
+                                                // area: ['70vw', 'auto'],
+                                                anim: 4,
+                                                title:'',
+                                                btnAlign: 'c',
+                                                type:1
+                                            });
+                                        });
+                                    })
+                                })
+                            }
+                        }
+                    })
+                },500)
+            },1000)
+            setTimeout(()=>{
+                $('.jibenxinxi').html(jibenxinxi.join(''))
+                $('.layui-collapse').html(dengjixinxi.join(''))
+                layui.use('element', function(){
+                    var element = layui.element;
+                    
+                    element.render('collapse')
+                });
+
+                setTimeout(()=>{
+                    if (data.data.lockStatus == "-2") {
+                        layui.use("layer", function() {
+                        //独立版的layer无需执行这一句
+                        var $ = layui.jquery,
+                            layer = layui.layer; //独立版的layer无需执行这一句
+                        layer.confirm(
+                            `<div style='white-space: nowrap;'>您的审核不通过，请修改后重新提交</div><div style='text-align: initial;'>审核备注：${
+                            data.data.lockReason ? data.data.lockReason : "无"
+                            }</div>`,
+                            {
+                            offset: '30vh',
+                            area: ["70vw", "auto"],
+                            anim: 1,
+                            title: "审核不通过",
+                            btnAlign: "c",
+                            btn: ["我知道了"] //可以无限个按钮
+                            },
+                            function(index, layero) {
+                            layer.closeAll();
+                            }
+                        );
+                        });
+                    }
+                    if (data.data.lockStatus == "-3") {
+                        layui.use("layer", function() {
+                        //独立版的layer无需执行这一句
+                        var $ = layui.jquery,
+                            layer = layui.layer; //独立版的layer无需执行这一句
+                        layer.confirm(
+                            `<div style='white-space: nowrap;'>您的审核已被撤销，请修改后重新提交</div><div style='text-align: initial;'>撤销备注：${
+                            data.data.lockReason ? data.data.lockReason : "无"
+                            }</div>`,
+                            {
+                            offset: '30vh',
+                            area: ["70vw", "auto"],
+                            anim: 1,
+                            title: "审核已撤销",
+                            btnAlign: "c",
+                            btn: ["我知道了"] //可以无限个按钮
+                            },
+                            function(index, layero) {
+                            layer.closeAll();
+                            }
+                        );
+                        });
+                    }
+                    if(localStorage.getItem('entryExitMessageCode')){
+                        $("input[name='entryExitMessageCode']").val( localStorage.getItem('entryExitMessageCode') )
+                    }
+                    if(localStorage.getItem('otherMessageCode')){
+                        $("input[name='otherMessageCode']").val( localStorage.getItem('otherMessageCode') )
+                    }
+                },500)
+                
+                $('.allow').click(()=>{
+                    if( !$("input[name='entryExitMessageCode']").val() ){
+                        alert('请填写验证口令')
+                        return false;
+                    }
+                    if( !$("input[name='entryExitTemperature']:checked").val() ){
+                        alert('请选择体温状态')
+                        return false;
+                    }
+                    if( !$("input[name='entryExitType']:checked").val() ){
+                        alert('请选择进出选择')
+                        return false;
+                    }
+                
+                    entryAndExit(data.data.id,1)
+                    
+                })
+
+                $('.reject').click(()=>{
+                    if( !$("input[name='entryExitMessageCode']").val() ){
+                        alert('请填写验证口令')
+                        return false;
+                    }
+                    if( !$("input[name='entryExitTemperature']:checked").val() ){
+                        alert('请选择体温状态')
+                        return false;
+                    }
+                    if( !$("input[name='entryExitType']:checked").val() ){
+                        alert('请选择进出选择')
+                        return false;
+                    }
+                   
+                    entryAndExit(data.data.id,2)
+                })
+
+                $('.submit').click(()=>{
+                    if( !$("input[name='otherMessageCode']").val() ){
+                        alert('请填写验证口令')
+                        return false;
+                    }
+                    if( !$("input[name='otherOperation']:checked").val() ){
+                        alert('请选择操作类型')
+                        return false;
+                    }
+                   
+
+                    $.ajax({
+                        async: false,
+                        type: "POST",
+                        url: SERSVER_BASE_URL + "/pass/passRegister/updateLockStatus",
+                        headers:{
+                        },
+                        // contentType:'application/x-www-form-urlencoded',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            "messageCode":$("input[name='otherMessageCode']").val(),
+                            "id":data.data.id,
+                            "lockStatus":1,
+                            "lockReason":$("input[name='otherRemark']").val(),
+                            
+                        }),
+                        dataType: "json",
+                        success: function (data) {
+                            console.log('/pass/passRegister/updateLockStatus',data) 
+                            if(data.code==0){
+                                localStorage.setItem('otherMessageCode',$("input[name='otherMessageCode']").val())
+                                alert('锁定成功!')
+                                location.replace(`./rejectPass.html?codeNum=${getQueryString('codeNum')}`)
+                            }else{
+                                alert(data.msg)
+                            }
+                                
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("err:::" + errorThrown);
+                        }
+                    });
+                    
+                })
+                $('.cancel').click(()=>{
+                    location.replace(`https://www.baidu.com`)
+                })
+                
+                
+            },1300)
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+        }
+    });
+        
+  
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

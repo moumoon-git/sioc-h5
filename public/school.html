@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+    /> -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="apple-mobile-web-app-title" content="隐患上报" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta content="false" id="twcClient" name="twcClient" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>隐患上报</title>
+
+  <link rel="stylesheet" type="text/css" href="./assets/css/index.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/bui-min.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/mbox.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/css/mobileSelect.css" />
+  <!--JSJDK引用-->
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script>
+  <script src="./assets/js/ajaxSetUp.js"></script>
+  <!-- 三级联动js -->
+  <script src="./assets/js/mobileSelect.js"></script>
+  <!--input默认显示内容-->
+  <!--<script type="text/javascript" src="/js/bui-min.js"></script>-->
+
+  <!--腾讯api-->
+  <script type="text/javascript"
+    src="http://map.qq.com/api/js?v=2.exp&key=XIGBZ-SL2WF-6TXJP-J3PN2-4ZX7J-ZBFRC"></script>
+  <!--JSJDK引用-->
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
+  <style>
+    .eventTop .topBgImage {
+      position: relative;
+      padding: 20% 50%;
+      background: url(./assets/images/top.png) no-repeat;
+      background-size: 100% 100%;
+    }
+
+    #recording-img {
+      left: 22%;
+      position: absolute;
+      height: 222px;
+      width: 222px;
+      z-index: 1000;
+      top: 22%;
+
+      background: url(./assets/images/luyin3.jpg) no-repeat center;
+      z-index: 1000;
+
+      display: none;
+    }
+
+    * {
+      -webkit-touch-callout: none;
+      /*系统默认菜单被禁用*/
+
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+
+      -khtml-user-select: none;
+      /*早期浏览器*/
+
+      -moz-user-select: none;
+      /*火狐*/
+
+      -ms-user-select: none;
+      /*IE10*/
+
+      user-select: none;
+    }
+
+    @keyframes spin {
+      from {
+        transform: scale(1) rotate(0deg);
+      }
+
+      to {
+        transform: scale(1) rotate(360deg);
+      }
+    }
+
+    /* IE9以上 */
+    @-ms-keyframes spin3 {
+      from {
+        -ms-transform: scale(1) rotate(0deg);
+      }
+
+      to {
+        -ms-transform: scale(1) rotate(360deg);
+      }
+    }
+
+    /* Firefox */
+    @-moz-keyframes spin4 {
+      from {
+        -moz-transform: rotate(0deg);
+      }
+
+      to {
+        -moz-transform: rotate(360deg);
+      }
+    }
+
+    input,
+    textarea {
+      -webkit-user-select: auto;
+      /*webkit浏览器*/
+      margin: 0px;
+      padding: 0px;
+      outline: none;
+    }
+
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-tap-highlight-color: transparent;
+      /* For some Androids */
+    }
+
+    .jm-box-button3:active {}
+
+    .trigger {
+      display: block;
+      width: 60%;
+      height: 30px;
+      border-radius: 5px;
+      border: 1px solid #999;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <!--微信JSJDK需要-->
+  <input type="hidden" id="ticket" name="ticket" value="" />
+  <input type="hidden" id="appId" name="appId" value="" />
+  <input type="hidden" id="timestamp" name="timestamp" value="" />
+  <input type="hidden" id="nonceStr" name="nonceStr" value="" />
+  <input type="hidden" id="signature" name="signature" value="" />
+  <input type="hidden" id="dangerCategory-child-one" name="dangerCategory-child-one" value="" />
+
+  <input type="hidden" id="openId" name="openId" value="" />
+
+  <!--用户信息-->
+  <input type="hidden" id="mailGroupName" name="mailGroupName" value="" />
+  <input type="hidden" id="mailContactorName" name="mailContactorName" value="" />
+  <input type="hidden" id="mailContactorMobile" name="mailContactorMobile" value="" />
+
+  <div class="eventTop">
+    <div class="topBgImage"></div>
+  </div>
+
+  <div class="eventContent">
+    <form>
+      <div class="panel">
+        <div class="panel-body" style="padding:10px;">
+          <section>
+            <select class="input-small" style="width: 30%;" name="town" id="town" onchange="getApplication(this)">
+              <!-- <option value="0">请选择镇街</option> -->
+            </select>
+            <!--<select class="input-small" name="eventLevel" id="eventLevel">
+                        <option value="1">日常</option>
+                        <option value="2">一般</option>
+                        <option value="3">严重</option>
+                     </select>-->
+
+            <!-- 学段 -->
+            <select class="input-small" style="width: 30%;" name="schoolPeriod" id="schoolPeriod"
+              onchange="getApplication(this)">
+              <!-- <option value="0">请选择镇街</option> -->
+            </select>
+
+            <div id="dangerMenu" style="display: inline-block;"></div>
+          </section>
+
+
+
+
+
+          <hr />
+          <div id="trigger" class="trigger">选择上报隐患</div>
+          <hr />
+
+
+
+          <div class="form-group" style="height: 37px;line-height: 30px;">
+            <label style="width: 30%;">上报位置：</label>
+            <input type="text" class="input-small" id="nowAddress" name="nowAddress" aria-disabled="false"
+              aria-pressed="false" disabled="true" value=""
+              style="text-indent: 10px;width: 75%;position: absolute;right: 12px" />
+          </div>
+
+          <div class="form-group">
+            <textarea id="eventDescribe" name="eventDescribe" class="input-large" placeholder="请在此描述隐患内容、地点、时间等信息"
+              aria-disabled="false" aria-pressed="false"
+              style="width:100%;height:100px;border:#ddd 1px solid"></textarea>
+          </div>
+
+          <div id="pics" class="form-group">
+            <button id="uplaodImageBtn" type="button" class="button button-block" onclick="takePicture()">
+              上传照片
+            </button>
+          </div>
+
+          <div id="uplaodVideo" class="form-group">
+            <!--图片录音图标-->
+            <div id="recording-img"></div>
+
+            <button type="button" class="button button-block" id="startRecord" style="width: 45%">
+              长按录音
+            </button>
+            <button type="button" class="button button-block" id="playVoice"
+              style="margin-top: -34px;width: 45%;position: absolute;right: 12px;">
+              播放录音
+            </button>
+
+            <button type="button" class="button button-block" id="stopRecord" style="display: none">
+              停止录音接口
+            </button>
+
+            <button type="button" class="button button-block" id="pauseVoice" style="display: none">
+              暂停播放接口
+            </button>
+
+            <button type="button" class="button button-block" id="stopVoice" style="display: none">
+              停止播放接口
+            </button>
+
+            <button type="button" class="button button-block" id="uploadVoice" style="display: none">
+              上传语音接口
+            </button>
+
+            <button type="button" class="button button-block" id="downloadVoice" style="display: none">
+              下载语音接口
+            </button>
+          </div>
+
+          <!--图片，可能是多张-->
+          <input type="hidden" id="imgs" name="imgs" value="" />
+          <!--语音，只能单个-->
+          <input type="hidden" id="audios" name="audios" value="" />
+
+          <input type="hidden" id="videos" name="videos" value="" />
+
+          <input type="hidden" id="nowAddress2" name="nowAddress2" value="" />
+
+          <input type="hidden" id="nowLatitude" name="nowLatitude" value="" />
+
+          <input type="hidden" id="nowLongitude" name="nowLongitude" value="" />
+
+          <div>
+            <button type="button" id="btn" class="button button-block bg-main text-big" style="background:#30a5ff"
+              onclick="rptSubmit()">
+              确认提交
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+
+<!--js引用-->
+<script type="text/javascript" src="./constant.js"></script>
+<script type="text/javascript" src="./assets/js/jm-qi.js"></script>
+<script type="text/javascript" src="./assets/js/school.js"></script>
+
+<script>
+    // mobileSelect1.mobileSelect1(data)  方法动态获取 级联数据
+</script>
+<script src= "./waterMark.js" ></script>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <link rel="stylesheet" href="../assets/css/rest.css">
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <title>首页</title>
+  <style>
+    html,
+    body {
+      font-size: 10px;
+    }
+
+    .head_image {
+      background-image: url('../assets/images/top.png');
+      background-size: 100% 100%;
+      padding: 20% 50%;
+    }
+    .layui-tab-content{
+      padding: initial;
+    }
+    .layui-tab-title li{
+      padding: initial;
+      width: 24%;
+    }
+
+    
+  </style>
+</head>
+
+<body>
+  <div class="head">
+    <!-- <div class="head_image"></div> -->
+  </div>
+  <div class="content" style="width: 100%;">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="width: 100%;">
+            <ul class="layui-tab-title" style="width: 100%;">
+                <li class="layui-this">疫情隐患</li>
+                <li>市场隐患</li>
+                <li>人员隐患</li>
+                <li>车辆隐患</li>
+            </ul>
+            <div class="layui-tab-content" style="height: 100px;">
+                <div class="layui-tab-item layui-show community">
+                  <!-- <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                    <div style="font-size: 14px;position: relative;padding: 7px 0px 3.5px 0px;">
+                      <span style="font-weight: bold;margin-left: 5%;" >新塘镇锦绣新天地</span>
+                      <span style="color: #F59A23;position: absolute;right: 5%;">处置中</span>
+                    </div>
+                    <div style="font-size: 14px;position: relative;padding: 3.5px 0px 7px 0px;">
+                      <span class="layui-badge layui-bg-blue" style="margin-left: 5%;">消防通道堵塞</span>
+                      <span>消防通道堵塞,长期无人清理，投诉物消防通道堵塞,长期无人清理，投诉物</span>
+                    </div>
+                    <div style="text-align: center;">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                    </div>
+                    <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                      <span style="color: #AAAAAA;margin-left: 5%;" >今天&nbsp;14:55:31</span>
+                      <span class="layui-badge-rim" style="position: absolute;right: 5%;">移除</span> 
+                    </div>
+                  </div> -->
+                </div>
+
+                <div class="layui-tab-item school">
+                  <!-- <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                    <div style="font-size: 14px;position: relative;padding: 7px 0px 3.5px 0px;">
+                      <span style="font-weight: bold;margin-left: 5%;" >荔城二小</span>
+                      <span style="color: #F59A23;position: absolute;right: 5%;">处置中</span>
+                    </div>
+                    <div style="font-size: 14px;position: relative;padding: 3.5px 0px 7px 0px;">
+                      <span class="layui-badge layui-bg-blue" style="margin-left: 5%;">路灯损坏</span>
+                      <span style="word-break: break-all;">路灯损坏长期无人修理路灯损坏长期无路灯损坏长期无人修理路灯损坏长期无</span>
+                    </div>
+                    <div style="text-align: center;">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                    </div>
+                    <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                      <span style="color: #AAAAAA;margin-left: 5%;" >今天&nbsp;14:55:31</span>
+                      <span class="layui-badge-rim" style="position: absolute;right: 5%;">移除</span> 
+                    </div>
+                  </div> -->
+                </div>
+
+                <div class="layui-tab-item person">
+                  <!-- <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                    <div style="font-size: 14px;position: relative;padding: 7px 0px;">
+                      <span style="font-weight: bold;margin-left: 5%;" >叶锦环</span>
+                      <span class="layui-badge layui-bg-blue" style="margin-left: 3%;">精神病患者</span>
+                      <span style="color: #AAAAAA;margin-left: 3%;">89.52%</span>
+                      <span style="color: #F59A23;position: absolute;right: 5%;">处置中</span>
+                    </div>
+                    <div style="text-align: center;">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/kfc.jpg" style="width:24%;height:100px;" alt="">
+                    </div>
+                    <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                      <span style="color: #AAAAAA;margin-left: 5%;" >今天&nbsp;14:55:31</span>
+                      <div style="display: inline-block;position: absolute;right: 5%;">
+                        <i class="layui-icon layui-icon-location"></i>  
+                        <span>水电二局小区大门公交站旁</span>
+                      </div>  
+                    </div>
+                  </div> -->
+
+                </div>
+
+                <div class="layui-tab-item vehicle">
+                  <!-- <div style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                    <div style="font-size: 14px;position: relative;padding: 7px 0px;">
+                      <span style="font-weight: bold;margin-left: 5%;" >粤AD0326</span>
+                      <span class="layui-badge layui-bg-green" style="margin-left: 3%;background: green!important;">货车</span>
+                      <span style="color: #F59A23;position: absolute;right: 5%;">处置中</span>
+                    </div>
+                    <div style="text-align: center;">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua1.jpeg" style="width:24%;height:100px;" alt="">
+                      <img src="../assets/images/jihua2.jpeg" style="width:24%;height:100px;" alt="">
+                    </div>
+                    <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                      <span style="color: #AAAAAA;margin-left: 5%;" >今天&nbsp;14:55:31</span>
+                      <div style="display: inline-block;position: absolute;right: 5%;">
+                        <i class="layui-icon layui-icon-location"></i>  
+                        <span>水电二局小区大门公交站旁</span>
+                      </div>  
+                    </div>
+                  </div> -->
+                </div>
+
+            </div>
+        </div> 
+  </div>
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/imageWithHttp.js"></script>
+  <script>
+    var communityPageIndex=1,communityPageSize=10,schoolPageIndex=1,schoolPageSize=10,personPageIndex=1,personPageSize=10,vehiclePageIndex=1,vehiclePageSize=10
+    $(function() {
+      
+      //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function() {
+        var element = layui.element;
+        
+        getData(0,communityPageIndex,communityPageSize)
+        //切换tab监听事件
+        element.on('tab(docDemoTabBrief)', function(data){
+
+          if(data.index===1){
+            if(document.querySelector('.school').childElementCount!=0){
+              console.log('不重复渲染')
+            }else {
+              getData(1,schoolPageIndex,schoolPageSize)
+            }
+          
+          }
+          if(data.index===2){
+            if(document.querySelector('.person').childElementCount!=0){
+              console.log('不重复渲染')
+            }else {
+              getData(2,personPageIndex,personPageSize)
+            }
+          }
+
+          if(data.index===3){
+            if(document.querySelector('.vehicle').childElementCount!=0){
+              console.log('不重复渲染')
+            }else {
+              getData(3,vehiclePageIndex,vehiclePageSize)
+            }
+          }
+
+        });
+      });
+    })
+
+    function getData(number,communityPageIndex,communityPageSize){
+      
+      if(number==0){
+        var communityArray=[]
+
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/sys/user/info",
+          headers:{
+          },
+          contentType:'application/json',
+          data: {
+            
+          },
+          dataType: "json",
+          success: function (data) {
+            console.log('/sys/user/info',data)
+            $.ajax({
+              async: false,
+              type: "POST",
+              url: SERSVER_BASE_URL + "/event/eventShare/selectShareMenuPlatformByMenuId",
+              headers:{
+              },
+              data: {
+                myPlatformId:data.platform.id,
+            
+              },
+              dataType: "json",
+              success: function (res) {
+                console.log('/event/eventShare/selectShareMenuPlatformByMenuId获取共享平台',res)
+                var platformIds=[]
+                res.list.forEach(item=>{
+                  platformIds.push(item.linkagePlatformId)
+                })
+
+                setTimeout(()=>{
+                  $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: SERSVER_BASE_URL + "/event/eventinfo/listByConditions",
+                    headers:{
+                    },
+                    contentType:'application/json',
+                    data: JSON.stringify({
+                      platformIds:platformIds,
+                      flagType: 5,
+                      platformTypeId: 5,
+                      pageIndex: communityPageIndex,
+                      pageSize: communityPageSize,
+            
+                    }),
+                    dataType: "json",
+                    success: function (data) {
+                      console.log('/event/eventinfo/listByConditions小区预警',data)
+                      data.list.forEach((element,index) => {
+                        var imgArray=[]
+                        
+                        element.imageUrl.split(',').forEach(imgItem=>{
+                          // var imgUrlObject=imageWithHttp.withHttp(imgItem)
+                          var imgUrl=SERSVER_BASE_URL+'/wx/images/'+imgItem
+                          setTimeout(()=>{ //imgUrlObject.image
+                            imgArray.push(`
+                              <img src="${imgUrl}" style="width:24%;height:100px;" alt="">
+                            `)
+                          },2000)
+                        })
+                        setTimeout(()=>{
+                          communityArray.push(`
+                            <div class='community${index}' style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                              <div style="font-size: 14px;position: relative;padding: 7px 0px 3.5px 0px;">
+                                <span style="font-weight: bold;margin-left: 5%;" >${element.townName}</span>
+                                <span style="color: #F59A23;position: absolute;right: 5%;">${element.status==1?'待核实':( element.status==2?'核实中':( element.status==3?'真实待处理':( element.status==4?'虚假待处理':( element.status==5?'已处理':( element.status==6?'处理中':'超出范围' ) ) ) ) )}</span>
+                              </div >
+                              <div style="font-size: 14px;position: relative;padding: 3.5px 0px 7px 0px;">
+                                <span class="layui-badge layui-bg-blue" style="margin-left: 5%;">${element.eventTypeName}</span>
+                                <span style="word-break: break-all;">${element.eventDescription}</span>
+                              </div>
+                              <div style="text-align: center;">
+                                ${imgArray.join('')}
+                              </div>
+                              <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                                <span style="color: #AAAAAA;margin-left: 5%;" >${element.gmtCreate}</span>
+                                <span class="layui-badge-rim" style="position: absolute;right: 5%;">移除</span> 
+                              </div>
+                            </div>
+                          `)
+                          setTimeout(()=>{
+                            $(`.community${index}`).click(()=>{
+                              console.log('点击查看小区隐患',element)
+                              localStorage.setItem('hiddenTroubleObject',JSON.stringify(element))
+                              location.href='./communityHiddenTrouble.html'
+                            })
+                          },500)
+                        },2100)
+                      });
+
+                      setTimeout(()=>{
+                        $('.layui-tab-content .community').html('')
+                        $('.layui-tab-content .community').html(communityArray.join(''))
+                        $('.layui-tab-content .community').append('<div id="communityPagination" style="text-align: center;"></div>')           
+                      },2500)
+                      setTimeout(()=>{
+                        layui.use('laypage', function(){
+                          var laypage = layui.laypage;
+                          laypage.render({
+                            elem: 'communityPagination',
+                            limit:communityPageSize
+                            ,curr:communityPageIndex
+                            ,limits:[10, 20, 30, 40, 50],
+                            layout: ['count', 'prev', 'next','skip']
+                            ,count: data.totalPage //数据总数，从服务端得到
+                            ,jump: function(obj, first){
+                            
+                              //首次不执行
+                              if(!first){
+                                //obj包含了当前分页的所有参数，比如：
+                                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                console.log(obj.limit); //得到每页显示的条数
+                                communityPageIndex=obj.curr
+                                communityPageSize=obj.limit
+                                //do something
+                                getData(0,communityPageIndex,communityPageSize)
+                              }
+                            }
+                          });
+                        })   
+                      },3000)
+                      
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      alert("err:::" + errorThrown);
+                    }
+                  });
+                },500)
+
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+              }
+            });
+            
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+
+        
+      }
+
+      if(number==1){
+        var schoolArray=[]
+
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/sys/user/info",
+          headers:{
+          },
+          contentType:'application/json',
+          data: {
+            
+          },
+          dataType: "json",
+          success: function (data) {
+            console.log('/sys/user/info',data)
+            $.ajax({
+              async: false,
+              type: "POST",
+              url: SERSVER_BASE_URL + "/event/eventShare/selectShareMenuPlatformByMenuId",
+              headers:{
+              },
+              data: {
+                myPlatformId:data.platform.id,
+            
+              },
+              dataType: "json",
+              success: function (res) {
+                console.log('/event/eventShare/selectShareMenuPlatformByMenuId获取共享平台',res)
+                var platformIds=[]
+                res.list.forEach(item=>{
+                  platformIds.push(item.linkagePlatformId)
+                })
+
+                setTimeout(()=>{
+                  $.ajax({
+                    async: false,
+                    type: "POST",
+                    url: SERSVER_BASE_URL + "/event/eventinfo/listByConditions",
+                    headers:{
+                    },
+                    contentType:'application/json',
+                    data: JSON.stringify({
+                      platformIds:platformIds,
+                      flagType: 5,
+                      platformTypeId: 6,
+                      pageIndex: communityPageIndex,
+                      pageSize: communityPageSize,
+            
+                    }),
+                    dataType: "json",
+                    success: function (data) {
+                      console.log('/event/eventinfo/listByConditions校园预警',data)
+                      data.list.forEach((element,index) => {
+                        var imgArray=[]
+                        
+                        element.imageUrl.split(',').forEach(imgItem=>{
+                          // var imgUrlObject=imageWithHttp.withHttp(imgItem)
+                          var imgUrl=SERSVER_BASE_URL+'/wx/images/'+imgItem
+                          setTimeout(()=>{//imgUrlObject.image
+                            imgArray.push(`
+                              <img src="${imgUrl}" style="width:24%;height:100px;" alt="">
+                            `)
+                          },2000)
+                        })
+                        setTimeout(()=>{
+                          schoolArray.push(`
+                            <div class='school${index}' style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                              <div style="font-size: 14px;position: relative;padding: 7px 0px 3.5px 0px;">
+                                <span style="font-weight: bold;margin-left: 5%;" >${element.townName}</span>
+                                <span style="color: #F59A23;position: absolute;right: 5%;">${element.status==1?'待核实':( element.status==2?'核实中':( element.status==3?'真实待处理':( element.status==4?'虚假待处理':( element.status==5?'已处理':( element.status==6?'处理中':'超出范围' ) ) ) ) )}</span>
+                              </div>
+                              <div style="font-size: 14px;position: relative;padding: 3.5px 0px 7px 0px;">
+                                <span class="layui-badge layui-bg-blue" style="margin-left: 5%;">${element.eventTypeName}</span>
+                                <span style="word-break: break-all;">${element.eventDescription}</span>
+                              </div>
+                              <div style="text-align: center;">
+                                ${imgArray.join('')}
+                              </div>
+                              <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                                <span style="color: #AAAAAA;margin-left: 5%;" >${element.gmtCreate}</span>
+                                <span class="layui-badge-rim" style="position: absolute;right: 5%;">移除</span> 
+                              </div>
+                            </div>
+                          `)
+
+                          setTimeout(()=>{
+                            $(`.school${index}`).click(()=>{
+                              console.log('点击查看校园隐患',element)
+                              localStorage.setItem('hiddenTroubleObject',JSON.stringify(element))
+                              location.href='./schoolHiddenTrouble.html'
+                            })
+                          },500)
+
+                        },2100)
+                      });
+
+                      setTimeout(()=>{
+                        $('.layui-tab-content .school').html('')
+                        $('.layui-tab-content .school').html(schoolArray.join(''))
+                        $('.layui-tab-content .school').append('<div id="schoolPagination" style="text-align: center;"></div>')           
+                      },2500)
+                      setTimeout(()=>{
+                        layui.use('laypage', function(){
+                          var laypage = layui.laypage;
+                          laypage.render({
+                            elem: 'schoolPagination',
+                            limit:schoolPageSize
+                            ,curr:communityPageIndex
+                            ,limits:[10, 20, 30, 40, 50]
+                            ,layout: ['count', 'prev', 'next','skip']
+                            ,count: data.totalPage //数据总数，从服务端得到
+                            ,jump: function(obj, first){
+                            
+                              //首次不执行
+                              if(!first){
+                                //obj包含了当前分页的所有参数，比如：
+                                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                                console.log(obj.limit); //得到每页显示的条数
+                                schoolPageIndex=obj.curr
+                                schoolPageSize=obj.limit
+                                //do something
+                                getData(1,schoolPageIndex,schoolPageSize)
+                              }
+                            }
+                          });
+                        })   
+                      },3000)
+                      
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      alert("err:::" + errorThrown);
+                    }
+                  });
+                },500)
+
+              },
+              error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+              }
+            });
+            
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+
+
+      }
+
+      if(number==2){
+        var personArray=[]
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/risk/riskhumanalarm/make-up",
+          headers:{
+          },
+          contentType:'application/json',
+          data: {
+            page:personPageIndex,
+            limit:personPageSize,
+            platformId:27,
+            
+          },
+          dataType: "json",
+          success: function (data) {
+            console.log('/risk/riskhumanalarm/make-up人员预警',data)
+            data.page.records.forEach((element,index) => {
+              var imgArray=[]
+              
+              element.facePicUrl.split(',').forEach(imgItem=>{
+                // var imgUrlObject=imageWithHttp.withHttp(imgItem)
+                var imgUrl=imgItem
+                setTimeout(()=>{//imgUrlObject.image
+                  imgArray.push(`
+                    <img src="${imgUrl}" style="width:24%;height:100px;" alt="">
+                  `)
+                },2000)
+              })
+              setTimeout(()=>{
+                personArray.push(`
+                  <div class='person${index}' style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                    <div style="font-size: 14px;position: relative;padding: 7px 0px;">
+                      <span style="font-weight: bold;margin-left: 5%;" >${element.humanName}</span>
+                      <span class="layui-badge layui-bg-blue" style="margin-left: 3%;">${element.listLibName}</span>
+                      <span style="color: #AAAAAA;margin-left: 3%;">${element.similarity*100+'%'}</span>
+                      <span style="color: #F59A23;position: absolute;right: 5%;">处置中</span>
+                    </div>
+                    <div style="text-align: center;">
+                      ${imgArray.join('')}
+                    </div>
+                    <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                      <span style="color: #AAAAAA;margin-left: 5%;" >${element.alarmTime}</span>
+                      <div style="display: inline-block;position: absolute;right: 5%;">
+                        <i class="layui-icon layui-icon-location"></i>  
+                        <span>${element.cameraName}</span>
+                      </div>  
+                    </div>
+                  </div>
+                `)
+                setTimeout(()=>{
+                  $(`.person${index}`).click(()=>{
+                    console.log('点击查看人员隐患',element)
+                    localStorage.setItem('hiddenTroubleObject',JSON.stringify(element))
+                    location.href='./personHiddenTrouble.html'
+                  })
+                },500)
+              },2100)
+            });
+
+            setTimeout(()=>{
+              $('.layui-tab-content .person').html('')
+              $('.layui-tab-content .person').html(personArray.join(''))
+              $('.layui-tab-content .person').append('<div id="personPagination" style="text-align: center;"></div>')           
+            },2500)
+            setTimeout(()=>{
+              layui.use('laypage', function(){
+                var laypage = layui.laypage;
+                laypage.render({
+                  elem: 'personPagination',
+                  limit:personPageSize
+                  ,curr:personPageIndex
+                  ,limits:[10, 20, 30, 40, 50]
+                  ,layout: ['count', 'prev', 'next','skip']
+                  ,count: data.page.total //数据总数，从服务端得到
+                  ,jump: function(obj, first){
+                  
+                    //首次不执行
+                    if(!first){
+                      //obj包含了当前分页的所有参数，比如：
+                      console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                      console.log(obj.limit); //得到每页显示的条数
+                      personPageIndex=obj.curr
+                      personPageSize=obj.limit
+                      //do something
+                      getData(2,personPageIndex,personPageSize)
+                    }
+                  }
+                });
+              })   
+            },3000)
+            
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+      }
+
+      if(number==3){
+        var vehicleArray=[]
+        $.ajax({
+          async: false,
+          type: "GET",
+          url: SERSVER_BASE_URL + "/risk/riskvehiclealarm/make-up",
+          headers:{
+          },
+          contentType:'application/json',
+          data: {
+            page:vehiclePageIndex,
+            limit:vehiclePageSize,
+            platformId:27,
+            
+          },
+          dataType: "json",
+          success: function (data) {
+            console.log('/risk/riskvehiclealarm/make-up车辆预警',data)
+            data.page.records.forEach((element,index) => {
+              var imgArray=[]
+              
+              element.picAbbreviateMin.split(',').forEach(imgItem=>{
+                // var imgUrlObject=imageWithHttp.withHttp(imgItem)
+                var imgUrl=imgItem
+                setTimeout(()=>{//imgUrlObject.image
+                  imgArray.push(`
+                    <img src="${imgUrl}" style="width:24%;height:100px;" alt="">
+                  `)
+                },2000)
+              })
+
+              element.picPlate.split(',').forEach(imgItem=>{
+                // var imgUrlObject=imageWithHttp.withHttp(imgItem)
+                var imgUrl=imgItem
+                setTimeout(()=>{//imgUrlObject.image
+                  imgArray.push(`
+                    <img src="${imgUrl}" style="width:24%;height:100px;" alt="">
+                  `)
+                },2000)
+              })
+
+              setTimeout(()=>{
+                vehicleArray.push(`
+                  <div class='vehicle${index}' style="width: 95%;margin: 2% auto;border: 1px solid #ebeef5;border-radius: 4px;box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);">
+                    <div style="font-size: 14px;position: relative;padding: 7px 0px;">
+                      <span style="font-weight: bold;margin-left: 5%;" >${element.plateInfo}</span>
+                      <span class="layui-badge layui-bg-green" style="margin-left: 3%;background: green!important;">${element.type==0?'其它车型':( element.type==1?'客车':( element.type==2?'货车':( element.type==3?'轿车':( element.type==4?'面包车':( element.type==5?'小货车':( element.type==6?'行人':( element.type==7?'二轮车':( element.type==8?'三轮车':( element.type==9?'SUV/MPV':'中型客车' ) ) ) ) ) ) ) ) )}</span>
+                      <span style="color: #F59A23;position: absolute;right: 5%;">处置中</span>
+                    </div>
+                    <div style="text-align: center;">
+                      ${imgArray.join('')}
+                    </div>
+                    <div style="font-size: 14px;color: #AAAAAA;position: relative;padding: 10px 0px;">
+                      <span style="color: #AAAAAA;margin-left: 5%;" >${element.alarmTime}</span>
+                      <div style="display: inline-block;position: absolute;right: 5%;">
+                        <i class="layui-icon layui-icon-location"></i>  
+                        <span>${element.cameraName}</span>
+                      </div>  
+                    </div>
+                  </div>
+                `)
+                setTimeout(()=>{
+                  $(`.vehicle${index}`).click(()=>{
+                    console.log('点击查看车辆隐患',element)
+                    localStorage.setItem('hiddenTroubleObject',JSON.stringify(element))
+                    location.href='./vehicleHiddenTrouble.html'
+                  })
+                },500)
+              },2100)
+            });
+
+            setTimeout(()=>{
+              $('.layui-tab-content .vehicle').html('')
+              $('.layui-tab-content .vehicle').html(vehicleArray.join(''))
+              $('.layui-tab-content .vehicle').append('<div id="vehiclePagination" style="text-align: center;"></div>')           
+            },2500)
+            setTimeout(()=>{
+              layui.use('laypage', function(){
+                var laypage = layui.laypage;
+                laypage.render({
+                  elem: 'vehiclePagination',
+                  limit:vehiclePageSize
+                  ,curr:vehiclePageIndex
+                  ,limits:[10, 20, 30, 40, 50]
+                  ,layout: ['count', 'prev', 'next','skip']
+                  ,count: data.page.total //数据总数，从服务端得到
+                  ,jump: function(obj, first){
+                  
+                    //首次不执行
+                    if(!first){
+                      //obj包含了当前分页的所有参数，比如：
+                      console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                      console.log(obj.limit); //得到每页显示的条数
+                      vehiclePageIndex=obj.curr
+                      vehiclePageSize=obj.limit
+                      //do something
+                      getData(3,vehiclePageIndex,vehiclePageSize)
+                    }
+                  }
+                });
+              })   
+            },3000)
+            
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+          }
+        });
+      }
+                
+    }
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+
+  
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

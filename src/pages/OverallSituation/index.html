@@ -1,0 +1,68 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= process.env.NODE_ENV==='development'?'':'.' %>favicon.ico">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <!-- <link href="/src/assets/css/reset.css" type="text/css"/> -->
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title></title>
+    <script src= "<%= process.env.NODE_ENV==='development'?'':'.' %>/constant.js" ></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=QsgtDHmujtv4cO93MgcmzjGa717zT1dH"></script>
+    <!--JSJDK引用-->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <script>
+    
+    eruda.init();
+    
+    //console.log('控制台打印信息');
+    
+    </script> -->
+    <script>
+    resizeFontSize()
+    window.onresize=function () {
+        resizeFontSize()
+      }
+
+      function  resizeFontSize(){
+        //获取根元素
+        const docEl = document.documentElement;
+        //获取设备宽度
+        const clientWidth = docEl.clientWidth ;
+        //console.log("clientWidth",clientWidth)
+        //若未获取到设备宽度，则终止函数执行
+        if (!clientWidth) return ;
+        //计算rem基础配置：设计图以750px为准时，px rem比例为1：100
+        const fs= 100*(clientWidth/750) ;
+        //为根元素字体赋值
+        //console.log("docEl",docEl.style.fontSize)
+        docEl.style.fontSize = fs+'px'
+      }
+
+      var url = encodeURIComponent(location.href.split('#')[0]);
+
+    </script>
+  </head>
+  <style>
+    html,body{
+      margin: 0px!important;
+      background-color: #F5F5F5;
+      padding: 0;
+      font-size: 14px;
+    }
+  </style>
+  <body>
+    <div id="app">
+      
+      
+    </div>
+    <script>
+
+    </script>
+
+  </body>
+  <script src= "<%= process.env.NODE_ENV==='development'?'':'.' %>/waterMark.js" ></script>
+</html>

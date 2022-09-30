@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" /> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-title" content="隐患上报" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta content="false" id="twcClient" name="twcClient" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>举报投诉</title>
+
+    <link rel="stylesheet" type="text/css" href="../assets/css/index.css" />
+    <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bui-min.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/mbox.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/mobileSelect.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/citysel.css"/>
+    <!--<link rel="stylesheet" type="text/css" href="./assets/css/audio.css">-->
+    <!--JSJDK引用-->
+    <script type="text/javascript" src="../assets/js/jquery-2.1.0.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+    <!-- 三级联动js -->
+    <script src="../assets/js/mobileSelect.js"></script>
+
+    <script src="../assets/js/LAreaData.js"></script>
+    <script src="../assets/js/citypickerhc.js"></script>
+
+
+    <!--腾讯api-->
+    <!--<script type="text/javascript"
+      src="http://map.qq.com/api/js?v=2.exp&key=XIGBZ-SL2WF-6TXJP-J3PN2-4ZX7J-ZBFRC"></script>-->
+    <!--JSJDK引用-->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+
+    <style>
+        .eventTop .topBgImage {  
+            position: relative;
+            background-image: url('../assets/images/indexHeaderImg.png');
+            background-size: 100% 100%;
+            height: 21vh;
+            width: 100%;
+        }
+
+        #recording-img {
+            left: 50%;
+            position: absolute;
+            height: 50vw;
+            width: 50vw;
+            transform: translateX(-50%);
+            top: 30%;
+            background: url(../assets/images/voiceLogo.png) no-repeat center;
+            z-index: 1000;
+
+            display: none;
+        }
+
+        * {
+
+            -webkit-touch-callout: none;
+            /*系统默认菜单被禁用*/
+
+            -webkit-user-select: none;
+            /*webkit浏览器*/
+
+            -khtml-user-select: none;
+            /*早期浏览器*/
+
+            -moz-user-select: none;
+            /*火狐*/
+
+            -ms-user-select: none;
+            /*IE10*/
+
+            user-select: none;
+
+        }
+
+
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        /* IE9以上 */
+        @-ms-keyframes spin3 {
+            from {
+                -ms-transform: scale(1) rotate(0deg);
+            }
+
+            to {
+                -ms-transform: scale(1) rotate(360deg);
+            }
+        }
+
+        /* Firefox */
+        @-moz-keyframes spin4 {
+            from {
+                -moz-transform: rotate(0deg);
+            }
+
+            to {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        input,
+        textarea {
+            -webkit-user-select: auto;
+            /*webkit浏览器*/
+            margin: 0px;
+            padding: 0px;
+            outline: none;
+        }
+
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-tap-highlight-color: transparent;
+            /* For some Androids */
+        }
+
+        .jm-box-button3:active {}
+
+        .trigger {
+            display: block;
+            width: 60%;
+            height: 30px;
+            border-radius: 5px;
+            border: 1px solid #999;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 30px;
+        }
+
+
+        .imgContainer{
+            display: inline-block;
+            height: 100px;
+            margin-left: 1%;
+            border: 1px solid #30a5ff;
+            position: relative;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+        }
+        .imgContainer img{
+            width: 100%;
+            height: 150px;
+            cursor: pointer;
+        }
+        .imgContainer p{
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: black;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+        }
+        .imgContainer:hover p{
+            display: block;
+        }
+        #uploadImageLoading{
+            left: 22%;
+            position: absolute;
+            height: 222px;
+            width: 222px;
+            z-index: 1000;
+            top: 22%;
+
+            background: url("../assets/images/jm-box-loading1.gif") no-repeat center;
+            z-index: 1000;
+
+            display: none;
+        }
+
+        .deleteicon{
+            width:.55rem;
+            height:.5rem;
+            background:url("../assets/images/icon.png")
+            no-repeat -6.17rem -3.41rem;
+            background-size:14.57rem 4.86rem;
+            float: right;
+            position: absolute;
+            margin-top: -9px;
+            margin-left: 10px;
+        }
+
+        .gobackIcon{
+            margin-top: 2px;
+            height: 0.3rem;
+            background:url("../assets/images/goback1.png") no-repeat;
+            background-size: 50% 100%;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+<!--微信JSJDK需要-->
+<input type="hidden" id="ticket" name="ticket" value="" />
+<input type="hidden" id="appId" name="appId" value="" />
+<input type="hidden" id="timestamp" name="timestamp" value="" />
+<input type="hidden" id="nonceStr" name="nonceStr" value="" />
+<input type="hidden" id="signature" name="signature" value="" />
+<input type="hidden" id="dangerCategory-child-one" name="dangerCategory-child-one" value="" />
+
+<!--openId-->
+<input type="hidden" id="openId" name="openId" value="" />
+
+<!--平台信息-->
+<input type="hidden" id="applicationId" name="applicationId" value="" />
+<input type="hidden" id="applicationName" name="applicationName" value="" />
+
+
+
+<div class="eventTop">
+    <div class="topBgImage"></div>
+</div>
+
+<div class="eventContent">
+    <form>
+        <div class="panel">
+            <div class="panel-body" style="padding:10px;">
+                <section>
+                    <select class="input-small"
+                            name="town" id="town"
+                            style="font-size: 14px;line-height:14px;border: 1px solid #DBDBDB;width: 94%;height: 44px;margin-left: 10px;background-color: white;"
+                            onchange="getApplication(this)">
+                    </select>
+
+                    <!--<div id="dangerMenu" style="display: inline-block;">
+                    </div>-->
+
+                    <div class="touchcity" style="z-index: 100000;">
+                        <div class="schbox">
+                            <span class="gobackIcon"></span>
+                            <!--<span>搜索小区:</span>-->
+                            <input id="cityipt" type="text" placeholder="搜索小区"/>
+                        </div>
+                        <div class="citybox"></div>
+                        <div class="indexBar"></div>
+                        <a class="locate"></a>
+                    </div>
+                    <div id="citypick">
+                        <span id="cityname">请选择小区</span>
+                    </div>
+
+                </section>
+
+                <div id="trigger" class="trigger" style="padding-left: 10px;text-align: left;margin: 0.1rem;border: 1px solid rgb(219, 219, 219);width: 94%;
+          height: 44px;line-height: 44px;cursor: pointer;font-size: 16px;">选择上报隐患</div>
+
+                <div class="form-group">
+                     <textarea id="eventDescribe" name="eventDescribe" class="input-large" placeholder="请在此描述隐患内容、地点、时间等信息"
+                      aria-disabled="false" aria-pressed="false"
+                      style="border: 1px solid #DBDBDB;width: 94%;height: 88px;margin-left: 10px"></textarea>
+                </div>
+
+                <div id="pics" class="form-group">
+                    <!--<button id="uplaodImageBtn" style="border: 1px solid #DBDBDB;width: 94%;height: 44px;margin-left: 10px" type="button"
+                            class="button button-block" onclick="takePicture()">上传图片</button>-->
+                    <input id="uplaodMobileImageBtn" name="file"  accept="image/*" type="file" onchange="takeMobilePicture()"
+                           style="width:95%;margin:auto auto;display:block;opacity: 0;height: 40px;position: absolute;margin-left: 0px; z-index: 1000;margin-top: 0px;"/>
+
+                    <button type="button" class="button button-block" style="cursor:pointer;border: 1px solid #DBDBDB;width: 94%;height: 44px;margin-left: 10px">上传照片</button>
+
+                </div>
+
+
+
+                <!--<div id="uplaodVideo" class="form-group">-->
+
+                    <!--&lt;!&ndash;图片录音图标&ndash;&gt;-->
+                    <!--<div id="recording-img"></div>-->
+                    <!--<div id="uploadImageLoading"></div>-->
+
+                    <!--<div id="manager-audio"></div>-->
+                    <!---->
+
+                    <!--<button type="button" class="button button-block" id="startRecord"-->
+                            <!--style="border: 1px solid #DBDBDB;width: 94%;height: 44px;margin-left: 10px;width:94%">长按录音</button>-->
+
+                    <!--<button type="button" class="button button-block" id="stopRecord" style="display: none">停止录音接口</button>-->
+
+                    <!--<button type="button" class="button button-block" id="pauseVoice" style="display: none">暂停播放接口</button>-->
+
+                    <!--<button type="button" class="button button-block" id="stopVoice" style="display: none">停止播放接口</button>-->
+
+                    <!--<button type="button" class="button button-block" id="uploadVoice" style="display: none">上传语音接口</button>-->
+
+                    <!--<button type="button" class="button button-block" id="downloadVoice" style="display: none">下载语音接口</button>-->
+                <!--</div>-->
+
+                <!--图片，可能是多张-->
+                <input type="hidden" id="imgs" name="imgs" value="" />
+                <!--语音，只能单个-->
+                <input type="hidden" id="audios" name="audios" value="" />
+
+                <input type="hidden" id="videos" name="videos" value="" />
+
+                <input type="hidden" id="nowAddress2" name="nowAddress2" value="" />
+
+                <input type="hidden" id="nowLatitude" name="nowLatitude" value="" />
+
+                <input type="hidden" id="nowLongitude" name="nowLongitude" value="" />
+
+                <div>
+                    <button type="button" id="btn" class="button button-block"
+                            style="color:white; border: 1px solid #DBDBDB;width: 94%;height: 44px;margin-left: 10px;background:#30a5ff"
+                            onclick="rptSubmit()">确认提交</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+
+<!--js引用-->
+<script type="text/javascript" src="../constant.js"></script>
+<script type="text/javascript" src="../assets/js/jm-qi.js"></script>
+<script type="text/javascript" src="./js/report.js"></script>
+<!-- 移动端调试用的 vconsole -->
+<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script> -->
+
+<script>
+    // 移动端调试用的 vconsole 初始化
+    // var vConsole = new VConsole();
+    // console.log('VConsole is cool');
+
+    $("#citypick").click(function(){
+        citypicker();
+    })
+    $(".gobackIcon").click(function () {
+        $(".touchcity").hide();
+    })
+</script>
+
+<script src= "../waterMark.js" ></script>
+</html>

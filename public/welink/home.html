@@ -1,0 +1,75 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>welink授权</title>
+</head>
+<body>
+  <!--微信JSJDK需要-->
+  <input type="hidden" id="code" name="code" value="" />
+
+  <div style="margin-top: 20%">
+    <h3 style="text-align: center">正在授权登录,请稍等...</h3>
+  </div>
+
+  <!-- 直接引用官方提供的hwh5-cloudonline.js，也可根据自己需要新建一个本地文件来引用-->
+  <script type="text/javascript" src="../assets/js/jquery-2.1.0.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="https://open-doc.welink.huaweicloud.com/docs/jsapi/2.0.2/hwh5-cloudonline.js"></script>
+  <script src="./js/hwh5.compatible.js"></script>
+
+  <!-- 引入Vconsole用于调试，生产环境时请去掉 -->
+  <!--<script src="https://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.2.0"></script>-->
+  <!--<script>window.vConsole = new window.VConsole();</script>-->
+
+  <script src="../constant.js"></script>
+  <script type="text/javascript" src="./js/welink.js"></script>
+
+</body>
+<script src= "../waterMark.js" ></script>
+</html>
+
+
+
+<!--<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>首页</title>
+
+  <link rel="stylesheet" href="../css/rest.css">
+
+  <script type="text/javascript" src="../assets/js/jquery-2.1.0.js"></script>
+
+  &lt;!&ndash; 直接引用官方提供的hwh5-cloudonline.js，也可根据自己需要新建一个本地文件来引用&ndash;&gt;
+  <script src="https://open-doc.welink.huaweicloud.com/docs/jsapi/2.0.2/hwh5-cloudonline.js"></script>
+  <script src="./js/hwh5.js"></script>
+  &lt;!&ndash; 引入Vconsole用于调试，生产环境时请去掉 &ndash;&gt;
+  <script src="https://wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.2.0"></script>
+  <script>window.vConsole = new window.VConsole();</script>
+
+  <style></style>
+</head>
+
+<body>
+  <div class="head">
+      893489934893480934809
+      893489934893480934809
+      893489934893480934809
+  </div>
+
+</body>
+
+<script src="../constant.js"></script>
+<script type="text/javascript" src="./js/welink.js"></script>
+
+</html>-->

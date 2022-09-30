@@ -1,0 +1,63 @@
+<!--
+ * @Author: liukanglin
+ * @Date: 2020-09-16 09:48:19
+ * @LastEditors: Liukanglin
+ * @LastEditTime: 2020-12-28 17:32:03
+ * @Desc: file content
+ * @FilePath: /vue-cli-multiPage-master/src/pages/garbageClassification/index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <link rel="icon" href="<%= process.env.NODE_ENV==='development'?'':'.' %>favicon.ico">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <script src="<%= process.env.NODE_ENV==='development'?'':'.' %>/constant.js"></script>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+  </script>
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.13&key=1a4636d76aab717a3a560d3307d40fcf"></script>
+  <!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script> -->
+  <style>
+    html,
+    body {
+      background-color: #F5F5F5;
+    }
+  </style>
+  <title></title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    resizeFontSize()
+    window.onresize = function () {
+      resizeFontSize()
+    }
+
+    function resizeFontSize() {
+      //获取根元素
+      const docEl = document.documentElement;
+      // //console.log("根元素", docEl)
+      //获取设备宽度
+      const clientWidth = docEl.clientWidth;
+      //console.log("clientWidth", clientWidth)
+      //若未获取到设备宽度，则终止函数执行
+      if (!clientWidth) return;
+      //计算rem基础配置：设计图以750px为准时，px rem比例为1：100
+      const fs = 100 * (clientWidth / 750);
+      //为根元素字体赋值s
+      //console.log("根元素字体", docEl.style.fontSize)
+      docEl.style.fontSize = fs + 'px'
+      //console.log("为根元素字体赋值", docEl.style.fontSize)
+    }
+    //  eruda.init();
+    // localStorage.setItem('token', 'WX_2b0203901038bbc312092c10748c461c')
+  </script>
+</body>
+<script src= "<%= process.env.NODE_ENV==='development'?'':'.' %>/waterMark.js" ></script>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>我的认证</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.layui-textarea{
+        margin:10px auto 0px;
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size: 14px;
+        font-family: PingFangSC-Regular,PingFang SC;
+        font-weight: 400;
+        color: rgba(153,153,153,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    
+  </style>
+</head>
+
+<body style="">
+   
+
+    <div class="contentWrap" style="">
+        <img id="imgTest" src="" alt="" style="width: 100vw;height: 81.1vh;">
+        <div style="width: 100%;height: 9vh;line-height: 9vh;text-align: center;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);">
+            <span class="sendSMS" style="display: inline;">短信发送</span><span style="color:rgba(221,221,221,1);margin-left: 1.5vw;"> | </span><span class="save" style="display: inline;margin-left: 1.5vw;">保存图片</span>
+        </div>
+    
+    </div>
+
+
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/html2canvas.js"></script>
+  <script src="../assets/js/canvas2Image.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script src="https://cdn.bootcss.com/crypto-js/4.0.0/crypto-js.js"></script>
+  <script src="../assets/js/AESUtils.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    // 防抖
+    function debounce(fn, wait) {    
+        var timeout = null;    
+        return function() {        
+            if(timeout !== null)   clearTimeout(timeout);        
+            timeout = setTimeout(fn, wait);    
+        }
+    } 
+    function toast(src,text){
+        $(document).dialog({
+            type : 'toast',
+            infoIcon: src,
+            infoText: text,
+            autoClose: 2000
+        });
+    }
+    let saveFile=function (data,filename) {
+        let save_link=document.createElementNS('http://www.w3.org/1999/xhtml','a');  //img表示生成img元素或a元素或则可以放图片地址的元素
+
+        save_link.href=data;              //img  元素中图片引入用src，a元素中图片的引入用href等等
+        save_link.download=filename;    // 下载的名称
+        var event = document.createEvent('MouseEvents');//创建event事件
+        console.log(event);
+        //initMouseEvent 方法用于初始化通过 DocumentEvent 接口创建的 MouseEvent 的值, 详见下文：
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        save_link.dispatchEvent(event);
+
+        console.log(save_link)// <a href=data:image/jpeg:base64.....></a>
+    }
+
+
+    var xhr = new XMLHttpRequest();     
+    xhr.open('POST', SERSVER_BASE_URL+`/buss/bussRegisterEmployee/output-bussEpiEmployeeToPicture?id=${getQueryString('id')}`, true);
+    xhr.setRequestHeader("Accept", "application/json;q=0.5");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.responseType = "blob";  // 返回类型blob
+    // 定义请求完成的处理函数，请求前也可以增加加载框/禁用下载按钮逻辑
+    xhr.onload = function () {
+        // 请求完成
+        if (this.status === 200) {
+            var blob = this.response;
+            var reader = new FileReader();
+            console.log('reader',reader)
+            reader.readAsDataURL(blob);  // 转换为base64，可以直接放入a表情href
+            reader.onload = function () {
+                $("#imgTest").attr("src", reader.result);
+                
+            }
+        }
+    };
+    // 发送ajax请求
+    xhr.send();
+
+    // $.ajax({
+    //     async: false,
+    //     type: "GET",
+    //     url: SERSVER_BASE_URL + `/buss/bussRegisterEmployee/output-bussEpiEmployeeToPicture?id=${getQueryString('id')}`,
+    //     headers:{
+    //     },
+    //     contentType:'application/json',
+    //     data: {
+    //     },
+    //     dataType: "json",
+    //     success: function (data) {
+    //         if(data.code==0){
+    
+    //         }else{
+    //             alert(data.msg)
+    //         }
+            
+           
+    //     },
+    //     error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //       alert("err:::" + errorThrown);
+    //     }
+    // })
+
+    $('.save').click(()=>{
+        window.open(SERSVER_BASE_URL+`/buss/bussRegisterEmployee/output-bussEpiEmployeeToPicture?id=${getQueryString('id')}`);
+        
+    })
+    var second=60;
+    $('.sendSMS').click(debounce(()=>{
+        if(second!=60){
+            return false; 
+        }   
+        $.ajax({
+            async: false,
+            type: "GET",
+            url: SERSVER_BASE_URL + `/buss/bussRegisterEmployee/sendQrcode?id=${getQueryString('id')}`,
+            headers:{
+            },
+            contentType:'application/json',
+            data: {
+                
+            },
+            dataType: "json",
+            success: function (data) {
+                if(data.code==0){
+                    if(second==60){
+                        console.log('/buss/bussRegisterEmployee/sendQrcode',data)
+                        toast('../assets/images/success.png','发送成功')
+                        $('.sendSMS')[0].style.color='rgba(0,145,255,1)'
+                        var setTime=setInterval(()=>{
+                            second--
+                            $('.sendSMS').html(second+'s后再次发送')
+                            if(second==1){
+                                clearInterval(setTime)
+                                second=60
+                                $('.sendSMS').html('短信发送')
+                                $('.sendSMS')[0].style.color='rgba(204,204,204,1)'
+                            }
+                        },1000)
+                    }
+                    
+                }else{
+                    alert(data.msg)
+                }
+                
+            
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("err:::" + errorThrown);
+            }
+        })
+    },1000) )
+  
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

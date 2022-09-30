@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <title>出入登记</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 61.3vw;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-form-item {
+        margin-bottom: initial;
+        padding: 15px 0px 0px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-select,.jibenxinxi .layui-textarea {
+        border-width: 0px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.dengjixinxi .layui-textarea{
+        margin:10px auto 0px;
+    }
+    .dengjixinxi .layui-form-checkbox span{
+        font-size:12px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(153,153,153,1);
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 1.2vh 5vw;
+        width: 65px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size:14px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(153,153,153,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    .layui-colla-title{
+        padding: 0 15px 0 5vw;
+    }
+    .layui-colla-icon {
+        position: absolute;
+        left: initial;
+        right: 5vw!important;
+        top: 0;
+        font-size: 14px;
+    }
+    .layui-colla-content, .layui-colla-item {
+        border-top-width: initial;
+        border-top-style: initial;
+    }
+    .layui-colla-content {
+        padding: initial;
+    }
+    .layui-form-item{
+        margin-bottom: initial;
+    }
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);">
+    <div class="jibenxinxi">
+        <!-- <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+            <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                <span style="margin-left: 5vw;">基本信息</span>
+            </div>
+            <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+            <div style="width: 100%;box-sizing: border-box;padding: 4.2vh 5.3vw;">
+                <div style="display: inline-block;">
+                    <img src="../assets/images/jihua1.jpg" style="width: 25vw;height: 25vw;" alt="" >
+                </div>
+                <div style="height: 14.4vh;width: 64%;font-size: 13px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);float: right;display: flex;flex-wrap: wrap;">
+                    <div style="width:100%;">
+                        <span>姓名：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">马伟强</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>手机号码：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">15054654558</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>证件号：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">440183xxxxxxxx7310</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>所属区域：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">A园区B企业</span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="layui-collapse" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+        <div class="layui-colla-item">
+            <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">登记信息</h2>
+            <div class="layui-colla-content">
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+                <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                    <div style="line-height: initial;padding: 2.4vh 5vw 0px;">近半月您和您的家人是否与湖北或其他疫情严重地区有接触（进入、停留、经过）</div>
+                    <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">否</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="" style="width: 95vw;margin:1.5vh auto 0px;background:rgba(255,255,255,1);border-radius: 1.1vw;">
+        <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+            <span style="margin-left: 5vw;">核验备注</span>
+        </div>
+        <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+        <div class="layui-form-item layui-form-text" style="margin: 2.7vh 0px;padding-bottom: 2.7vh;display: flex;justify-content: center;">
+   
+     
+              <textarea name="remark" placeholder="请输入内容" class="layui-textarea" style="width: 84vw;" disabled></textarea>
+ 
+        </div>
+    </div>
+     
+        
+
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + `/pass/passRegister/getOneAndLinkByCodeNum?codeNum=${getQueryString('codeNum')}`,
+        headers:{
+        },
+        contentType:'application/json',
+        data: {
+            
+        },
+        dataType: "json",
+        success: function (data) {
+            var jibenxinxi=[],dengjixinxi=[]
+            console.log('/pass/passRegister/getOneAndLinkByCodeNum',data)
+            if(!data.data.lockReason){
+                $("textarea[name='remark']").val('暂无备注')
+            }else{
+                $("textarea[name='remark']").val(data.data.lockReason)
+            }
+            
+            jibenxinxi.push(`
+                <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+                    <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                        <span style="margin-left: 5vw;">基本信息</span>
+                    </div>
+                    <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+                    <div style="width: 100%;box-sizing: border-box;padding: 4.2vh 5.3vw;">
+                        <div style="display: inline-block;">
+                            <img src="${data.data.imgUrl}" style="width: 25vw;height: 25vw;" alt="" >
+                        </div>
+                        <div style="height: 14.4vh;width: 64%;font-size: 13px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);float: right;display: flex;flex-wrap: wrap;">
+                            <div style="width:100%;">
+                                <span>姓名：</span>
+                                <span style="color:rgba(51,51,51,1);float: right;">${data.data.imName}</span>
+                            </div>
+                            <div style="width:100%;">
+                                <span>手机号码：</span>
+                                <span style="color:rgba(51,51,51,1);float: right;">${data.data.phone}</span>
+                            </div>
+                            <div style="width:100%;">
+                                <span>证件号：</span>
+                                <span style="color:rgba(51,51,51,1);float: right;">${data.data.credentialsNum}</span>
+                            </div>
+                            <div style="width:100%;">
+                                <span>所属区域：</span>
+                                <span style="color:rgba(51,51,51,1);float: right;">${data.data.areaName}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="${data.data.lockStatus=='-2'?'../assets/images/bohui.png':( data.data.lockStatus=='-1'?'../assets/images/heyan.png':( data.data.lockStatus=='0'?'../assets/images/tongxing.png':'../assets/images/suoding.png' ) )}" style="width: 24vw;height: 10vh;position: absolute;right: 7.5vw;top: 5vw;">
+                </div>
+            `)
+            var epiQuestionEntityList=[]
+            
+            data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+                var answerString=[],answerArray=[]
+                if(element.topicName=='简答-文本'||element.topicName=='简答-输入'){
+                    answerString.push(element.answer)
+                }else{
+                        if((element.answer.search('##')!=-1)){
+                        answerArray=element.answer.substr(0,element.answer.indexOf('#')).split(',')
+                    }else{
+                        if(element.answer.search(',')!=-1){
+                            answerArray=element.answer.split(',')
+                        }else{
+                            answerArray=[element.answer]
+                        }
+                    }
+                }
+                
+                if(element.topicName!='简答-文本'||element.topicName!='简答-输入'){
+                    answerArray.forEach(answerItem=>{
+                        element.epiSelectEntityList.forEach(epiSelectItem=>{
+                            if(String(answerItem)==String(epiSelectItem.id)){
+                                if(epiSelectItem.ifInput=='1'){
+                                    answerString.push(epiSelectItem.content+(element.answer.substr(element.answer.search('##')+2)?':':'')+element.answer.substr(element.answer.search('##')+2))
+                                }else{
+                                    answerString.push(epiSelectItem.content)
+                                }
+                            }
+                        })
+                    })
+                }
+                
+                setTimeout(()=>{
+                    if(element.topicName=='图片'){
+                        answerString=answerString.join('')
+                    }else{
+                        answerString=answerString.join(',')
+                    }
+                    epiQuestionEntityList.push(`
+                        <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                            <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                            <div style="line-height: initial;padding: 2.4vh 5vw 0px;">${element.title}</div>
+                            <div style="color:rgba(153,153,153,1);height: 7.3vh;;line-height: 7.3vh;margin-left: 8.7vw;">${answerString}</div>
+                        </div>
+                    `)
+                },500)
+            });
+            setTimeout(()=>{
+                dengjixinxi.push(`
+                    <div class="layui-colla-item">
+                        <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">登记信息</h2>
+                        <div class="layui-colla-content">
+                            ${epiQuestionEntityList.join('')}
+                        </div>
+                    </div>
+                `)
+            },1000)
+            setTimeout(()=>{
+                $('.jibenxinxi').html(jibenxinxi.join(''))
+                $('.layui-collapse').html(dengjixinxi.join(''))
+                layui.use('element', function(){
+                    var element = layui.element;
+                    
+                    element.render('collapse')
+                });
+                
+                
+            },1300)
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+        }
+    });
+        
+  
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

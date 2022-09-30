@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+    <link rel="stylesheet" href="../assets/js/layui/css/layui.css" />
+    <link rel="stylesheet" href="../assets/css/dialog.css" />
+    <title>企业认证码</title>
+    <style>
+      html,
+      body {
+      }
+      .layui-input,
+      .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+      }
+      .jibenxinxi .layui-input,
+      .jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+      }
+      .layui-form-item .layui-form-label {
+        overflow: initial;
+      }
+      .dengjixinxi .layui-input-block {
+        margin-left: initial;
+      }
+      .paichaqingkuang .layui-input-block {
+        margin-left: initial;
+      }
+      .layui-form-item .layui-form-checkbox {
+        /* margin-right: initial;
+        margin-left: 10px; */
+      }
+      .dengjixinxi .layui-input,
+      .layui-textarea {
+        margin: 10px auto 0px;
+      }
+      .layui-form-select .layui-edge {
+        right: 40px !important;
+      }
+      .layui-form-select dl dd.layui-this {
+        background-color: #409eff !important;
+        color: #fff;
+      }
+      .layui-form-radio > i:hover,
+      .layui-form-radioed > i {
+        color: #409eff !important;
+      }
+      .layui-form-checked[lay-skin="primary"] i {
+        border-color: #409eff !important;
+        background-color: #409eff !important;
+        color: #fff;
+      }
+      .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: rgba(153, 153, 153, 1);
+      }
+      body
+        > form.layui-form.paichaqingkuang
+        > div.layui-form-item
+        > div
+        > div:nth-child(2)
+        > div
+        > span {
+        white-space: initial;
+      }
+      .layui-layer-content {
+        text-align: center;
+      }
+      .layui-layer-title {
+        padding: initial !important;
+        text-align: center;
+        background-color: white !important;
+      }
+      .layui-layer-content{
+        height: initial!important;
+      }
+    </style>
+  </head>
+
+  <body
+    style="background:rgba(245,245,245,1);background-image: url('../assets/images/myPassBlueBackground.png');background-size:100% 61vh;background-repeat: no-repeat;"
+  >
+    <div
+      class=""
+      style="width: 95vw;box-sizing: border-box;padding: 1.5vw;margin: 1.5vh auto;background:rgba(233,244,255,1);border-radius:1.1vw;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);"
+    >
+      <span
+        >请档主本人携带身份证及营业执照原件到所属管理处进行现场核验，完成认证审核。重新<span
+          class="getPass"
+          style="color: #F85B47;text-decoration: underline;"
+          >获取认证码</span
+        ></span
+      >
+    </div>
+    <div class="contentWrap" style="width: 95vw;margin: auto;">
+      <!-- <div class="screenshotWrap" style="width: 100%;background-image: url('../assets/images/myPassWhiteBackground.png');background-size: contain;position: relative;">
+            <div style="width: 100%;height: 8vh;line-height: 8vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                <span style="margin-left: 5vw;font-weight: bold;">基本信息</span>
+            </div>
+            <div style="width: 100%;font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">张三</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">性别：</span><span style="color: rgba(51,51,51,1);">男</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">江苏省扬州市</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">身份证号码：</span><span style="color: rgba(51,51,51,1);">440561691652594843</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">15011586425</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">所属社区：</span><span style="color: rgba(51,51,51,1);">中大花园</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">所属市场：</span><span style="color: rgba(51,51,51,1);">中大市场</span>
+                </div>
+                <div style="padding-bottom: 1vh;">
+                    <span style="margin-left: 8vw;">档口编号：</span><span style="color: rgba(51,51,51,1);">D31545</span>
+                </div>
+            </div>
+            <img src="../assets/images/heyan.png" style="width: 90px;height: 66.69px;position: absolute;right: 5vw;top: 5vw;">
+            <img src="../assets/images/dottedLine.png" style="display: block;width: 84vw;margin: auto;margin-top: 2vh;">
+            <div style="width: 100%;position: relative;top: 0.8vh;height: 4.5vh;line-height: 4.5vh;text-align: center;font-size: 12px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                <div style="display: inline-block;" class="refresh"><i class="layui-icon layui-icon-refresh-3"></i> <span>点击刷新二维码</span></div>
+            </div>
+            <div style="text-align: center;">
+                <img class="erweima" src="../assets/images/erweima.png" style="width: 43vw;height: 43vw;">
+            </div>
+            <div style="width: 100%;height: 4vh;line-height: 4vh;text-align: center;font-size: 12px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);margin-top: -1vh;">(长按或截图保存二维码)</div>
+            <div style="width: 100%;height: 7vh;line-height: 7vh;text-align: center;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);margin-top: -2vh;">
+                <span class="selectUpdateEnterprise" style="display: inline;">修改企业资料 / </span><span class="save" style="display: inline;">保存二维码</span>
+            </div>
+        </div>  -->
+    </div>
+    <!-- <div style="width: 100%;height: 13vh;line-height: 14vh;text-align: center;">
+      <span class="selectPractitionersManagement" style="width: 85vw;height: 6.7vh;line-height: 6.7vh;margin-left: 2px;text-align: center;background: linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);border-radius: 10vw;font-size: 20px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(255,255,255,1);display: inline-block;">从业人员管理</span>
+    </div> -->
+
+    <script src="../constant.js"></script>
+    <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+    <script src="../assets/js/layui/layui.js"></script>
+    <script src="../assets/js/html2canvas.js"></script>
+    <script src="../assets/js/canvas2Image.js"></script>
+    <script src="../assets/js/dialog.js"></script>
+    <script>
+      // 获取地址栏参数
+      //适应以下两种模式，来获取url参数值：
+      //User/vip_card_manager/useless/219/id/18
+      //User/vip_card_manager?useless=219&id=18
+
+      function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        var q = window.location.pathname.substr(1).match(reg_rewrite);
+        if (r != null) {
+          return unescape(r[2]);
+        } else if (q != null) {
+          return unescape(q[2]);
+        } else {
+          return null;
+        }
+      }
+      function toast(src, text) {
+        $(document).dialog({
+          type: "toast",
+          infoIcon: src,
+          infoText: text,
+          autoClose: 2000
+        });
+      }
+      let saveFile = function(data, filename) {
+        let save_link = document.createElementNS(
+          "http://www.w3.org/1999/xhtml",
+          "a"
+        ); //img表示生成img元素或a元素或则可以放图片地址的元素
+
+        save_link.href = data; //img  元素中图片引入用src，a元素中图片的引入用href等等
+        save_link.download = filename; // 下载的名称
+        var event = document.createEvent("MouseEvents"); //创建event事件
+        console.log(event);
+        //initMouseEvent 方法用于初始化通过 DocumentEvent 接口创建的 MouseEvent 的值, 详见下文：
+        event.initMouseEvent(
+          "click",
+          true,
+          false,
+          window,
+          0,
+          0,
+          0,
+          0,
+          0,
+          false,
+          false,
+          false,
+          false,
+          0,
+          null
+        );
+        save_link.dispatchEvent(event);
+
+        console.log(save_link); // <a href=data:image/jpeg:base64.....></a>
+      };
+
+      $(".getPass").click(() => {
+        location.href = `./getResumption.html`;
+      });
+
+      $.ajax({
+        async: false,
+        type: "GET",
+        url:
+          SERSVER_BASE_URL +
+          `/buss/bussRegister/getOneAndLinkByCodeNum?codeNum=${localStorage.getItem(
+            "codeNum"
+          )}`,
+        headers: {},
+        contentType: "application/json",
+        data: {
+          
+        },
+        dataType: "json",
+        success: function(data) {
+          var questionList = [];
+          console.log("/buss/bussRegister/getOneAndLinkByCodeNum", data);
+
+          var passRegister = [];
+          passRegister.push(`
+                <div class="screenshotWrap" style="width: 100%;background: rgba(255,255,255,1);position: relative;">
+                    <div style="width: 100%;height: 8vh;line-height: 8vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                        <span style="margin-left: 5vw;font-weight: bold;">基本信息</span>
+                    </div>
+                    <div style="width: 100%;font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.imName
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">性别：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.sexString
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.nativePlace
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">身份证/护照：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.credentialsNum
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.phone
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">所属社区：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.townNameString
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">所属市场：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.platformNameString
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">所属楼层：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.floorString
+                            }</span>
+                        </div>
+                        <div style="padding-bottom: 1vh;">
+                            <span style="margin-left: 8vw;">档口编号：</span><span style="color: rgba(51,51,51,1);">${
+                              data.data.bussCode
+                            }</span>
+                        </div>
+                    </div>
+                    <img src="${data.data.lockStatus=='0'?'../assets/images/yishenhe.png':(data.data.lockStatus=='-2'?'../assets/images/yibohui.png':(data.data.lockStatus=='-3'?'../assets/images/yicexiao.png':'../assets/images/daishenhe.png'))}" style="width: 90px;height: 66.69px;position: absolute;right: 5vw;top: 5vw;">
+                    <div style="font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);text-align:center;padding: 1.5vw 0px;">
+                        <span class="selectUpdateEnterprise" style="width:24.7vw;height:4vh;line-height:4vh;display:inline-block;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0.8vw 0.8vw 1.6vw 0px rgba(12,126,161,0.35);border-radius:13.3vw;">修改企业资料</span>
+                        <span class="selectPractitionersManagement" style="width:24.7vw;height:4vh;line-height:4vh;display:inline-block;background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0.8vw 0.8vw 1.6vw 0px rgba(12,126,161,0.35);border-radius:13.3vw;margin-left:3vw;">从业人员管理</span>
+                    </div>
+                    <img src="../assets/images/dottedLine.png" style="display: block;width: 84vw;margin: auto;margin-top: 1.3vh;">
+                    <div style="text-align: center;">
+                        <img class='erweima' src="${
+                          data.data.qrCode
+                        }" style="width: 43vw;height: 43vw;">
+                    </div>
+                    <div style="width: 100%;height: 4vh;line-height: 4vh;text-align: center;font-size: 12px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);margin-top: -1vh;">(长按或截图保存二维码)</div>
+                    <div style="width: 100%;height: 7vh;line-height: 7vh;text-align: center;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);margin-top: -1vh;">
+                        <span class="refresh" style="display: inline;">刷新二维码</span><span style="color:rgba(221,221,221,1);margin-left: 1.5vw;"> | </span><span class="save" style="display: inline;margin-left: 1.5vw;">保存二维码</span>
+                    </div>
+                </div>
+            `);
+
+          $(".contentWrap").html(passRegister.join(""));
+          if (data.data.lockStatus == "-2") {
+            layui.use("layer", function() {
+              //独立版的layer无需执行这一句
+              var $ = layui.jquery,
+                layer = layui.layer; //独立版的layer无需执行这一句
+              layer.confirm(
+                `<div style='white-space: nowrap;'>您的审核不通过，请修改后重新提交</div><div style='text-align: initial;'>审核备注：${
+                  data.data.lockReason ? data.data.lockReason : "无"
+                }</div>`,
+                {
+                  offset: '30vh',
+                  area: ["70vw", "auto"],
+                  anim: 1,
+                  title: "审核不通过",
+                  btnAlign: "c",
+                  btn: ["我知道了"] //可以无限个按钮
+                },
+                function(index, layero) {
+                  layer.closeAll();
+                }
+              );
+            });
+          }
+          if (data.data.lockStatus == "-3") {
+            layui.use("layer", function() {
+              //独立版的layer无需执行这一句
+              var $ = layui.jquery,
+                layer = layui.layer; //独立版的layer无需执行这一句
+              layer.confirm(
+                `<div style='white-space: nowrap;'>您的审核已被撤销，请修改后重新提交</div><div style='text-align: initial;'>撤销备注：${
+                  data.data.lockReason ? data.data.lockReason : "无"
+                }</div>`,
+                {
+                  offset: '30vh',
+                  area: ["70vw", "auto"],
+                  anim: 1,
+                  title: "审核已撤销",
+                  btnAlign: "c",
+                  btn: ["我知道了"] //可以无限个按钮
+                },
+                function(index, layero) {
+                  layer.closeAll();
+                }
+              );
+            });
+          }
+          if (data.data.bussRegisterEmployeeEntityList.length==0) {
+            layui.use("layer", function() {
+              //独立版的layer无需执行这一句
+              var $ = layui.jquery,
+                layer = layui.layer; //独立版的layer无需执行这一句
+              layer.confirm(
+                `<div style=''>您尚未添加从业人员信息,未添加从业人员信息的档口将无法通过审核</div>
+                <div class='addPractitioners' style='margin-top: 1vh;text-align:center;font-size: 14px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(0,145,255,1);'>新增从业人员</div>
+                `,
+                {
+                  offset: '30vh',
+                  area: ["70vw", "auto"],
+                  anim: 1,
+                  title: "",
+                  btnAlign: "c",
+                  closeBtn:0,
+                  btn: 0
+                }
+                // function(index, layero) {
+                //   layer.closeAll();
+                // }
+              );
+            });
+          }
+          if (data.data.lockStatus == "0") {
+            console.log(
+              "$('.selectUpdateEnterprise')[0]",
+              $(".selectUpdateEnterprise")
+            );
+            $(".selectUpdateEnterprise")[0].style.display = "none";
+          } else {
+            $(".selectUpdateEnterprise").click(() => {
+              location.href = `./updateResumption.html?codeNum=${localStorage.getItem(
+                "codeNum"
+              )}`;
+            });
+          }
+
+          setTimeout(() => {
+            $(".addPractitioners").click(() => {
+              localStorage.setItem("bussId", data.data.id);
+              location.href=`./applyPractitioners.html?bussId=${localStorage.getItem('bussId')}&isQrCodeApply=false`
+            })
+            $(".selectPractitionersManagement").click(() => {
+              localStorage.setItem("bussId", data.data.id);
+              localStorage.setItem("lockStatus", data.data.lockStatus);
+              location.href = "./practitionersManagement.html";
+            });
+            $(".refresh").click(() => {
+              layui.use("layer", function() {
+                //独立版的layer无需执行这一句
+                var $ = layui.jquery,
+                  layer = layui.layer; //独立版的layer无需执行这一句
+                layer.confirm(
+                  "是否刷新二维码",
+                  {
+                    offset: "auto",
+                    area: ["70vw", "auto"],
+                    anim: 1,
+                    title: "",
+                    btnAlign: "c",
+                    btn: ["刷新二维码", "取消"] //可以无限个按钮
+                  },
+                  function(index, layero) {
+                    setTimeout(() => {
+                      $.ajax({
+                        async: false,
+                        type: "POST",
+                        url:
+                          SERSVER_BASE_URL + "/buss/bussRegister/reGetQrcode",
+                        headers: {},
+                        // contentType:'application/x-www-form-urlencoded',
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                          id: data.data.id,
+                          
+                        }),
+                        dataType: "json",
+                        success: function(data) {
+                          console.log("/buss/bussRegister/reGetQrcode", data);
+                          if (data.code == 0) {
+                            setTimeout(() => {
+                              console.log(
+                                `$('.erweima').attr("src",data.data.qrCode)`,
+                                $(".erweima").attr("src")
+                              );
+                              $(".erweima").attr("src", data.data.qrCode);
+                              localStorage.setItem(
+                                "codeNum",
+                                data.data.codeNum
+                              );
+                            }, 2000);
+                            toast("../assets/images/success.png", "刷新成功");
+                          } else {
+                            alert(data.msg);
+                          }
+                        },
+                        error: function(
+                          XMLHttpRequest,
+                          textStatus,
+                          errorThrown
+                        ) {
+                          alert("err:::" + errorThrown);
+                        }
+                      });
+                    }, 1000);
+                    layer.closeAll();
+                    toast("../assets/images/loading.gif", "刷新中");
+                  },
+                  function(index) {
+                    console.log("取消");
+                  }
+                );
+              });
+            });
+            var screenshot;
+            $(".save").click(() => {
+              // var imgs=document.querySelectorAll('img')
+              // imgs.forEach(item=>{
+              //     console.log(item)
+              //     item.setAttribute("crossOrigin",'Anonymous')
+              //     item.crossOrigin = "Anonymous";
+
+              // })
+              // setTimeout(()=>{
+              //     html2canvas(document.querySelector(".screenshotWrap"),{
+              //         tainttest : true, //检测每张图片都已经加载完成
+              //         useCORS : true,//使用跨域(当allowTaint为true时这段代码没什么用)
+              //         tainttest:true
+              //     }).then(function (canvas) {
+              //         screenshot=canvas
+              //         console.log('canvas',canvas)
+              //     });
+              // })
+              // setTimeout(()=>{
+              //     console.log('screenshot',screenshot)
+              //     var img=screenshot.toDataURL('image/png',0.1)
+              //     // Canvas2Image.saveAsImage(screenshot,'100vw','124vw')
+              //     // let img=Canvas2Image.saveAsJPEG(screenshot,'100vw','124vw')
+              //     console.log(img);
+              //     setTimeout(()=>{
+              //         saveFile(img,'myResumption.jpeg')
+              //     },500)
+              // },1200)
+              window.open(
+                SERSVER_BASE_URL +
+                  `/buss/bussRegister/output-bussEpiToPicture?id=${data.data.id}`
+              );
+            });
+          }, 500);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+      });
+    </script>
+  </body>
+  <script src= "../waterMark.js" ></script>
+</html>

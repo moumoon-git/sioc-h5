@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>查看对象</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.layui-textarea{
+        margin:10px auto 0px;
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size: 14px;
+        font-family: PingFangSC-Regular,PingFang SC;
+        font-weight: 400;
+        color: rgba(153,153,153,1);
+    }
+    input::-webkit-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-moz-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      input::-ms-input-placeholder {
+        color:rgba(204,204,204,1);
+        font-size:16px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+      }
+      .layui-form-radio{
+        display: block;
+    }
+    .layui-form-checkbox {
+        display: block;
+    }
+    .layui-form-checkbox[lay-skin=primary]{
+        min-width: initial;
+    }
+    .mixedAnswer .layui-form-radio{
+        /* display: inline-block; */
+        display: flex;
+    }
+    .layui-colla-title{
+        padding: 0 15px 0 5vw;
+    }
+    .layui-colla-icon {
+        position: absolute;
+        left: initial;
+        right: 5vw!important;
+        top: 0;
+        font-size: 14px;
+    }
+    .layui-colla-content, .layui-colla-item {
+        border-top-width: initial;
+        border-top-style: initial;
+    }
+    .layui-colla-content {
+        padding: initial;
+    }
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);">
+    <div class="paichaqingkuang">
+        
+    </div>
+
+    <div class="jibenxinxi">
+       
+    </div>
+
+    <div class="layui-collapse dengjixinxi" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;"></div>
+        
+    </div>
+
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function toast(src,text){
+        $(document).dialog({
+            type : 'toast',
+            infoIcon: src,
+            infoText: text,
+            autoClose: 2000
+        });
+    }
+
+
+    var jibenxinxi=[],dengjixinxi=[],paichaqingkuang=[]
+    // $.ajax({
+    //     async: false,
+    //     type: "GET",
+    //     url: SERSVER_BASE_URL + "/task/taskInfor/getMailContor",
+    //     headers: {},
+    //     contentType: "application/json",
+    //     data: {
+    //         openId: localStorage.getItem("openId")
+    //     },
+    //     dataType: "json",
+    //     success: function(data) {
+    //         console.log("/task/taskInfor/getMailContor", data);
+    //         paichaqingkuang.push(`
+    //             <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+    //                 <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+    //                     <span style="margin-left: 5vw;">排查情况</span>
+    //                 </div>
+    //                 <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+    //                 <div style="width: 100%;font-size: 14px;padding: 3vh 0px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+    //                     <div style="padding-bottom: 1vh;">
+    //                         <span style="margin-left: 8vw;">排查结果：</span><span style="color: rgba(51,51,51,1);">${data.data.investigateResultString}</span>
+    //                     </div>
+    //                     <div style="padding-bottom: 1vh;">
+    //                         <span style="margin-left: 8vw;">登记时间：</span><span style="color: rgba(51,51,51,1);">${data.data.gmtCreate}</span>
+    //                     </div>
+    //                     <div style="padding-bottom: 1vh;">
+    //                         <span style="margin-left: 8vw;">备注：</span><span style="color: rgba(51,51,51,1);">${data.data.remark}</span>
+    //                     </div>
+                        
+                        
+    //                 </div>
+    //             </div>
+    //         `)
+    //         $('.paichaqingkuang').html(paichaqingkuang.join(''))
+    //     },
+    //     error: function(XMLHttpRequest, textStatus, errorThrown) {
+    //         alert("err:::" + errorThrown);
+    //     }
+    // });
+    
+    var form,epiRegister;
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + "/epi/epiRegister/getOneAndLink",
+        headers:{
+        },
+        contentType:'application/json',
+        data: {
+            id:localStorage.getItem("investigationObjectId"),
+            
+        },
+        dataType: "json",
+        success: function (data) {
+        console.log('/epi/epiRegisterTiku/getOneAndLink',data)
+
+        paichaqingkuang.push(`
+            <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+                <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <span style="margin-left: 5vw;">排查情况</span>
+                </div>
+                <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+                <div style="width: 100%;font-size: 14px;padding: 3vh 0px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">排查结果：</span><span style="color: rgba(51,51,51,1);">${data.data.investigateResultString}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">登记时间：</span><span style="color: rgba(51,51,51,1);">${data.data.gmtCreate}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">备注：</span><span style="color: rgba(51,51,51,1);">${data.data.remark}</span>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        `)
+        $('.paichaqingkuang').html(paichaqingkuang.join(''))
+
+        jibenxinxi.push(`
+            <div class="" style="width: 95vw;margin:1.5vh auto;background:rgba(255,255,255,1);border-radius: 1.1vw;position: relative;">
+                <div style="width: 100%;height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                    <span style="margin-left: 5vw;">基本信息</span>
+                </div>
+                <div style="width: 84vw;height:1px;background:rgba(221,221,221,1);margin: auto;"></div>
+                <div style="width: 100%;font-size: 14px;padding: 3vh 0px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);">
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">姓名：</span><span style="color: rgba(51,51,51,1);">${data.data.imName}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">籍贯：</span><span style="color: rgba(51,51,51,1);">${data.data.nativePlaceString}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">手机号码：</span><span style="color: rgba(51,51,51,1);">${data.data.phone}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">身份证号码：</span><span style="color: rgba(51,51,51,1);">${data.data.credentialsNum}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">人员类型：</span><span style="color: rgba(51,51,51,1);">${data.data.humanTypeString}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">详细地址：</span><span style="color: rgba(51,51,51,1);">${data.data.detailedAddress}</span>
+                    </div>
+                    <div style="padding-bottom: 1vh;">
+                        <span style="margin-left: 8vw;">家庭人员数：</span><span style="color: rgba(51,51,51,1);">${data.data.familyNumber}</span>
+                    </div>
+                </div>
+            </div>
+        `)
+
+        var epiQuestionEntityList=[]
+            
+        data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+            var answerString=[],answerArray=[]
+            if(element.topicName=='简答-文本'||element.topicName=='简答-输入'){
+                answerString.push(element.answer?element.answer:'无')
+            }else if(element.topicName=='图片'){
+                
+                if(element.answer&&element.answer!=""){
+                    if(JSON.parse(element.answer).length!=0){
+                        JSON.parse(element.answer).forEach((answerItem,answerItemIndex)=>{
+                            answerString.push(`
+                                <img id='imgWrapItem${element.id}${answerItemIndex}' src="${answerItem.oldPath}" style="width:25vw;height:25vw;">
+                            `)
+
+                            
+                        })
+                    }
+                    
+                }else{
+                    answerString.push(`无`)
+                }
+                
+            }else{
+                if(!element.answer){
+                    answerString.push(`无`)
+                }else if((element.answer&&element.answer.search('##')!=-1)){
+                    answerArray=element.answer.substr(0,element.answer.indexOf('#')).split(',')
+                }else{
+                    if(element.answer&&element.answer.search(',')!=-1){
+                        answerArray=element.answer.split(',')
+                    }else{
+                        if(element.answer){
+                            answerArray=[element.answer]
+                        }
+                        
+                    }
+                }
+            }
+            
+            if(element.topicName!='简答-文本'||element.topicName!='简答-输入'){
+                if(element.topicName!='图片'){
+                    answerArray.forEach(answerItem=>{
+                        element.epiSelectEntityList.forEach(epiSelectItem=>{
+                            if(String(answerItem)==String(epiSelectItem.id)){
+                                if(element.answer&&epiSelectItem.ifInput=='1'){
+                                    answerString.push(epiSelectItem.content+(element.answer.substr(element.answer.search('##')+2)?':':'')+element.answer.substr(element.answer.search('##')+2))
+                                }else{
+                                    answerString.push(epiSelectItem.content)
+                                }
+                                
+                            }
+                        })
+                    })
+                }
+            }
+            
+            setTimeout(()=>{
+                if(element.topicName=='图片'){
+                    answerString=answerString.join('')
+                }else{
+                    answerString=answerString.join(',')
+                }
+                
+                epiQuestionEntityList.push(`
+                    <div style="width: 100%;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">
+                        <div style="width:84vw;height:1px;background:rgba(221,221,221,1);margin:auto;"></div>
+                        <div style="line-height: initial;padding: 2.4vh 5vw 0px;">${element.title}</div>
+                        <div style="color:rgba(153,153,153,1);padding: 2.4vh 0px;margin-left: 8.7vw;">${answerString}</div>
+                    </div>
+                `)
+            },500)
+        });
+        
+        
+        
+        setTimeout(()=>{
+            dengjixinxi.push(`
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title" style="background:rgba(255,255,255,1);height: 8.4vh;line-height: 8.4vh;font-size:16px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(51,51,51,1);">登记信息</h2>
+                    <div class="layui-colla-content layui-show">
+                        ${epiQuestionEntityList.join('')}
+                    </div>
+                </div>
+            `)
+
+            setTimeout(()=>{
+                data.data.epiRegisterTikuEntity.epiQuestionEntityList.forEach(element => {
+                    if(element.answer&&element.answer!=""&&element.topicName=='图片'){
+
+                        if(JSON.parse(element.answer).length!=0){
+                            JSON.parse(element.answer).forEach((answerItem,answerItemIndex)=>{
+                                console.log($(`#imgWrapItem${element.id}${answerItemIndex}`))
+                                $(`#imgWrapItem${element.id}${answerItemIndex}`).unbind('click').click((e)=>{                                                                                               
+                                    layui.use('layer', function(){ //独立版的layer无需执行这一句
+                                        var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+                                        layer.open({
+                                            content: `<img src="${e.target.src}" style="width:${e.toElement.naturalWidth<=document.documentElement.clientWidth*0.3?e.toElement.naturalWidth*2:(e.toElement.naturalWidth>=document.documentElement.clientWidth*0.7?e.toElement.naturalWidth/((e.toElement.naturalWidth/document.documentElement.clientWidth)+1):e.toElement.naturalWidth)}px;height:${e.toElement.naturalHeight<=document.documentElement.clientHeight*0.3?e.toElement.naturalHeight*2:(e.toElement.naturalHeight>=document.documentElement.clientHeight*0.7?e.toElement.naturalHeight/((e.toElement.naturalHeight/document.documentElement.clientHeight)+1):e.toElement.naturalHeight)}px;" >`,
+                                            offset: 'auto',
+                                            // area: ['70vw', 'auto'],
+                                            anim: 4,
+                                            title:'',
+                                            btnAlign: 'c',
+                                            type:1
+                                        });
+                                    });
+                                })
+                            })
+                        }
+                    }
+                })
+            },500)
+            
+
+           
+        },1000)
+        setTimeout(()=>{
+            $('.jibenxinxi').html(jibenxinxi.join(''))
+            $('.dengjixinxi').html(dengjixinxi.join(''))
+            layui.use('element', function(){
+                var element = layui.element;
+                
+                element.render('collapse')
+            });
+        },1300)
+     
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("err:::" + errorThrown);
+        }
+    });
+    
+    function identityCodeValid(id) {
+    // 1 "验证通过!", 0 //校验不通过
+        var format = /^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\d{4}(([1][9]\d{2})|([2]\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\d{3}[0-9xX]$/;
+        //号码规则校验
+        if(!format.test(id)){
+            alert('请输入正确的身份证号码')
+            return 'fail'
+        }
+        //区位码校验
+        //出生年月日校验   前正则限制起始年份为1900;
+        var year = id.substr(6,4),//身份证年
+            month = id.substr(10,2),//身份证月
+            date = id.substr(12,2),//身份证日
+            time = Date.parse(month+'-'+date+'-'+year),//身份证日期时间戳date
+            now_time = Date.parse(new Date()),//当前时间戳
+            dates = (new Date(year,month,0)).getDate();//身份证当月天数
+        if(time>now_time||date>dates){
+            alert('请输入正确的身份证号码')
+            return 'fail'
+        }
+        //校验码判断
+        var c = new Array(7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2);   //系数
+        var b = new Array('1','0','X','9','8','7','6','5','4','3','2');  //校验码对照表
+        var id_array = id.split("");
+        var sum = 0;
+        for(var k=0;k<17;k++){
+            sum+=parseInt(id_array[k])*parseInt(c[k]);
+        }
+        if(id_array[17].toUpperCase() != b[sum%11].toUpperCase()){
+            alert('请输入正确的身份证号码')
+            return 'fail'
+        }
+        return 'success'
+    }
+        
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

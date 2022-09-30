@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css"> -->
+  <link rel="stylesheet" href="../assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="../assets/css/dialog.css" />
+  <title>我的认证</title>
+  <style>
+    html,
+    body {
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 80%;
+        padding-left: 10px;
+    }
+    .jibenxinxi .layui-input,.jibenxinxi .layui-textarea {
+        display: block;
+        width: 64vw;
+        padding-left: 10px;
+    }
+    .layui-form-item .layui-form-label{
+        overflow: initial;
+    }
+    .dengjixinxi .layui-input-block{
+        margin-left: initial;
+    }
+    .paichaqingkuang .layui-input-block{
+        margin-left: initial;
+    }
+    .layui-form-item .layui-form-checkbox{
+        /* margin-right: initial;
+        margin-left: 10px; */
+    }
+    .dengjixinxi .layui-input,.layui-textarea{
+        margin:10px auto 0px;
+    }
+    .layui-form-select .layui-edge{
+        right:40px!important;
+    }
+    .layui-form-select dl dd.layui-this {
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-radio>i:hover, .layui-form-radioed>i {
+        color: #409EFF!important;
+    }
+    .layui-form-checked[lay-skin=primary] i {
+        border-color: #409EFF!important;
+        background-color: #409EFF!important;
+        color: #fff;
+    }
+    .layui-form-label {
+        float: left;
+        display: block;
+        padding: 9px 15px;
+        width: 80px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: right;
+        font-size: 14px;
+        font-family: PingFangSC-Regular,PingFang SC;
+        font-weight: 400;
+        color: rgba(153,153,153,1);
+    }
+    body > form.layui-form.paichaqingkuang > div.layui-form-item > div > div:nth-child(2) > div > span{
+        white-space: initial;
+    }
+    .layui-layer-content {
+        text-align: center;
+      }
+      .layui-layer-title {
+        padding: initial !important;
+        text-align: center;
+        background-color: white !important;
+      }
+  </style>
+</head>
+
+<body style="background:rgba(245,245,245,1);background-image: url('../assets/images/myPassBlueBackground.png');background-size:100% 61vh;background-repeat: no-repeat;">
+    <div class="" style="width: 95vw;box-sizing: border-box;padding: 1.5vw;margin: 1.5vh auto;background:rgba(233,244,255,1);border-radius:1.1vw;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);">
+        <span>通行证待核验，首次通行请同时出示二维码和身份证进行核验。<span class="getPass" style="color: #F85B47;text-decoration: underline;">重新获取通行证</span></span></span>
+    </div>
+
+    <div class="contentWrap" style="width: 95vw;margin: auto;">
+        <!-- <div class="screenshotWrap" style="width: 100%;background-image: url('../assets/images/myPassWhiteBackground.png');background-size: contain;position: relative;">
+            <div style="width: 100%;box-sizing: border-box;padding: 4.2vh 5.3vw;">
+                <div style="display: inline-block;">
+                    <img src="../assets/images/jihua1.jpg" style="width: 25vw;height: 25vw;" alt="" >
+                </div>
+                <div style="height: 14.4vh;width: 64%;font-size: 13px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);float: right;display: flex;flex-wrap: wrap;">
+                    <div style="width:100%;">
+                        <span>姓名：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">马伟强</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>手机号码：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">15054654558</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>证件号：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">440183xxxxxxxx7310</span>
+                    </div>
+                    <div style="width:100%;">
+                        <span>所属企业：</span>
+                        <span style="color:rgba(51,51,51,1);float: right;">A园区B企业</span>
+                    </div>
+                </div>
+            </div>
+            <img src="../assets/images/heyan.png" style="width: 24vw;height: 10vh;position: absolute;right: 7.5vw;top: 34vw;">
+            <img src="../assets/images/dottedLine.png" style="display: block;width: 84vw;margin: auto;">
+            <div style="text-align: center;">
+                <img src="../assets/images/erweima.png" style="width: 43vw;height: 43vw;margin: 5.9vh auto 0px;">
+            </div>
+            <div style="width: 100%;height: 12vh;line-height: 12vh;text-align: center;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(153,153,153,1);">通行请向工作人员出示二维码</div>
+        </div> -->
+    
+    </div>
+
+    <!-- <div style="width: 100%;height: 13vh;line-height: 14vh;text-align: center;position: fixed;bottom: 0%;">
+      <span class="update" style="width: 48vw;height: 6.7vh;line-height: 6.7vh;text-align: center;background: linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);border-radius: 10vw;font-size: 20px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(255,255,255,1);display: none;">修改个人资料</span>
+      <span class="save" style="width: 85vw;height: 6.7vh;line-height: 6.7vh;margin-left: 2px;text-align: center;background: linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);border-radius: 10vw;font-size: 20px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(255,255,255,1);display: inline-block;">保存通行证</span>
+    </div> -->
+
+  <script src="../constant.js"></script>
+  <script src="../assets/js/jquery/jquery-3.2.1.min.js"></script><script src="../assets/js/ajaxSetUp.js"></script>
+  <script src="../assets/js/layui/layui.js"></script>
+  <script src="../assets/js/html2canvas.js"></script>
+  <script src="../assets/js/canvas2Image.js"></script>
+  <script src="../assets/js/dialog.js"></script>
+  <script>
+    
+    // 获取地址栏参数
+    //适应以下两种模式，来获取url参数值：
+    //User/vip_card_manager/useless/219/id/18
+    //User/vip_card_manager?useless=219&id=18
+
+    function getQueryString(name) {
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+      var reg_rewrite = new RegExp("(^|/)" + name + "/([^/]*)(/|$)", "i");
+      var r = window.location.search.substr(1).match(reg);
+      var q = window.location.pathname.substr(1).match(reg_rewrite);
+      if (r != null) {
+        return unescape(r[2]);
+      } else if (q != null) {
+        return unescape(q[2]);
+      } else {
+        return null;
+      }
+    }
+    function toast(src,text){
+        $(document).dialog({
+            type : 'toast',
+            infoIcon: src,
+            infoText: text,
+            autoClose: 2000
+        });
+    }
+    let saveFile=function (data,filename) {
+        let save_link=document.createElementNS('http://www.w3.org/1999/xhtml','a');  //img表示生成img元素或a元素或则可以放图片地址的元素
+
+        save_link.href=data;              //img  元素中图片引入用src，a元素中图片的引入用href等等
+        save_link.download=filename;    // 下载的名称
+        var event = document.createEvent('MouseEvents');//创建event事件
+        console.log(event);
+        //initMouseEvent 方法用于初始化通过 DocumentEvent 接口创建的 MouseEvent 的值, 详见下文：
+        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        save_link.dispatchEvent(event);
+
+        console.log(save_link)// <a href=data:image/jpeg:base64.....></a>
+    }
+
+    $('.getPass').click(()=>{
+        location.href=`./getVisitorPass.html`     
+    })
+
+    $.ajax({
+        async: false,
+        type: "GET",
+        url: SERSVER_BASE_URL + `/perpass/perpassRegister/getOneAndLinkByCodeNum?codeNum=${localStorage.getItem('codeNum')}`,
+        headers:{
+        },
+        contentType:'application/json',
+        data: {
+            
+        },
+        dataType: "json",
+        success: function (data) {
+          var questionList=[]
+          console.log('/perpass/perpassRegister/getOneAndLinkByCodeNum',data)
+          var passRegister=[]
+          passRegister.push(`
+            <div class="screenshotWrap" style="overflow:hidden;width: 100%;background: rgba(255,255,255,1);position: relative;">
+                <div style="padding: 4vh 0px 4.5vh;display: flex;align-items: center;justify-content: center;">
+                    <div style="display: inline-block;position:relative;">
+                        <img src="${data.data.imgUrl?data.data.imgUrl:'../assets/images/male.png'}" style="width: 25vw;height: 25vw;border-radius:1vw;" alt="" >
+                        <span class="update" style="font-size: 13px;font-family: PingFangSC-Regular;font-weight: 400;color: rgb(0, 145, 255);margin-left: 9.5vw;position: absolute;white-space: nowrap;left: -29%;bottom: -26%;">修改个人资料</span>
+                    </div>
+                    <div style="display: inline-block;font-size: 13px;font-family: PingFangSC-Regular,PingFang SC;font-weight: 400;color: rgba(153,153,153,1);position: relative;margin-left: 5vw;">
+                        <div style="display: flex;align-items: center;margin: 6px 0px;">
+                            <span>姓名：</span>
+                            <span style="color: rgba(51,51,51,1);margin-left: 8vw;white-space: nowrap;">${data.data.imName}</span>
+                        </div>
+                        <div style="display: flex;align-items: center;margin: 6px 0px;">
+                            <span>性别：</span>
+                            <span style="color: rgba(51,51,51,1);margin-left: 8vw;white-space: nowrap;">${data.data.sexString}</span>
+                        </div>
+                        <div style="display: flex;align-items: center;margin: 6px 0px;">
+                            <span>籍贯：</span>
+                            <span style="color: rgba(51,51,51,1);margin-left: 8vw;white-space: nowrap;">${data.data.nativePlaceString}</span>
+                        </div>
+                        <div style="display: flex;align-items: center;margin: 6px 0px;">
+                            <span>手机号码：</span>
+                            <span style="color: rgba(51,51,51,1);margin-left: 0.5vw;">${data.data.phone}</span>
+                        </div>
+                        <div style="display: flex;align-items: center;margin: 6px 0px;">
+                            <span>身份证号：</span>
+                            <span style="color: rgba(51,51,51,1);margin-left: 0.5vw;">${data.data.credentialsNum}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <img src="${data.data.lockStatus=='0'?'../assets/images/yishenhe.png':(data.data.lockStatus=='-2'?'../assets/images/yibohui.png':(data.data.lockStatus=='-3'?'../assets/images/yicexiao.png':'../assets/images/daishenhe.png'))}" style="width: 24vw;height: 10vh;position: absolute;right: 7.5vw;top: 34vw;">
+                <img src="../assets/images/dottedLine.png" style="display: block;width: 84vw;margin: auto;">
+                <div style="margin-top: 2vh;display:${data.data.lockStatus=='0'&&data.data.expiryTime.search('过期')==-1?'block;':'none;'}">
+                    <div style="font-size:22px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(51,51,51,1);text-align:center;margin-bottom:0.5vh;">有效期至${data.data.expiryTime.substr(data.data.expiryTime.indexOf('-')+1,2)}月${data.data.expiryTime.substr(data.data.expiryTime.indexOf('-')+4,2)}号</div>
+                    <div style="font-size:18px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(102,102,102,1);text-align:center;">剩余<span style="color:#F85B47;">${Math.ceil( (new Date( data.data.expiryTime.substr(data.data.expiryTime.indexOf('至')+1,10) )-new Date())/(1000 * 60 * 60 * 24) )}</span>天</div>
+                </div>
+                <div style="font-size:24px;font-family:PingFangSC-Medium,PingFang SC;font-weight:500;color:rgba(248,91,71,1);text-align:center;margin-top: 2vh;display:${data.data.lockStatus=='0'&&data.data.expiryTime.search('过期')!=-1?'block;':'none;'}">
+                    ${data.data.expiryTime}
+                </div>
+                <div style="text-align: center;position:relative;margin-top: ${data.data.lockStatus=='-1'?'1vh;':'0px;'}">
+                    <img class='erweima' src="${data.data.qrCode}" style="width: 43vw;height: 43vw;">
+                    <div style="display:${data.data.lockStatus=='0'&&data.data.expiryTime.search('过期')!=-1?'block;':'none;'}background: black;width: 36vw;height: 36vw;opacity: 0.3;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);"></div>
+                    <span class="refreshStatus" style="display:${data.data.lockStatus=='0'&&data.data.expiryTime.search('过期')!=-1?'block;':'none;'}width:24.7vw;height:4vh;line-height: 3.8vh;position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);background:linear-gradient(360deg,rgba(43,128,255,1) 0%,rgba(101,188,255,1) 100%);box-shadow:0px 0.8vw 1.6vw 0px rgba(12,126,161,0.35);border-radius:13.3vw;font-size:12px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(255,255,255,1);">立即更新</span>
+                </div>
+                <div style="width: 100%;height: 9vh;line-height: 9vh;text-align: center;font-size:14px;font-family:PingFangSC-Regular,PingFang SC;font-weight:400;color:rgba(0,145,255,1);margin-top: -2vh;">
+                    <span class="refresh" style="display: inline;">刷新二维码</span><span style="color:rgba(221,221,221,1);margin-left: 1.5vw;"> | </span><span class="save" style="display: inline;margin-left: 1.5vw;">保存二维码</span>
+                </div>
+            </div>
+          `)
+
+          $('.contentWrap').html(passRegister.join(''))
+            if (data.data.lockStatus == "-2") {
+                layui.use("layer", function() {
+                //独立版的layer无需执行这一句
+                var $ = layui.jquery,
+                    layer = layui.layer; //独立版的layer无需执行这一句
+                layer.confirm(
+                    `<div style='white-space: nowrap;'>您的审核不通过，请修改后重新提交</div><div style='text-align: initial;'>审核备注：${
+                    data.data.lockReason ? data.data.lockReason : "无"
+                    }</div>`,
+                    {
+                    offset: '30vh',
+                    area: ["70vw", "auto"],
+                    anim: 1,
+                    title: "审核不通过",
+                    btnAlign: "c",
+                    btn: ["我知道了"] //可以无限个按钮
+                    },
+                    function(index, layero) {
+                    layer.closeAll();
+                    }
+                );
+                });
+            }
+            if (data.data.lockStatus == "-3") {
+                layui.use("layer", function() {
+                //独立版的layer无需执行这一句
+                var $ = layui.jquery,
+                    layer = layui.layer; //独立版的layer无需执行这一句
+                layer.confirm(
+                    `<div style='white-space: nowrap;'>您的审核已被撤销，请修改后重新提交</div><div style='text-align: initial;'>撤销备注：${
+                    data.data.lockReason ? data.data.lockReason : "无"
+                    }</div>`,
+                    {
+                    offset: '30vh',
+                    area: ["70vw", "auto"],
+                    anim: 1,
+                    title: "审核已撤销",
+                    btnAlign: "c",
+                    btn: ["我知道了"] //可以无限个按钮
+                    },
+                    function(index, layero) {
+                    layer.closeAll();
+                    }
+                );
+                });
+            }
+        //   if(data.data.lockStatus=='-2'||data.data.lockStatus=='-1'){
+            $('.update').click(()=>{
+                location.href=`./updateVisitorPass.html?codeNum=${localStorage.getItem('codeNum')}`
+            })
+        //   }
+          setTimeout(()=>{
+            if(data.data.lockStatus=='0'&&data.data.expiryTime.search('过期')!=-1){
+                $('.refreshStatus').click(()=>{
+                    location.href=`./updateVisitorPass.html?codeNum=${localStorage.getItem('codeNum')}`
+                })
+            }  
+            $('.refresh').click(()=>{
+                layui.use('layer', function(){ //独立版的layer无需执行这一句
+                    var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句                       
+                    layer.confirm('是否刷新二维码', {
+                        offset: 'auto',
+                        area: ['70vw', 'auto'],
+                        anim: 1,
+                        title:'',
+                        btnAlign: 'c',
+                        btn: ['刷新二维码', '取消'] //可以无限个按钮
+                        }, function(index, layero){                             
+                            setTimeout(()=>{
+                                $.ajax({
+                                    async: false,
+                                    type: "POST",
+                                    url: SERSVER_BASE_URL + "/perpass/perpassRegister/reGetQrcode",
+                                    headers:{
+                                    },
+                                    // contentType:'application/x-www-form-urlencoded',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify({
+                                        "id": data.data.id,
+            
+                                    }),
+                                    dataType: "json",
+                                    success: function (data) {
+                                        console.log('/perpass/perpassRegister/reGetQrcode',data) 
+                                        if(data.code==0){
+                                            setTimeout(()=>{
+                                                
+                                                console.log(`$('.erweima').attr("src",data.data.qrCode)`,$('.erweima').attr("src"))
+                                                $('.erweima').attr("src",data.data.qrCode);
+                                                localStorage.setItem('codeNum',data.data.codeNum)
+                                            },2000)
+                                            toast('../assets/images/success.png','刷新成功')
+                                        }else{
+                                            alert(data.msg)
+                                        }                                           
+                                    },
+                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                        alert("err:::" + errorThrown);
+                                    }
+                                });
+                            },1000)
+                            layer.closeAll()
+                            toast('../assets/images/loading.gif','刷新中')
+                        }, function(index){
+                            console.log('取消')
+                    });
+                    
+                });
+            })
+        var screenshot
+        $('.save').click(()=>{
+            //   var imgs=document.querySelectorAll('img')
+            //   imgs.forEach(item=>{
+            //       console.log(item)
+            //       item.setAttribute("crossOrigin",'Anonymous')
+            //       item.crossOrigin = "Anonymous";
+                    
+            //   })
+            //   setTimeout(()=>{
+            //       html2canvas(document.querySelector(".screenshotWrap"),{
+            //           tainttest : true, //检测每张图片都已经加载完成
+            //           useCORS : true,//使用跨域(当allowTaint为true时这段代码没什么用)
+            //           tainttest:true
+            //       }).then(function (canvas) {   
+            //           screenshot=canvas
+            //           console.log('canvas',canvas)
+            //       });
+            //   })
+            //   setTimeout(()=>{
+            //       console.log('screenshot',screenshot)
+            //       var img=screenshot.toDataURL('image/png')
+            //       // Canvas2Image.saveAsImage(screenshot,'100vw','124vw')
+            //       // let img=Canvas2Image.saveAsJPEG(screenshot,'100vw','124vw')
+            //       console.log(img);
+            //       saveFile(img,'myPass.jpeg')
+            //   },1200)
+            window.open(SERSVER_BASE_URL+`/perpass/perpassRegister/output-passEpiEmployeeToPicture?id=${data.data.id}`);
+        })
+          },500)
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+          alert("err:::" + errorThrown);
+        }
+    })
+   
+
+    
+
+   
+    
+    
+  </script>
+</body>
+<script src= "../waterMark.js" ></script>
+</html>

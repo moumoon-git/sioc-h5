@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>调查问卷</title>
+  <!-- <link rel="stylesheet" href="../assets/css/rest.css">-->
+  <link rel="stylesheet" href="./assets/js/layui/css/layui.css">
+  <link rel="stylesheet" href="./assets/css/bui-min.css">
+  <link rel="stylesheet" href="./assets/css/mbox.css">
+
+  <!--JSJDK引用-->
+  <script type="text/javascript" src="./assets/js/jquery-2.1.0.js"></script><script src="./assets/js/ajaxSetUp.js"></script>
+  <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  <!--腾讯api-->
+  <script type="text/javascript"
+    src="http://map.qq.com/api/js?v=2.exp&key=XIGBZ-SL2WF-6TXJP-J3PN2-4ZX7J-ZBFRC"></script>
+
+  <style>
+    * {
+      -webkit-touch-callout: none;
+      /*系统默认菜单被禁用*/
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+      -khtml-user-select: none;
+      /*早期浏览器*/
+      -moz-user-select: none;
+      /*火狐*/
+      -ms-user-select: none;
+      /*IE10*/
+      user-select: none;
+    }
+
+    #recording-img {
+      left: 36%;
+      position: absolute;
+      height: 147px;
+      width: 117px;
+      z-index: 1000;
+      top: 40%;
+      background: url(./assets/images/luyin.gif) no-repeat center;
+      z-index: 1000;
+      display: none;
+    }
+
+    .verifySubject .tab .layui-tab-title li {
+      padding: 0;
+    }
+
+    .verifyImage {
+      margin-top: 15px;
+    }
+
+    .verifyImage .button-block {
+      display: block;
+      width: 100%;
+      border: solid 1px #ddd;
+      background: transparent;
+      border-radius: 4px;
+      font-size: 14px;
+      padding: 6px 15px;
+      margin: 0;
+      display: inline-block;
+      line-height: 20px;
+    }
+
+
+
+    .verifyRecord {
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <!--微信JSJDK需要-->
+  <input type="hidden" id="ticket" name="ticket" value="" />
+  <input type="hidden" id="appId" name="appId" value="" />
+  <input type="hidden" id="timestamp" name="timestamp" value="" />
+  <input type="hidden" id="nonceStr" name="nonceStr" value="" />
+  <input type="hidden" id="signature" name="signature" value="" />
+  <input type="hidden" id="openId" name="openId" value="" />
+
+  <!--任务派遣的链接参数-->
+  <input type="hidden" id="infoId" name="infoId" value="" />
+  <input type="hidden" id="platformId" name="platformId" value="" />
+  <input type="hidden" id="flag" name="flag" value="" />
+
+  <!--用户信息-->
+  <input type="hidden" id="mailGroupName" name="mailGroupName" value="" />
+  <input type="hidden" id="mailContactorName" name="mailContactorName" value="" />
+  <input type="hidden" id="mailContactorMobile" name="mailContactorMobile" value="" />
+
+  <!-- 事件核实页面 -->
+  <div class="verifySubject">
+    <div class="layui-tab tab">
+      <ul class="layui-tab-title"
+        style="margin: 5px;background: #30a5ff00;box-shadow: 0 0 4px #eaeaea9c;padding: 10px;">
+        <!--<li style="width:50%" id="tabStatus">任务核实</li>-->
+        <li class="layui-this" style="width:50%" id="tabStatus">调查问卷</li>
+        <li style="width:50%">处置流程</li>
+      </ul>
+      <!-- tab 内容 -->
+      <div class="layui-tab-content">
+
+        <!-- 事件核实 -->
+        <div class="layui-tab-item  layui-show">
+          <div class="layui-tab-item layui-show" style="margin-top: 0px">
+
+            <!--事件基本信息-->
+            <div class="layui-col-md6" id="eventInfo">
+              <!--<div class="layui-card" style="padding: 0px;margin-bottom: 22px;border: 1px solid #2196F3;color: #000000;">
+                <div class="layui-card-header" style="text-align: center;height: 30px;line-height: 30px;">事件类型</div>
+                <div class="layui-card-body">
+                  状态：结合 layui 的栅格系统<br>
+                  时间：2019年8月10日<br>
+                  内容：轻松实现响应式布局轻松轻松实现响应式布局轻松轻松实现响应式布局轻松<br>
+                  位置：轻松实现响应式布局<br>
+                </div>
+              </div>-->
+            </div>
+
+            <!-- 事件真实性 -->
+            <div id="eventStatus" class="eventStatus">
+              <!--满意状态id,1非常不满意，2不满意，3一般，4满意，5非常满意-->
+              <select name="city" id="veracity" name="veracity"
+                style="width:50%;border: 1px solid #ada1a1;height: 28px;margin-top: 0px;width: 45%">
+                <option value="5">非常满意</option>
+                <option value="4">满意</option>
+                <option value="3">一般</option>
+                <option value="2">不满意</option>
+                <option value="1">非常不满意</option>
+              </select>
+            </div>
+
+
+            <div id="verifyText" class="verifyText" style="margin-top:15px;">
+              <textarea style="border: 2px solid #c5bcbc7a;min-height: 90px;" name="verifyTextData" id="verifyTextData"
+                required lay-verify="required" placeholder="请填写您所上报工单的处置满意度" class="layui-textarea"></textarea>
+            </div>
+
+            <div id="pics" class="form-group">
+              <input id="uplaodMobileImageBtn" name="file"  accept="image/*" type="file" onchange="takeMobilePicture()"
+                     style="width:95%;margin:auto auto;display:block;opacity: 0;height: 40px;position: absolute;margin-left: 0px; z-index: 1000;margin-top: 0px;"/>
+
+              <button type="button" class="button button-block" style="cursor:pointer;border: 1px solid #DBDBDB;width: 94%;height: 44px;margin-left: 10px">上传照片</button>
+            </div>
+
+            <!-- 上传图片 -->
+            <!--<div id="pics" class="verifyImage">
+              <button  type="button" class="button button-block" onchange="takeMobilePicture()"
+                style="cursor:pointer;border: 1px solid #ada1a1;">上传照片</button>
+            </div>-->
+
+            <!-- 录音功能 -->
+            <div id="uplaodVideo" class="verifyRecord">
+              <!--图片录音图标-->
+              <div id="recording-img"></div>
+              <button type="button" class="button button-block" id="startRecord"
+                style="width: 45%;height: 33px;">长按录音</button>
+              <button type="button" class="button button-block" id="playVoice"
+                style="width: 45%;position: absolute;right: 12px;height: 33px;">播放录音</button>
+              <button type="button" class="button button-block" id="stopRecord" style="display: none">停止录音接口</button>
+              <button type="button" class="button button-block" id="pauseVoice" style="display: none">暂停播放接口</button>
+              <button type="button" class="button button-block" id="stopVoice" style="display: none">停止播放接口</button>
+              <button type="button" class="button button-block" id="uploadVoice" style="display: none">上传语音接口</button>
+              <button type="button" class="button button-block" id="downloadVoice" style="display: none">下载语音接口</button>
+            </div>
+
+            <!--图片，可能是多张-->
+            <input type="hidden" id="imgs" name="imgs" value="" />
+            <!--语音，只能单个-->
+            <input type="hidden" id="audios" name="audios" value="" />
+
+
+
+            <!--确认按钮-->
+            <div style="text-align: center;margin-top: 25px;">
+              <button type="button" id="present" class="layui-btn layui-btn-normal"
+                style="height: 40px;background:#30a5ff;border-radius: 5px;width: 100%">确认提交</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 历史记录 -->
+        <div class="layui-tab-item" id="historyRecord">
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <script src="./constant.js"></script>
+  <script src="./assets/js/layui/layui.js"></script>
+  <script src="./assets/js/jm-qi.js"></script>
+  <script src="./assets/js/survey.js"></script>
+
+  <script>
+    $(function () {
+      //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+      layui.use('element', function () {
+        var element = layui.element;
+      })
+    })
+  </script>
+</body>
+<script src= "./waterMark.js" ></script>
+</html>

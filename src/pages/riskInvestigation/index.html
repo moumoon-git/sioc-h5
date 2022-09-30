@@ -1,0 +1,64 @@
+<!--
+ * @Author: yaoweixin
+ * @Date: 2020-08-11 14:01:25
+ * @LastEditors: liukanglin
+ * @LastEditTime: 2020-10-30 16:32:24
+ * @Description: file content
+ * @FilePath: \vue-cli-multiPage-master\src\pages\riskInvestigation\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= process.env.NODE_ENV==='development'?'':'.' %>favicon.ico">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title></title>
+    <script src= "<%= process.env.NODE_ENV==='development'?'':'.' %>/constant.js" ></script>
+     
+    <!-- <script type="text/javascript" src="https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js"></script> -->
+    <!-- <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=QsgtDHmujtv4cO93MgcmzjGa717zT1dH"></script> -->
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=1a4636d76aab717a3a560d3307d40fcf&plugin=Map3D,AMap.PolyEditor,AMap.PlaceSearch,AMap.MouseTool,AMap.CircleEditor,AMap.RectangleEditor,AMap.Driving,AMap.Transfer,AMap.Walking,AMap.Riding,AMap.Driving,AMap.ControlBar"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/eruda"></script> -->
+    <script>
+    
+      // eruda.init();
+      
+      // //console.log('控制台打印信息');
+
+      // resizeFontSize()
+      // window.onresize=function () {
+      //   resizeFontSize()
+      // }
+
+      // function  resizeFontSize(){
+      //   //获取根元素
+      //   const docEl = document.documentElement;
+      //   //获取设备宽度
+      //   const clientWidth = docEl.clientWidth ;
+      //   //console.log("clientWidth",clientWidth)
+      //   //若未获取到设备宽度，则终止函数执行
+      //   if (!clientWidth) return ;
+      //   //计算rem基础配置：设计图以750px为准时，px rem比例为1：100
+      //   const fs= 100*(clientWidth/750) ;
+      //   //为根元素字体赋值
+      //   //console.log("docEl",docEl.style.fontSize)
+      //   docEl.style.fontSize = fs+'px'
+      // }
+
+     
+      
+    </script>
+  </head>
+  <body style="width:100%;height: 100vh;background: rgb(245, 245, 245);">
+    <div id="app"></div>
+    <script>
+      
+
+    </script>
+  </body>
+  <script src= "<%= process.env.NODE_ENV==='development'?'':'.' %>/waterMark.js" ></script>
+</html>
